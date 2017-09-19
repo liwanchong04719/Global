@@ -1,4 +1,3 @@
-import sss from 'cesium';
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
