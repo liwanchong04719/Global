@@ -5,8 +5,9 @@
 </template>
 
 <script>
-  import Cesium from 'cesium';
+  require('../../node_modules/cesium/Source/Cesium.js');
 
+  const Cesium = window.Cesium;
   export default {
     el: '#global',
     name: 'global',
@@ -16,8 +17,15 @@
       };
     },
     mounted() {
-      const viewer = new Cesium.Viewer('global');
-      console.log(viewer);
+      const viewer = new Cesium.Viewer('cesiumContainer', {
+        sceneMode: Cesium.SceneMode.SCENE2D,
+        timeline: false,
+        animation: false,
+      });
+
+      const dataSource = Cesium.GeoJsonDataSource.load('https://cesiumjs.org/Cesium/Apps/SampleData/simplestyles.geojson');
+      viewer.dataSources.add(dataSource);
+      viewer.zoomTo(dataSource);
     },
   };
 </script>
