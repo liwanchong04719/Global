@@ -1,5 +1,6 @@
 <template>
-    <div id="cesiumContainer"></div>
+  <div id="cesiumContainer">
+  </div>
 </template>
 
 <script>
