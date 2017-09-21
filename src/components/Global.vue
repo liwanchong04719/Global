@@ -1,7 +1,5 @@
 <template>
-  <div class="global">
-    <div id="cesiumContainer" class="global"></div>
-  </div>
+    <div id="cesiumContainer"></div>
 </template>
 
 <script>
