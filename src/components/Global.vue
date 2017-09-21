@@ -1,15 +1,19 @@
 <template>
     <div id="global" class="global">
         <h1>{{ msg }}</h1>
+        <div id="cesiumContainer" class="global"></div>
     </div>
 </template>
 
 <script>
-  require('../../node_modules/cesium/Source/Cesium.js');
+  window.CESIUM_BASE_URL = './Cesium';
+  const Cesium = require('../../node_modules/cesium/Source/Cesium.js');
+  require('../../node_modules/cesium/Source/Widgets/widgets.css');
+  // import Cesium from 'cesium';
 
-  const Cesium = window.Cesium;
+  // const Cesium = window.Cesium;
   export default {
-    el: '#global',
+    // el: '#global', //组件不能指定id
     name: 'global',
     data() {
       return {
