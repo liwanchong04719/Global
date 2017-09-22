@@ -27,17 +27,22 @@ export default {
         accessToken:
                 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NDg1bDA1cjYzM280NHJ5NzlvNDMifQ.d6e-nNyBDtmQCVwVNivz7A',
       }),
-
-//      skyBox: new Cesium.SkyBox({
-//        sources: {
-//          positiveX: 'stars/TychoSkymapII.t3_08192x04096_80_px.jpg',
-//          negativeX: 'stars/TychoSkymapII.t3_08192x04096_80_mx.jpg',
-//          positiveY: 'stars/TychoSkymapII.t3_08192x04096_80_py.jpg',
-//          negativeY: 'stars/TychoSkymapII.t3_08192x04096_80_my.jpg',
-//          positiveZ: 'stars/TychoSkymapII.t3_08192x04096_80_pz.jpg',
-//          negativeZ: 'stars/TychoSkymapII.t3_08192x04096_80_mz.jpg',
-//        },
-//      }),
+      skyBox: new Cesium.SkyBox({
+        sources: {
+          positiveX:
+                  'Cesium/Assets/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_px.jpg',
+          negativeX:
+                  'Cesium/Assets/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_mx.jpg',
+          positiveY:
+                  'Cesium/Assets/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_py.jpg',
+          negativeY:
+                  'Cesium/Assets/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_my.jpg',
+          positiveZ:
+                  'Cesium/Assets/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_pz.jpg',
+          negativeZ:
+                  'Cesium/Assets/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_mz.jpg',
+        },
+      }),
     });
 
     viewer.extend(Cesium.viewerDragDropMixin);
