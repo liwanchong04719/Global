@@ -18,14 +18,7 @@ module.exports = merge(baseWebpackConfig, {
     unknownContextRegExp: /^.\/.*$/
   },
   // cheap-module-eval-source-map is faster for development
-  devtool: 'eval-source-map',
-  devServer: {
-    contentBase: './build', // 本地服务器所加载的页面所在的目录
-    port: 9000,
-    historyApiFallback: true, // 不跳转
-    inline: true, // 实时刷新
-    hot: true // 热加载
-  },
+  devtool: 'cheap-module-eval-source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': config.dev.env
