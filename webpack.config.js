@@ -1,3 +1,4 @@
+const path = require('path');
 const utils = require('./build/utils');
 const webpack = require('webpack');
 const config = require('./config');
@@ -5,11 +6,7 @@ const merge = require('webpack-merge');
 const baseWebpackConfig = require('./build/webpack.base.conf');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-
-// add hot-reload related code to entry chunks
-Object.keys(baseWebpackConfig.entry).forEach((name) => {
-  baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name]);
-});
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = merge(baseWebpackConfig, {
   module: {
@@ -17,10 +14,14 @@ module.exports = merge(baseWebpackConfig, {
     unknownContextCritical: false,
     unknownContextRegExp: /^.\/.*$/,
   },
+  output: {
+    path: config.dev.assetsRoot,
+    publicPath: 'assets', // webpack-dev-server的hmr需要指定一个代理目录
+  },
   // cheap-module-eval-source-map is faster for development
   devtool: 'eval-source-map',
   devServer: {
-    contentBase: './dist', // 本地服务器所加载的页面所在的目录
+    contentBase: config.dev.assetsRoot,
     port: 8082,
     historyApiFallback: true, // 不跳转
     inline: true, // 实时刷新
@@ -35,11 +36,16 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      filename: config.dev.index || 'index.html',
       template: 'index.html',
       inject: true,
     }),
     new FriendlyErrorsPlugin(),
+    // 拷贝Cesium库依赖的文件
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, './node_modules/cesium/Build/CesiumUnminified'),
+      to: path.resolve(config.dev.assetsRoot, 'Cesium'),
+    }]),
   ],
   externals: {
     fs: true,
