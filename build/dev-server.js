@@ -64,9 +64,7 @@ app.use(hotMiddleware)
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
-app.use('/Cesium', express.static(__dirname + '/dist/Cesium'))
-
-console.log(app);
+app.use('/Cesium', express.static('./Cesium'))
 
 var uri = 'http://localhost:' + port
 
