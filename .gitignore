@@ -1,6 +1,15 @@
 .DS_Store
 node_modules/
-dist/
+dist/static
+dist/Cesium/Widgets
+dist/Cesium/Workers
+dist/Cesium/Cesium.js
+dist/Cesium/ThirdParty
+dist/Cesium/Assets/IAU2006_XYS
+dist/Cesium/Assets/Textures
+dist/Cesium/Assets/approximateTerrainHeights.json
+dist/app.js
+dist/index.html
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
