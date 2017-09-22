@@ -22,6 +22,12 @@ export default {
       navigationHelpButton: false,
       baseLayerPicker: false,
       geocoder: false,
+      imageryProvider: new Cesium.MapboxImageryProvider({
+        mapId: 'mapbox.satellite',
+        accessToken:
+                'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NDg1bDA1cjYzM280NHJ5NzlvNDMifQ.d6e-nNyBDtmQCVwVNivz7A',
+      }),
+
 //      skyBox: new Cesium.SkyBox({
 //        sources: {
 //          positiveX: 'stars/TychoSkymapII.t3_08192x04096_80_px.jpg',
@@ -36,7 +42,7 @@ export default {
 
     viewer.extend(Cesium.viewerDragDropMixin);
 
-    const initialPosition = Cesium.Cartesian3.fromDegrees(116.6, 40.69114333714821,
+    const initialPosition = Cesium.Cartesian3.fromDegrees(115.0, 40.69114333714821,
             15550000);
     viewer.scene.camera.setView({
       destination: initialPosition,
