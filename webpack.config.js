@@ -22,7 +22,7 @@ module.exports = merge(baseWebpackConfig, {
   devtool: 'eval-source-map',
   devServer: {
     contentBase: config.dev.assetsRoot,
-    port: 8082,
+    port: config.dev.port,
     historyApiFallback: true, // 不跳转
     inline: true, // 实时刷新
     hot: true, // 热加载
