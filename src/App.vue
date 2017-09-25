@@ -5,7 +5,7 @@
       <div class="row fm-stretch flex-layout">
         <div class="col flex-layout-v">
           <div class="logo">
-            <img src="assets/navinfo.svg" style="width:240px;height: 80px;">
+            <img src="./assets/navinfo.svg" style="width:240px;height: 80px;">
             <div style="padding: 0px 14px;color: #fff">( SZSE Code: 002405 )</div>
           </div>
           <div class="row text-yellow">
@@ -84,16 +84,6 @@ body {
   height: 100%;
   padding: 0px;
   margin: 0px;
-}
-
-#app {
-  width: 100%;
-  height: 100%;
-  min-height: 600px;
-  min-width: 800px;
-  font-family: 'Microsoft YaHei', 'Helvetica Neue', 'Hiragino Sans GB', '微软雅黑', '黑体', Arial, sans-serif !important;
-  font-size: 12px;
-  background: #fff;
 }
 
 div.fm-stretch {
