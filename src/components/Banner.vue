@@ -55,7 +55,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .banner {
-  height: 160px;
+  /* height: 160px; */
   background: #222;
   display: flex;
   justify-content: space-between;
@@ -83,10 +83,10 @@ export default {
 }
 
 .datetime>.date {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .datetime>.time {
-  font-size: 24px;
+  font-size: 32px;
 }
 </style>

@@ -2,10 +2,26 @@
   <div class="flex-layout-v fm-stretch">
     <router-view></router-view>
     <div class="flex-layout-v fm-stretch float">
-      <banner class="row">
-        <div slot="title" class="flex-layout-v" style="width: 500px; height: 140px;align-items: center;">
-          <div class="panel" style="height:100px;width: 400px;"></div>
-          <div class="panel" style="height:40px;width: 300px;"></div>
+      <banner class="row" style="flex: 1 0 160px;">
+        <div slot="title" class="flex-layout-v header" style="align-self: flex-start;">
+          <div class="desc h1">
+            地图母库概览 Core Map Review
+          </div>
+          <div class="desc h2">
+            道路总里程：
+            <span class="num-yellow">6,548,99</span> 公里 POI总数量：
+            <span class="num-yellow">23,108,647</span> 个
+          </div>
+          <div class="desc h3">
+            今天 道路更新：
+            <span class="num-white">6,548,99</span> 公里 新增道路：
+            <span class="num-white">108,647</span> 公里
+          </div>
+          <div class="desc h3">
+            POI更新：
+            <span class="num-white">23,108,647</span> 个 新增：
+            <span class="num-white">108,647</span> 个
+          </div>
         </div>
       </banner>
       <div class="row fm-stretch flex-layout" style="margin-top: -20px;">
@@ -78,12 +94,14 @@ div.flex-layout {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  align-items: center;
 }
 
 div.flex-layout-v {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
+  align-items: center;
 }
 
 div.float {
@@ -103,6 +121,35 @@ div.flex-layout-v>div.row {
 
 div.panel {
   pointer-events: auto;
-  background-color: red;
+  background-color: gray;
+}
+
+div.header>div.desc {
+  padding: 10px 10px 0px 10px;
+}
+
+div.header>div.desc.h1 {
+  font-size: 42px;
+  font-weight: bold;
+}
+
+div.header>div.desc.h2 {
+  font-size: 32px;
+}
+
+div.header>div.desc.h3 {
+  font-size: 24px;
+}
+
+span.num-yellow {
+  font-weight: bold;
+  font-size: 42px;
+  color: yellow;
+}
+
+span.num-white {
+  font-weight: bold;
+  font-size: 32px;
+  color: #fff;
 }
 </style>
