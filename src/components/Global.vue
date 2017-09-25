@@ -22,6 +22,8 @@ export default {
       navigationHelpButton: false,
       baseLayerPicker: false,
       geocoder: false,
+      fullscreenButton: false,
+      sceneModePicker: false,
       imageryProvider: new Cesium.MapboxImageryProvider({
         mapId: 'mapbox.satellite',
         accessToken:
