@@ -3,7 +3,7 @@
     <router-view></router-view>
     <div class="flex-layout-v fm-stretch float">
       <banner class="row" style="flex: 1 0 140px;">
-        <div slot="title" class="flex-layout-v header" style="align-self: flex-start;">
+        <div slot="title" class="flex-layout-v header" style="align-self: flex-start; align-items: center;">
           <div class="title h1">
             <span style="letter-spacing: 30px;">地图母库概览</span> Core Map Review
           </div>
@@ -26,34 +26,44 @@
       </banner>
       <div class="row fm-stretch flex-layout" style="margin-top: -20px;">
         <div class="col flex-layout-v">
-          <div class="row text-yellow">
+          <div class="row col-title">
             数据来源
           </div>
-          <div class="row">
-            <div class="panel" style="height: 200px;width: 200px;"></div>
-          </div>
-          <div class="row">
-            <div class="panel" style="height: 300px;width: 300px;"></div>
-          </div>
-          <div class="row">
-            <div class="panel" style="height: 200px;width: 200px;"></div>
-          </div>
-          <div class="row">
-            <div class="panel" style="height: 200px;width: 200px;"></div>
+          <div class="fm-stretch flex-layout-v">
+            <panel>
+              <div slot="header">自采</div>
+              <div slot="content" style="width: 300px;">
+              </div>
+            </panel>
+            <panel>
+              <div slot="header">第三方数据</div>
+              <div slot="content">
+                <div style="width: 300px;"></div>
+              </div>
+            </panel>
+            <panel>
+              <div slot="header">众包</div>
+              <div slot="content"></div>
+            </panel>
           </div>
         </div>
         <div class="col flex-layout-v">
-          <div class="row text-yellow">
+          <div class="row col-title">
             数据出品
           </div>
-          <div class="row">
-            <div class="panel" style="height: 200px;width: 200px;"></div>
-          </div>
-          <div class="row">
-            <div class="panel" style="height: 400px;width: 300px;"></div>
-          </div>
-          <div class="row">
-            <div class="panel" style="height: 200px;width: 200px;"></div>
+          <div class="fm-stretch flex-layout-v">
+            <panel>
+              <div slot="header">日出品</div>
+              <div slot="content"></div>
+            </panel>
+            <panel>
+              <div slot="header">月出品</div>
+              <div slot="content"></div>
+            </panel>
+            <panel>
+              <div slot="header">季出品 17秋</div>
+              <div slot="content"></div>
+            </panel>
           </div>
         </div>
       </div>
@@ -63,11 +73,13 @@
 
 <script>
 import Banner from './components/Banner';
+import Panel from './components/Panel';
 
 export default {
   name: 'app',
   components: {
     Banner,
+    Panel,
   },
 };
 </script>
@@ -100,21 +112,12 @@ div.flex-layout {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  align-items: center;
 }
 
 div.flex-layout-v {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  align-items: center;
-}
-
-div.float {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  pointer-events: none;
 }
 
 div.flex-layout>div.col {
@@ -125,14 +128,17 @@ div.flex-layout-v>div.row {
   width: 100%;
 }
 
-div.panel {
-  pointer-events: auto;
-  background-color: gray;
+div.float {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
 }
 
 div.header>div.title {
   padding: 10px 10px 0px 10px;
 }
+
 div.header>div.title:last-child {
   padding-bottom: 10px;
 }
@@ -162,7 +168,8 @@ div.header>div.title.h3 {
   color: #fff;
 }
 
-.text-yellow {
+.col-title {
+  padding-bottom: 10px;
   text-align: center;
   font-weight: bold;
   font-size: 32px;

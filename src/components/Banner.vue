@@ -2,7 +2,7 @@
   <div class="banner">
     <div class="logo">
       <img src="../assets/navinfo.svg" style="width:240px;height: 80px;">
-      <div style="padding: 0px 14px;">( SZSE Code: 002405 )</div>
+      <div style="padding: 0px 14px;">( SZSE Code：002405 )</div>
     </div>
     <slot name="title"></slot>
     <div class="datetime" @click="getDateTime()">
@@ -62,12 +62,10 @@ export default {
   background: #222;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   color: #fff;
 }
 
 .logo {
-  align-self: flex-start;
   width: 240px;
   height: 80px;
   color: darkgray;
@@ -78,6 +76,7 @@ export default {
 }
 
 .datetime {
+  align-self: center;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
