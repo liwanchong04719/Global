@@ -1,6 +1,9 @@
 <template>
   <div class="banner">
-    <div class="logo"></div>
+    <div class="logo">
+      <img src="../assets/navinfo.svg" style="width:240px;height: 80px;">
+      <div style="padding: 0px 14px;">( SZSE Code: 002405 )</div>
+    </div>
     <slot name="title"></slot>
     <div class="datetime" @click="getDateTime()">
       <div class="time">{{time}}</div>
@@ -67,8 +70,11 @@ export default {
   align-self: flex-start;
   width: 240px;
   height: 80px;
-  background: url('../assets/navinfo.svg') no-repeat center center transparent;
-  background-size: contain;
+  color: darkgray;
+  font-size: 18px;
+  /* text-align: center; */
+  /* background: url('../assets/navinfo.svg') no-repeat center center transparent;
+  background-size: contain; */
 }
 
 .datetime {
