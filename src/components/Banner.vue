@@ -65,9 +65,10 @@ export default {
 
 .logo {
   align-self: flex-start;
-  width: 360px;
-  height: 120px;
+  width: 240px;
+  height: 80px;
   background: url('../assets/navinfo.svg') no-repeat center center transparent;
+  background-size: contain;
 }
 
 .datetime {
