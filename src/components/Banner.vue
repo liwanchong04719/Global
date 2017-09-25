@@ -81,6 +81,7 @@ export default {
   flex-flow: column nowrap;
   justify-content: center;
   padding: 0px 15px;
+  color: #fff;
 }
 
 .datetime>div {

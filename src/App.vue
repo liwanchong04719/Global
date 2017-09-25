@@ -93,16 +93,6 @@ body {
   margin: 0px;
 }
 
-#app {
-  width: 100%;
-  height: 100%;
-  min-height: 600px;
-  min-width: 800px;
-  font-family: 'Microsoft YaHei', 'Helvetica Neue', 'Hiragino Sans GB', '微软雅黑', '黑体', Arial, sans-serif !important;
-  font-size: 12px;
-  background: #fff;
-}
-
 div.fm-stretch {
   width: 100%;
   height: 100%;
@@ -137,6 +127,7 @@ div.float {
 
 div.header>div.title {
   padding: 10px 10px 0px 10px;
+  color: #fff;
 }
 
 div.header>div.title:last-child {
@@ -144,21 +135,21 @@ div.header>div.title:last-child {
 }
 
 div.header>div.title.h1 {
-  font-size: 42px;
+  font-size: 30px;
   font-weight: bold;
 }
 
 div.header>div.title.h2 {
-  font-size: 32px;
+  font-size: 26px;
 }
 
 div.header>div.title.h3 {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .num-yellow {
   font-weight: bold;
-  font-size: 42px;
+  font-size: 30px;
   color: yellow;
 }
 
