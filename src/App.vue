@@ -1,15 +1,14 @@
 <template>
   <div class="flex-layout-v fm-stretch">
-    <banner></banner>
     <router-view></router-view>
     <div class="flex-layout-v fm-stretch float">
-      <div class="row" style="height: 100px;display: flex;justify-content: center;">
-        <div class="flex-layout-v" style="width: 500px; height: 140px;align-items: center;">
+      <banner class="row">
+        <div slot="title" class="flex-layout-v" style="width: 500px; height: 140px;align-items: center;">
           <div class="panel" style="height:100px;width: 400px;"></div>
           <div class="panel" style="height:40px;width: 300px;"></div>
         </div>
-      </div>
-      <div class="row fm-stretch flex-layout">
+      </banner>
+      <div class="row fm-stretch flex-layout" style="margin-top: -20px;">
         <div class="col flex-layout-v">
           <div class="row">
             <div class="panel" style="height: 200px;width: 200px;"></div>

@@ -1,6 +1,7 @@
 <template>
   <div class="banner">
     <div class="logo"></div>
+    <slot name="title"></slot>
     <div class="datetime" @click="getDateTime()">
       <div class="time">{{time}}</div>
       <div class="date">{{date}}</div>
@@ -54,17 +55,19 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .banner {
-  height: 120px;
+  height: 160px;
   background: #222;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: #fff;
 }
 
 .logo {
-  width: 120px;
+  align-self: flex-start;
+  width: 360px;
   height: 120px;
-  background: url('../assets/logo.png') no-repeat center center transparent;
+  background: url('../assets/navinfo.svg') no-repeat center center transparent;
 }
 
 .datetime {
