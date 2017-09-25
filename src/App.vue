@@ -1,9 +1,9 @@
 <template>
-  <div class="flex-layout-v fm-stretch">
+  <div class="fm-stretch">
     <router-view></router-view>
     <div class="flex-layout-v fm-stretch float">
-      <banner class="row" style="flex: 1 0 140px;">
-        <div slot="title" class="flex-layout-v header" style="align-self: flex-start; align-items: center;">
+      <banner style="flex: 1 0 140px;">
+        <div slot="title" class="flex-layout-v header" style="align-items: center;">
           <div class="title h1">
             <span style="letter-spacing: 30px;">地图母库概览</span> Core Map Review
           </div>
@@ -24,21 +24,21 @@
           </div>
         </div>
       </banner>
-      <div class="row fm-stretch flex-layout" style="margin-top: -20px;">
+      <div class="row-others flex-layout" style="margin-top: -20px;padding: 0px 10px;">
         <div class="col flex-layout-v">
           <div class="row col-title">
             数据来源
           </div>
-          <div class="fm-stretch flex-layout-v">
+          <div class="row-others flex-layout-v" style="align-items: flex-start;">
             <panel>
               <div slot="header">自采</div>
-              <div slot="content" style="width: 300px;">
+              <div slot="content" style="width: 200px;">
               </div>
             </panel>
             <panel>
               <div slot="header">第三方数据</div>
               <div slot="content">
-                <div style="width: 300px;"></div>
+                <div style="height: 400px"></div>
               </div>
             </panel>
             <panel>
@@ -51,7 +51,7 @@
           <div class="row col-title">
             数据出品
           </div>
-          <div class="fm-stretch flex-layout-v">
+          <div class="row-others flex-layout-v" style="align-items: flex-start;">
             <panel>
               <div slot="header">日出品</div>
               <div slot="content"></div>
@@ -114,8 +114,16 @@ div.flex-layout>div.col {
   height: 100%;
 }
 
+div.flex-layout>div.col-others {
+  width: 100%;
+}
+
 div.flex-layout-v>div.row {
   width: 100%;
+}
+
+div.flex-layout-v>div.row-others {
+  height: 100%;
 }
 
 div.float {

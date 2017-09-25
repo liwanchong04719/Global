@@ -24,17 +24,19 @@ export default {
 .fm-panel {
   display: flex;
   flex-flow: column nowrap;
+  pointer-events: auto;
 }
 
 .fm-panel>.header {
+  flex: 0 0 auto;
   padding: 5px 10px;
   color: yellow;
   font-size: 24px;
+  border: 1px solid blue;
 }
 
 .fm-panel>.content {
   flex: 1 0 100px;
-  width: 100%;
-  height: 100%;  
+  border: 1px solid red;
 }
 </style>
