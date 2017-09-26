@@ -48,6 +48,8 @@ export default {
       {
           name:'日均线',
           type:'line',
+          symbol:'none',  // 去掉点
+          smooth: true,
           itemStyle: {
             normal: {
               color: '#FFA500'

@@ -22,18 +22,21 @@ export default {
       seriesData: [{
           name:'用户轨迹点10250个',
           type:'line',
+          symbol:'none',  // 去掉点
           smooth: true,
           data:[120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
       },
       {
           name:'用户问题反馈220个',
           type:'line',
+          symbol:'none',  // 去掉点
           smooth: true,
           data:[220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290]
       },
       {
           name:'互联网信息4250个',
           type:'line',
+          symbol:'none',  // 去掉点
           smooth: true,
           data:[150, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190]
       }],
