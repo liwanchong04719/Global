@@ -1,7 +1,14 @@
 <template>
-  <div class="datetime" @click="getDateTime()">
-    <div class="time">{{time}}</div>
-    <div class="date">{{date}}</div>
+  <div class="banner">
+    <div class="logo">
+      <img src="../assets/navinfo.svg" style="width:240px;height: 80px;">
+      <div style="padding: 0px 14px;">( SZSE Code：002405 )</div>
+    </div>
+    <slot name="title"></slot>
+    <div class="datetime" @click="getDateTime()">
+      <div class="time">{{time}}</div>
+      <div class="date">{{date}}</div>
+    </div>
   </div>
 </template>
 
@@ -50,7 +57,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.banner {
+  /* height: 160px; */
+  background: #222;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.logo {
+  width: 240px;
+  height: 80px;
+  color: darkgray;
+  font-size: 18px;
+  /* text-align: center; */
+  /* background: url('../assets/navinfo.svg') no-repeat center center transparent;
+  background-size: contain; */
+}
+
 .datetime {
+  align-self: center;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
