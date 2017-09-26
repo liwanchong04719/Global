@@ -17,3 +17,4 @@ selenium-debug.log
 *.sln
 README.md
 .vscode
+*.zip
