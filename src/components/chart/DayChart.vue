@@ -1,5 +1,6 @@
 <template>
   <div class="chart-content">
+    <div class='chartTitle'>日出品</div>
     <div id='myDayChart'>
     </div>
   </div>

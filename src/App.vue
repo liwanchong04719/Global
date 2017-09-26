@@ -12,7 +12,7 @@
             数据来源
           </div>
           <div class="row">
-            <div class="panel" style="width: 400px;">
+            <div class="panel" style="width: 400px;height:150px">
               <bar-poi-chart :roadData='charData.poi'></bar-poi-chart>
             </div>
           </div>
@@ -196,5 +196,11 @@ div.header>div.title.h3 {
   font-weight: bold;
   font-size: 32px;
   color: yellow;
+}
+
+.chartTitle {
+  margin-left:6px;
+  margin-bottom:4px;
+  color:yellow
 }
 </style>

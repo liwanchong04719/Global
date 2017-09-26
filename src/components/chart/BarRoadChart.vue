@@ -1,6 +1,16 @@
 <template>
   <div class="chart-content">
-    <!-- {{roadData}} -->
+    <div style='display:flex;text-align:center'>
+      <div style='width: 50px;'>道路</div>
+      <div style='flex:1'>
+        <div>更新积累值</div>
+        <div>3223公里</div>
+      </div>
+      <div style='flex:1'>
+        <div>新增积累值</div>
+        <div>232公里</div>
+      </div>
+    </div>
     <div id='myBarRoadChart'>
     </div>
   </div>
@@ -66,7 +76,8 @@ export default {
                 },
                 axisLabel: {
                   fontSize: 12,
-                  color: '#FFFFFF'
+                  color: '#FFFFFF',
+                  interval: 0 // 强制显示
                 }
             },
             yAxis: {
@@ -134,6 +145,6 @@ export default {
 }
 #myBarRoadChart {
     width: 400px;
-    height: 200px;
+    height: 150px;
 }
 </style>

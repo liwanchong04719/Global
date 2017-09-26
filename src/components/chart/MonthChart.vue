@@ -1,6 +1,6 @@
 <template>
   <div class="chart-content">
-    <!--  <h1 style='text-align:center'></h1> -->
+    <div class='chartTitle'>月出品</div>
     <div id='myChartRoad'>
     </div>
   </div>

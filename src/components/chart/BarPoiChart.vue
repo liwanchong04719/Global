@@ -1,6 +1,17 @@
 <template>
   <div class="chart-content">
-    <!-- {{roadData}} -->
+    <div class='chartTitle'>自采</div>
+    <div style='display:flex;text-align:center'>
+      <div style='width: 50px;'>POI</div>
+      <div style='flex:1'>
+        <div>更新积累值</div>
+        <div>3223公里</div>
+      </div>
+      <div style='flex:1'>
+        <div>新增积累值</div>
+        <div>232公里</div>
+      </div>
+    </div>
     <div id='myBarPoiChart'>
     </div>
   </div>
@@ -66,7 +77,8 @@ export default {
                 },
                 axisLabel: {
                   fontSize: 12,
-                  color: '#FFFFFF'
+                  color: '#FFFFFF',
+                  interval: 0
                 }
             },
             yAxis: {
@@ -134,6 +146,6 @@ export default {
 }
 #myBarPoiChart {
     width: 400px;
-    height: 200px;
+    height: 150px;
 }
 </style>

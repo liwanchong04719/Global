@@ -1,5 +1,6 @@
 <template>
   <div class="chart-content">
+    <div class='chartTitle'>第三方数据</div>
     <div id='myLineChart'>
     </div>
   </div>
@@ -7,13 +8,12 @@
 
 <script>
 import echarts from 'echarts'
-require('echarts/theme/dark');
+// require('echarts/theme/dark');
 
 export default {
   name: 'test',
   data () {
     return {
-      msg: 'this is a Line Chart',
       chart: null,
       legendData: [{ name:'用户轨迹点10250个', icon: 'roundRect'},
         { name:'用户问题反馈220个', icon: 'roundRect'},
@@ -61,7 +61,7 @@ export default {
     },
     // 绘制表格
     drawGraph() {
-        this.chart = echarts.init(document.getElementById('myLineChart'), 'dark')
+        this.chart = echarts.init(document.getElementById('myLineChart'))
         let dataShadow = this.shadowMax();
         this.chart.showLoading()
         this.chart.setOption({
@@ -74,14 +74,18 @@ export default {
             title: {
               text: '累积值',
               left:20,
-              top: 20
+              top: 20,
+              textStyle: {
+                color: '#FFFFFF'
+              }
             },
             legend: {
                 orient: 'vertical',
                 right: 10,
                 top: 10,
                 itemWidth: 14,
-                data: this.legendData
+                data: this.legendData,
+                textStyle: {color: '#FFFFFF'}
             },
             xAxis: {
                 data: this.xAxisData,
@@ -91,7 +95,10 @@ export default {
                 },
                 axisTick: {
                   show: false
-                }
+                },
+                axisLabel: {
+                  color: '#FFFFFF'
+                },
             },
             yAxis: {
                 show: false
