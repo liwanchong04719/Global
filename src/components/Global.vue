@@ -1,6 +1,5 @@
 <template>
   <div id="cesiumContainer"></div>
-  <div style="display:none"></div>
 </template>
 
 <script>
