@@ -1,14 +1,15 @@
 <template>
   <div class="chart-content">
+    <div class='chartTitle'>自采</div>
     <div style='display:flex;text-align:center'>
       <div style='width: 50px;'>道路</div>
       <div style='flex:1'>
         <div>更新积累值</div>
-        <div>3223公里</div>
+        <div>{{roadData.cUpdateRoad}}公里</div>
       </div>
       <div style='flex:1'>
         <div>新增积累值</div>
-        <div>232公里</div>
+        <div>{{roadData.cAddRoad}}公里</div>
       </div>
     </div>
     <div id='myBarRoadChart'>
@@ -22,15 +23,15 @@ import echarts from 'echarts'
 
 export default {
   name: 'test',
-  // props: ['roadData'],
+  props: ['roadData'],
   data () {
     return {
       msg: 'this is a bar Chart',
       chart: null,
-      roadData: {
-        seriesData: [17.0, 7, 70.0, 33.2, 25.5, 76.7, 95.6, 122.2, 32.6, 40.0, 65.4, 90.3],
-        xAxis: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-      }
+      // roadData: {
+        //seriesData: [17.0, 7, 70.0, 33.2, 25.5, 76.7, 95.6, 122.2, 32.6, 40.0, 65.4, 90.3],
+        //xAxis: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+      //}
     }
   },
   methods: {
@@ -51,12 +52,13 @@ export default {
     },
     // 绘制表格
     drawGraph() {
-        let seriesDataTemp = this.roadData.seriesData
-        let xAxis = this.roadData.xAxis
+        // let seriesDataTemp = this.roadData.seriesData
+        // let dataShadow = this.shadowMax(seriesDataTemp);
+        // let xAxis = this.roadData.xAxis
         if (!this.chart) {
             this.chart = echarts.init(document.getElementById('myBarRoadChart'))
         }
-        let dataShadow = this.shadowMax(seriesDataTemp);
+
         this.chart.showLoading()
         this.chart.setOption({
             grid: {
@@ -66,7 +68,7 @@ export default {
               bottom:30
             },
             xAxis: {
-                data: xAxis,
+                data: this.roadData.xAxis,
                 boundaryGap: false, // 坐标轴两边不留空白
                 axisLine: {
                   show:false
@@ -94,10 +96,9 @@ export default {
                  },
                  barGap:'-100%', // 两个柱子重叠
                  barCategoryGap:'80%', // 柱子之间的间距
-                 data: dataShadow,
+                 data: this.roadData.updateData,
                  animation: false
              },{
-                // name: '蒸发量',
                 type: 'bar',
                 itemStyle: {
                   normal: {
@@ -111,7 +112,7 @@ export default {
                     barBorderRadius:[5, 5, 0, 0]
                   }
                 },
-                data: seriesDataTemp
+                data: this.roadData.newData
             }]
         })
         this.chart.hideLoading()

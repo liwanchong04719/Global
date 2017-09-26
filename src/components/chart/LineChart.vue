@@ -29,14 +29,14 @@ export default {
       {
           name:'用户问题反馈220个',
           type:'line',
-          symbol:'none',  // 去掉点
+          symbol:'none',
           smooth: true,
           data:[220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290]
       },
       {
           name:'互联网信息4250个',
           type:'line',
-          symbol:'none',  // 去掉点
+          symbol:'none',
           smooth: true,
           data:[150, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190]
       }],
@@ -97,8 +97,9 @@ export default {
                   show: false
                 },
                 axisLabel: {
-                  color: '#FFFFFF'
-                },
+                  color: '#FFFFFF',
+                  interval: 0 // 强制显示
+                }
             },
             yAxis: {
                 show: false
@@ -109,10 +110,17 @@ export default {
     }
   },
   mounted() {
-      // this.$nextTick(function() {
-          this.drawGraph()
-      // })
-  }
+    this.$nextTick(function() {
+      this.drawGraph()
+    })
+  },
+  //watch: {
+    //dayProduce: function () {
+      //this.$nextTick(function() {
+        //  this.drawGraph()
+      //})
+    //}
+  //}
 }
 </script>
 
