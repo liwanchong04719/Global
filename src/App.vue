@@ -12,13 +12,19 @@
             数据来源
           </div>
           <div class="row">
-            <div class="panel" style="height: 100px;width: 200px;"></div>
+            <div class="panel" style="width: 400px;">
+              <bar-poi-chart :roadData='charData.poi'></bar-poi-chart>
+            </div>
           </div>
           <div class="row">
-            <div class="panel" style="height: 100px;width: 300px;"></div>
+            <div class="panel" style="width: 400px;">
+              <bar-road-chart :roadData='charData.poi'></bar-road-chart>
+            </div>
           </div>
           <div class="row">
-            <div class="panel" style="height: 100px;width: 200px;"></div>
+            <div class="panel" style="width: 400px;">
+              <line-chart></line-chart>
+            </div>
           </div>
           <div class="row">
             <div class="panel" style="height: 100px;width: 200px;"></div>
@@ -52,13 +58,17 @@
             数据出品
           </div>
           <div class="row">
-            <div class="panel" style="height: 100px;width: 200px;"></div>
+            <div class="panel" style="width: 400px;">
+              <day-chart></day-chart>
+            </div>
           </div>
           <div class="row">
-            <div class="panel" style="height: 100px;width: 300px;"></div>
+            <div class="panel" style="height: 100px;width: 400px;">
+              <month-chart></month-chart>
+            </div>
           </div>
           <div class="row">
-            <div class="panel" style="height: 100px;width: 200px;"></div>
+            <div class="panel" style="height: 100px;width: 400px;"></div>
           </div>
         </div>
       </div>
@@ -67,13 +77,34 @@
 </template>
 
 <script>
+import BarPoiChart from '@/components/chart/BarPoiChart'
+import BarRoadChart from '@/components/chart/BarRoadChart'
+import LineChart from '@/components/chart/LineChart'
+import DayChart from '@/components/chart/DayChart'
+import MonthChart from '@/components/chart/MonthChart'
 import Banner from './components/Banner';
 
 export default {
   name: 'app',
-  components: {
-    Banner,
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App',
+      charData: {
+        road: {
+            seriesData:[],
+            xAxis:[]
+        }
+      }
+    }
   },
+  components: {
+    BarPoiChart,
+    BarRoadChart,
+    LineChart,
+    DayChart,
+    MonthChart,
+    Banner
+  }
 };
 </script>
 
