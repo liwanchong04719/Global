@@ -8,7 +8,7 @@
 
 <script>
 import echarts from 'echarts'
-require('echarts/theme/dark');
+// require('echarts/theme/dark');
 
 export default {
   name: 'test',
@@ -44,7 +44,7 @@ export default {
         let seriesDataTemp = this.roadData.seriesData
         let xAxis = this.roadData.xAxis
         if (!this.chart) {
-            this.chart = echarts.init(document.getElementById('myBarRoadChart'), 'dark')
+            this.chart = echarts.init(document.getElementById('myBarRoadChart'))
         }
         let dataShadow = this.shadowMax(seriesDataTemp);
         this.chart.showLoading()
@@ -63,6 +63,10 @@ export default {
                 },
                 axisTick: {
                   show: false
+                },
+                axisLabel: {
+                  fontSize: 12,
+                  color: '#FFFFFF'
                 }
             },
             yAxis: {

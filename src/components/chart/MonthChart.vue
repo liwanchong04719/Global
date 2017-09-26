@@ -79,7 +79,7 @@ export default {
     },
     // 绘制表格
     drawGraph() {
-        this.chart = echarts.init(document.getElementById('myChartRoad'), 'dark')
+        this.chart = echarts.init(document.getElementById('myChartRoad'))
         // let dataShadow = this.shadowMax();
         this.chart.showLoading()
         this.chart.setOption({
@@ -93,7 +93,7 @@ export default {
                 itemWidth: 14,
                 bottom: 0,
                 right: 80,
-                data:[{ name:'月均线', icon: 'roundRect'}]
+                data:[{ name:'月均线', icon: 'roundRect', textStyle: {color: '#FFFFFF'}}]
             },
             xAxis: {
               show: false
@@ -109,7 +109,8 @@ export default {
                 },
                 axisLabel: {
                   fontSize: 14,
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
+                  color: '#FFFFFF'
                 }
             },
             series: this.seriesData
