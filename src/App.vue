@@ -155,7 +155,6 @@ div.flex-layout-v>div.row {
 
 div.panel {
   pointer-events: auto;
-  background-color: gray;
 }
 
 div.header>div.title {
