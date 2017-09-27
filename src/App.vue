@@ -16,12 +16,12 @@
           <div class="row">
             <div class="panel" style="width: 400px;">
               <div class="row text-yellow-subTitle">自采</div>
-              <bar-poi-chart :roadData='charData.poi'></bar-poi-chart>
+              <bar-road-chart :roadData='charData.road'></bar-road-chart>
             </div>
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
-              <bar-road-chart :roadData='charData.poi'></bar-road-chart>
+              <bar-poi-chart :poiData='charData.poi'></bar-poi-chart>
             </div>
           </div>
           <div class="row">
@@ -67,13 +67,13 @@
           <div class="row">
             <div class="panel" style="width: 400px;">
               <div class="row text-yellow-subTitle">日出品</div>
-              <day-chart></day-chart>
+              <day-chart :dayProduce="charData.dayProduce"></day-chart>
             </div>
           </div>
           <div class="row">
             <div class="panel" style="height: 100px;width: 400px;">
               <div class="row text-yellow-subTitle">月出品</div>
-              <month-chart></month-chart>
+              <month-chart :monthProduce="charData.monthProduce"></month-chart>
             </div>
           </div>
           <div class="row">
@@ -100,12 +100,106 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       charData: {
-        road: {
-            seriesData:[],
+        poi: {
+            newData:[],
+            updateData:[],
             xAxis:[]
+        },
+        road: {
+            newData:[],
+            updateData:[],
+            xAxis:[]
+        },
+        dayProduce: {
+            barData:[],
+            lineData:[],
+            yAxis:[]
+        },
+        monthProduce: {
+            barData:[],
+            lineData:[],
+            yAxis:[]
         }
       }
     }
+  },
+  methods: {
+    recomData: function (data) {
+      this.recomPoi(data)
+      this.recomRoad(data)
+      this.recomDayProduce(data);
+      this.recomMonthProduce(data);
+    },
+    recomPoi: function (data) { // 重组poi数据,使之符合图表格式
+      let poiAvg = data.cPoiAverage;
+      this.charData.poi.cUpdatePoi = data.cUpdatePoi;
+      this.charData.poi.cAddPoi = data.cAddPoi;
+      this.charData.poi.newData = [];
+      this.charData.poi.updateData = [];
+      this.charData.poi.xAxis = [];
+      for(let i in poiAvg){
+        if (poiAvg.hasOwnProperty(i)) {
+          this.charData.poi.xAxis.push(i + '月');
+          this.charData.poi.newData.push(poiAvg[i].add);
+          this.charData.poi.updateData.push(poiAvg[i].update);
+        };
+      }
+      console.info(this.charData.poi);
+    },
+    recomRoad: function (data) { // 重组road数据,使之符合图表格式
+      let roadAvg = data.cRoadAverage;
+      this.charData.road.cUpdateRoad = data.cUpdateRoad;
+      this.charData.road.cAddRoad = data.cAddRoad;
+      this.charData.road.newData = [];
+      this.charData.road.updateData = [];
+      this.charData.road.xAxis = [];
+      for(let i in roadAvg){
+        if (roadAvg.hasOwnProperty(i)) {
+          this.charData.road.xAxis.push(i + '月');
+          this.charData.road.newData.push(roadAvg[i].add);
+          this.charData.road.updateData.push(roadAvg[i].update);
+        };
+      }
+    },
+    recomThird: function (data) { // 重组road数据,使之符合图表格式
+
+    },
+    recomDayProduce: function (data) { // 重组road数据,使之符合图表格式
+      this.charData.dayProduce.barData = [data.dpAddPoi,data.dpUpdatePoi,data.dpAddRoad,data.dpUpdateRoad];
+      this.charData.dayProduce.lineData = [data.dpAverage.addPoi,data.dpAverage.updatePoi,data.dpAverage.addRoad,data.dpAverage.updateRoad];
+      this.charData.dayProduce.yAxis = [`新增POI ${data.dpAddPoi}个`,`更新PIO ${data.dpUpdatePoi}个`,`新增道路 ${data.dpAddRoad}公里`,`更新道路 ${data.dpUpdateRoad}公里`];
+    },
+    recomMonthProduce: function (data) { // 重组road数据,使之符合图表格式
+      this.charData.monthProduce.barData = [data.mpAddPoi, data.mpUpdatePoi, data.mpAddRoad, data.mpUpdateRoad];
+      this.charData.monthProduce.lineData = [data.mpAverage.addPoi, data.mpAverage.updatePoi, data.mpAverage.addRoad, data.mpAverage.updateRoad];
+      this.charData.monthProduce.yAxis = [`新增POI ${data.mpAddPoi}个`,`更新PIO ${data.mpUpdatePoi}个`,`新增道路 ${data.mpAddRoad}公里`,`更新道路 ${data.mpUpdateRoad}公里`];
+    }
+  },
+  created () {
+    // 赋值测试假数据数据(和接口返回的格式保持一致)
+    let data = {
+    }
+    data.cPoiAverage = {"1":{"update":16,"add":4},"2":{"update":12,"add":4},"3":{"update":12,"add":4},"4":{"update":12,"add":4},"5":{"update":12,"add":4},"6":{"update":62,"add":4},"7":{"update":12,"add":4},"8":{"update":12,"add":4},"9":{"update":30,"add":10},"10":{"update":40,"add":10},"11":{"update":0,"add":0},"12":{"update":0,"add":0}};
+    data.cUpdatePoi = 123;
+    data.cAddPoi = 23;
+
+    data.cRoadAverage = {"1":{"update":48,"add":4},"2":{"update":12,"add":4},"3":{"update":62,"add":54},"4":{"update":12,"add":4},"5":{"update":18,"add":14},"6":{"update":12,"add":4},"7":{"update":12,"add":4},"8":{"update":12,"add":4},"9":{"update":20,"add":0},"10":{"update":50,"add":10},"11":{"update":0,"add":0},"12":{"update":0,"add":0}};
+    data.cUpdateRoad = 233;
+    data.cAddRoad = 44;
+
+    data.dpAddPoi = 80;
+    data.dpUpdatePoi = 180;
+    data.dpAddRoad = 90;
+    data.dpUpdateRoad = 80;
+    data.dpAverage = {"updateRoad":80,"addRoad":60,"updatePoi":80,"addPoi":48}
+
+    data.mpAddPoi = 90;
+    data.mpUpdatePoi = 120;
+    data.mpAddRoad = 40;
+    data.mpUpdateRoad = 200;
+    data.mpAverage = {"updateRoad":180,"addRoad":160,"updatePoi":80,"addPoi":58}
+
+    this.recomData(data);
   },
   components: {
     BarPoiChart,
@@ -216,5 +310,11 @@ div.header>div.title.h3 {
   font-size: 26px;
   color: yellow;
   padding: 10px 0;
+}
+
+.chartTitle {
+  margin-left:6px;
+  margin-bottom:4px;
+  color:yellow
 }
 </style>
