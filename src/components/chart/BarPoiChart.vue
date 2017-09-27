@@ -1,6 +1,16 @@
 <template>
   <div class="chart-content">
-    <!-- {{roadData}} -->
+    <div style='display:flex;text-align:center'>
+      <div style='width: 50px;'>POI</div>
+      <div style='flex:1'>
+        <div>更新积累值</div>
+        <div>{{poiData.cUpdatePoi}}个</div>
+      </div>
+      <div style='flex:1'>
+        <div>新增积累值</div>
+        <div>{{poiData.cAddPoi}}个</div>
+      </div>
+    </div>
     <div id='myBarPoiChart'>
     </div>
   </div>
@@ -8,19 +18,15 @@
 
 <script>
 import echarts from 'echarts'
-require('echarts/theme/dark');
+// require('echarts/theme/dark');
 
 export default {
   name: 'test',
-  // props: ['roadData'],
+  props: ['poiData'],
   data () {
     return {
       msg: 'this is a bar Chart',
-      chart: null,
-      roadData: {
-        seriesData: [77.0, 54.9, 70.0, 83.2, 25.5, 76.7, 65.6, 52.2, 32.6, 20.0, 125.4, 30.3],
-        xAxis: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-      }
+      chart: null
     }
   },
   methods: {
@@ -41,12 +47,13 @@ export default {
     },
     // 绘制表格
     drawGraph() {
-        let seriesDataTemp = this.roadData.seriesData
-        let xAxis = this.roadData.xAxis
+        // let seriesDataTemp = this.poiData.seriesNewData
+        // let dataShadow = this.shadowMax(seriesDataTemp)
+        let xAxis = this.poiData.xAxis
         if (!this.chart) {
-            this.chart = echarts.init(document.getElementById('myBarPoiChart'), 'dark')
+            this.chart = echarts.init(document.getElementById('myBarPoiChart'))
         }
-        let dataShadow = this.shadowMax(seriesDataTemp);
+
         this.chart.showLoading()
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
@@ -66,7 +73,9 @@ export default {
                   show: false
                 },
                 axisLabel: {
-                  fontSize: 12
+                  fontSize: 12,
+                  color: '#FFFFFF',
+                  interval: 0
                 }
             },
             yAxis: {
@@ -83,10 +92,9 @@ export default {
                  },
                  barGap:'-100%', // 两个柱子重叠
                  barCategoryGap:'80%', // 柱子之间的间距
-                 data: dataShadow,
+                 data: this.poiData.updateData,
                  animation: false
              },{
-                // name: '蒸发量',
                 type: 'bar',
                 itemStyle: {
                   normal: {
@@ -100,7 +108,7 @@ export default {
                     barBorderRadius:[5, 5, 0, 0]
                   }
                 },
-                data: seriesDataTemp
+                data: this.poiData.newData
             }]
         })
         this.chart.hideLoading()
@@ -110,11 +118,11 @@ export default {
   },
   created () {
     this.$nextTick(function() {
-                  this.drawGraph()
-              })
+        this.drawGraph()
+    })
   },
   watch: {
-    roadData: function () {
+    poiData: function () {
           this.$nextTick(function() {
               this.drawGraph()
           })
@@ -132,6 +140,6 @@ export default {
 }
 #myBarPoiChart {
     width: 400px;
-    height: 200px;
+    height: 150px;
 }
 </style>

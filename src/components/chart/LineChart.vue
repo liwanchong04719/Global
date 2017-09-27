@@ -1,5 +1,6 @@
 <template>
   <div class="chart-content">
+    <div class='chartTitle'>第三方数据</div>
     <div id='myLineChart'>
     </div>
   </div>
@@ -7,13 +8,12 @@
 
 <script>
 import echarts from 'echarts'
-require('echarts/theme/dark');
+// require('echarts/theme/dark');
 
 export default {
   name: 'test',
   data () {
     return {
-      msg: 'this is a Line Chart',
       chart: null,
       legendData: [{ name:'用户轨迹点10250个', icon: 'roundRect'},
         { name:'用户问题反馈220个', icon: 'roundRect'},
@@ -22,18 +22,21 @@ export default {
       seriesData: [{
           name:'用户轨迹点10250个',
           type:'line',
+          symbol:'none',  // 去掉点
           smooth: true,
           data:[120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
       },
       {
           name:'用户问题反馈220个',
           type:'line',
+          symbol:'none',
           smooth: true,
           data:[220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290]
       },
       {
           name:'互联网信息4250个',
           type:'line',
+          symbol:'none',
           smooth: true,
           data:[150, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190]
       }],
@@ -58,7 +61,7 @@ export default {
     },
     // 绘制表格
     drawGraph() {
-        this.chart = echarts.init(document.getElementById('myLineChart'), 'dark')
+        this.chart = echarts.init(document.getElementById('myLineChart'))
         let dataShadow = this.shadowMax();
         this.chart.showLoading()
         this.chart.setOption({
@@ -72,14 +75,18 @@ export default {
             title: {
               text: '累积值',
               left:20,
-              top: 20
+              top: 20,
+              textStyle: {
+                color: '#FFFFFF'
+              }
             },
             legend: {
                 orient: 'vertical',
                 right: 10,
                 top: 10,
                 itemWidth: 14,
-                data: this.legendData
+                data: this.legendData,
+                textStyle: {color: '#FFFFFF'}
             },
             xAxis: {
                 data: this.xAxisData,
@@ -89,6 +96,10 @@ export default {
                 },
                 axisTick: {
                   show: false
+                },
+                axisLabel: {
+                  color: '#FFFFFF',
+                  interval: 0 // 强制显示
                 }
             },
             yAxis: {
@@ -100,10 +111,17 @@ export default {
     }
   },
   mounted() {
-      // this.$nextTick(function() {
-          this.drawGraph()
-      // })
-  }
+    this.$nextTick(function() {
+      this.drawGraph()
+    })
+  },
+  //watch: {
+    //dayProduce: function () {
+      //this.$nextTick(function() {
+        //  this.drawGraph()
+      //})
+    //}
+  //}
 }
 </script>
 
