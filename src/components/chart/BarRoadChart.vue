@@ -1,6 +1,5 @@
 <template>
   <div class="chart-content">
-    <div class='chartTitle'>自采</div>
     <div style='display:flex;text-align:center'>
       <div style='width: 50px;'>道路</div>
       <div style='flex:1'>
@@ -61,6 +60,7 @@ export default {
 
         this.chart.showLoading()
         this.chart.setOption({
+            backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
               left: 20,
               right: 20,
@@ -138,8 +138,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chart-content{
-    float: left;
-    background-color: #000;
     color: #FFF;
     width: 400px;
     display: inline-block;

@@ -4,15 +4,18 @@
     <div class="flex-layout-v fm-stretch float">
       <div class="row fm-stretch flex-layout">
         <div class="col flex-layout-v">
-          <div class="logo">
-            <img src="./assets/navinfo.svg" style="width:240px;height: 80px;">
-            <div style="padding: 0px 14px;color: #fff">( SZSE Code: 002405 )</div>
-          </div>
-          <div class="row text-yellow">
-            数据来源
+          <div class="row">
+            <div class="logo">
+              <img src="./assets/navinfo.svg" style="width:240px;height: 80px;">
+              <div style="padding: 0px 14px;color: #fff">( SZSE Code: 002405 )</div>
+            </div>
+            <div class="row text-yellow">
+              数据来源
+            </div>
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
+              <div class="row text-yellow-subTitle">自采</div>
               <bar-road-chart :roadData='charData.road'></bar-road-chart>
             </div>
           </div>
@@ -23,10 +26,12 @@
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
+              <div class="row text-yellow-subTitle">第三方数据</div>
               <line-chart :chartData='charData.thrid'></line-chart>
             </div>
           </div>
           <div class="row">
+            <div class="row text-yellow-subTitle">众包</div>
             <div class="panel" style="height: 100px;width: 200px;"></div>
           </div>
         </div>
@@ -53,21 +58,26 @@
           </div>
         </div>
         <div class="col flex-layout-v">
-          <Banner></Banner>
-          <div class="row text-yellow">
-            数据出品
+          <div class="row">
+            <Banner></Banner>
+            <div class="row text-yellow">
+              数据出品
+            </div>
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
+              <div class="row text-yellow-subTitle">日出品</div>
               <day-chart :dayProduce="charData.dayProduce"></day-chart>
             </div>
           </div>
           <div class="row">
             <div class="panel" style="height: 100px;width: 400px;">
+              <div class="row text-yellow-subTitle">月出品</div>
               <month-chart :monthProduce="charData.monthProduce"></month-chart>
             </div>
           </div>
           <div class="row">
+            <div class="row text-yellow-subTitle">季出品</div>
             <div class="panel" style="height: 100px;width: 400px;"></div>
           </div>
         </div>
@@ -265,6 +275,8 @@ div.float {
   position: absolute;
   top: 0px;
   left: 0px;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
@@ -278,7 +290,6 @@ div.flex-layout-v>div.row {
 
 div.panel {
   pointer-events: auto;
-  background-color: gray;
 }
 
 div.header>div.title {
@@ -319,11 +330,14 @@ div.header>div.title.h3 {
   font-weight: bold;
   font-size: 32px;
   color: yellow;
+  padding: 10px 0;
 }
 
-.chartTitle {
-  margin-left:6px;
-  margin-bottom:4px;
-  color:yellow
+.text-yellow-subTitle {
+  text-align: left;
+  font-weight: bold;
+  font-size: 26px;
+  color: yellow;
+  padding: 10px 0;
 }
 </style>
