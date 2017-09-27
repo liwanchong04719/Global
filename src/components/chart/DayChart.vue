@@ -80,6 +80,7 @@ export default {
         // let dataShadow = this.shadowMax();
         this.chart.showLoading()
         this.chart.setOption({
+            backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
               left: 120,
               right: 20,
@@ -123,10 +124,8 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 .chart-content{
-    float: left;
-    background-color: #000;
     color: #FFF;
     width: 400px;
     display: inline-block;
