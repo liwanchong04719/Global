@@ -77,8 +77,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="row text-yellow-subTitle">季出品</div>
-            <div class="panel" style="height: 100px;width: 400px;"></div>
+            <div class="panel" style="height: 100px;width: 400px;">
+              <div class="row text-yellow-subTitle">季出品</div>
+            </div>
           </div>
         </div>
       </div>
@@ -178,16 +179,16 @@ div.header>div.title:last-child {
 }
 
 div.header>div.title.h1 {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
 }
 
 div.header>div.title.h2 {
-  font-size: 26px;
+  font-size: 32px;
 }
 
 div.header>div.title.h3 {
-  font-size: 20px;
+  font-size: 32px;
 }
 
 .num-yellow {

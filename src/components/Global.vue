@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 window.CESIUM_BASE_URL = './Cesium';
 const Cesium = require('../../node_modules/cesium/Source/Cesium.js');
 require('../../node_modules/cesium/Source/Widgets/widgets.css');
@@ -11,6 +12,56 @@ export default {
   name: 'global',
   data() {
     return {};
+  },
+  methods: {
+    data2GeoJson (data) {
+      let featureCollection={
+        type: "FeatureCollection",
+        features: [],
+      };
+      for (let i=0; i<data.length; i++){
+        featureCollection.features.push({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [data[i].x, data[i].y]
+          },
+          properties: {
+            'marker-color': '#B9EB14'
+          }
+        })
+      }
+      return featureCollection;
+    },
+    refreshCrowdData () {
+      const that = this;
+      axios({
+        method: 'get',
+        url: 'http://fs-road.navinfo.com/dev/trunk/service/statics/crowdInfo',
+      }).then(function (res) {
+        let tempSourceData = null;
+        if (res.data.errcode === 0) {
+          tempSourceData = that.data2GeoJson(res.data.data);
+          that.viewer.dataSources.add(Cesium.GeoJsonDataSource.load(tempSourceData));
+        }
+      }).catch(function(err){
+      })
+    },
+
+    refreshCommonData () {
+      axios({
+        method: 'get',
+        url: 'http://fs-road.navinfo.com/dev/trunk/service/statics/commonInfo',
+        dataType: 'json'
+      }).then(function (res) {
+        let tempSourceData = null;
+        if (res.data.errcode === 0) {
+          tempSourceData = that.data2GeoJson(res.data.data);
+          that.viewer.dataSources.add(tempSourceData);
+        }
+      }).catch(function(err){
+      })
+    },
   },
   mounted() {
     const viewer = new Cesium.Viewer('cesiumContainer', {
@@ -55,6 +106,12 @@ export default {
       destination: initialPosition,
       endTransform: Cesium.Matrix4.IDENTITY,
     });
+
+    viewer.scene.screenSpaceCameraController.enableRotate = false;
+
+    this.viewer = viewer;
+
+    this.refreshCrowdData();
   },
 };
 </script>
