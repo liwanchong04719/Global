@@ -51,6 +51,7 @@ export default {
 
         this.chart.showLoading()
         this.chart.setOption({
+            backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
               left: 130,
               right: 20,
@@ -142,8 +143,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chart-content{
-    float: left;
-    background-color: #000;
     color: #FFF;
     width: 400px;
     display: inline-block;
