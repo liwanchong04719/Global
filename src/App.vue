@@ -23,7 +23,7 @@
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
-              <line-chart></line-chart>
+              <line-chart :chartData='charData.thrid'></line-chart>
             </div>
           </div>
           <div class="row">
@@ -109,6 +109,10 @@ export default {
             barData:[],
             lineData:[],
             yAxis:[]
+        },
+        thrid: {
+            lineData:[[],[],[]], //  用户轨迹点,用户问题反馈,互联网信息
+            xAxis:[]
         }
       }
     }
@@ -119,6 +123,7 @@ export default {
       this.recomRoad(data)
       this.recomDayProduce(data);
       this.recomMonthProduce(data);
+      this.recomThird(data);
     },
     recomPoi: function (data) { // 重组poi数据,使之符合图表格式
       let poiAvg = data.cPoiAverage;
@@ -152,7 +157,24 @@ export default {
       }
     },
     recomThird: function (data) { // 重组road数据,使之符合图表格式
+      let inforDetail = data.thirdInforDetail;// 用户轨迹点 -- 数据情报收集详情
+      let userDetail = data.thirdUserDetail;// 用户问题反馈  -- 用户反馈详情
+      let webDetail = data.thirdWebDetail;// 互联网信息  -- 互联网信息详情
+      let inforTotal = data.thirdInforTotal;// 用户轨迹点 -- 数据情报收集
+      let userTotal = data.thirdUserTotal;// 用户问题反馈  -- 用户反馈
+      let webTotal = data.thirdWebTotal;// 互联网信息  -- 互联网信息
 
+      this.charData.thrid.inforTotal =  inforTotal;
+      this.charData.thrid.userTotal =  userTotal;
+      this.charData.thrid.webTotal =  webTotal;
+      for(let i in inforDetail){
+        if (inforDetail.hasOwnProperty(i)) {
+          this.charData.thrid.xAxis.push(i + '月');
+          this.charData.thrid.lineData[0].push(inforDetail[i]);
+          this.charData.thrid.lineData[1].push(userDetail[i]);
+          this.charData.thrid.lineData[2].push(webDetail[i]);
+        };
+      }
     },
     recomDayProduce: function (data) { // 重组road数据,使之符合图表格式
       this.charData.dayProduce.barData = [data.dpAddPoi,data.dpUpdatePoi,data.dpAddRoad,data.dpUpdateRoad];
@@ -188,6 +210,13 @@ export default {
     data.mpAddRoad = 40;
     data.mpUpdateRoad = 200;
     data.mpAverage = {"updateRoad":180,"addRoad":160,"updatePoi":80,"addPoi":58}
+
+    data.thirdInforDetail = {'1':120,'2':132,'3':101,'4':101,'5':134,'6':90,'7':230,'8':'210','9':120,'10':132,'11':134,'12':90}; // 用户轨迹点 -- 数据情报收集
+    data.thirdUserDetail = {'1':220,'2':182,'3':191,'4':234,'5':290,'6':330,'7':310,'8':'220','9':182,'10':191,'11':234,'12':290}; // 用户问题反馈  -- 用户反馈
+    data.thirdWebDetail = {'1':150,'2':232,'3':201,'4':154,'5':190,'6':330,'7':410,'8':'150','9':232,'10':201,'11':154,'12':190};// 互联网信息  -- 互联网信息
+    data.thirdInforTotal = 250;
+    data.thirdUserTotal = 220;
+    data.thirdWebTotal = 260;
 
     this.recomData(data);
   },
