@@ -41,11 +41,14 @@ module.exports = merge(baseWebpackConfig, {
       inject: true,
     }),
     new FriendlyErrorsPlugin(),
-    // 拷贝Cesium库依赖的文件
-    new CopyWebpackPlugin([{
-      from: path.resolve(__dirname, './node_modules/cesium/Build/CesiumUnminified'),
-      to: path.resolve(config.dev.assetsRoot, 'Cesium'),
-    }]),
+    // copy custom static assets
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, './static'),
+        to: config.build.assetsSubDirectory,
+        ignore: ['.*'],
+      },
+    ]),
   ],
   externals: {
     fs: true,
