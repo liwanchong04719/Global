@@ -50,7 +50,7 @@ export default {
         // let dataShadow = this.shadowMax(seriesDataTemp)
         let xAxis = this.poiData.xAxis
         if (!this.chart) {
-            this.chart = echarts.init(document.getElementById('myBarPoiChart'),'dark')
+            this.chart = echarts.init(document.getElementById('myBarPoiChart'))
         }
 
         this.chart.showLoading()

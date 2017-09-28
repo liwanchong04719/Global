@@ -142,7 +142,7 @@ export default {
   methods: {
     getChartData: function () {
       let that = this;
-      that.$http.get('http://fs-road.navinfo.com/dev/trunk/service/statics/productMonitor').then((data) => {
+      that.$http.get('http://fastmap.navinfo.com/service/statics/productMonitor').then((data) => {
         if (data && data.body.errcode == 0) {
           that.recomData(data.body.data);
         }
