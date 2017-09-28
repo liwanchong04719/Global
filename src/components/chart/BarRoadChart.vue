@@ -1,6 +1,5 @@
 <template>
   <div class="chart-content">
-    <div class='chartTitle'>自采</div>
     <div style='display:flex;text-align:center'>
       <div style='width: 50px;'>道路</div>
       <div style='flex:1'>

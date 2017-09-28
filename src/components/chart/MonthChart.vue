@@ -1,6 +1,5 @@
 <template>
   <div class="chart-content">
-    <div class='chartTitle'>月出品</div>
     <div id='myMonthChart'>
     </div>
   </div>

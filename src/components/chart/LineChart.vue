@@ -1,6 +1,5 @@
 <template>
   <div class="chart-content">
-    <div class='chartTitle'>第三方数据</div>
     <div id='myLineChart'>
     </div>
   </div>
@@ -12,58 +11,46 @@ import echarts from 'echarts'
 
 export default {
   name: 'test',
+  props: ['chartData'],
   data () {
     return {
       chart: null,
-      legendData: [{ name:'用户轨迹点10250个', icon: 'roundRect'},
-        { name:'用户问题反馈220个', icon: 'roundRect'},
-        { name:'互联网信息4250个', icon: 'roundRect'}
-      ],
-      seriesData: [{
-          name:'用户轨迹点10250个',
-          type:'line',
-          symbol:'none',  // 去掉点
-          smooth: true,
-          data:[120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
-      },
-      {
-          name:'用户问题反馈220个',
-          type:'line',
-          symbol:'none',
-          smooth: true,
-          data:[220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290]
-      },
-      {
-          name:'互联网信息4250个',
-          type:'line',
-          symbol:'none',
-          smooth: true,
-          data:[150, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190]
-      }],
-      xAxisData: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+      // xAxisData: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
     }
   },
   methods: {
-    // 获取背景柱状图数组
-    shadowMax() {
-      var max = 0;
-      var maxArr = [];
-      for (let i = 0; i < this.seriesData.length; i++) {
-        if (max < this.seriesData[i]) {
-          max = this.seriesData[i]
-        }
-      }
-      max = Math.ceil(max) + 10;
-      this.seriesData.forEach(function (item, index, arr) {
-        maxArr[index] = max;
-      });
-      return maxArr;
-    },
     // 绘制表格
     drawGraph() {
-        this.chart = echarts.init(document.getElementById('myLineChart'))
-        let dataShadow = this.shadowMax();
+        if (!this.chart) {
+          this.chart = echarts.init(document.getElementById('myLineChart'))
+        }
         this.chart.showLoading()
+        let legendData = [{ name:`用户轨迹点${this.chartData.inforTotal}个`, icon: 'roundRect'},
+          { name:`用户问题反馈${this.chartData.userTotal}个`, icon: 'roundRect'},
+          { name:`互联网信息${this.chartData.webTotal}个`, icon: 'roundRect'}
+        ];
+        let seriesData = [{
+            name:`用户轨迹点${this.chartData.inforTotal}个`,
+            type:'line',
+            symbol:'none',  // 去掉点
+            smooth: true,
+            data: this.chartData.lineData[0]// [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
+        },
+        {
+            name:`用户问题反馈${this.chartData.userTotal}个`,
+            type:'line',
+            symbol:'none',
+            smooth: true,
+            data: this.chartData.lineData[1]// [120, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290]
+        },
+        {
+            name:`互联网信息${this.chartData.webTotal}个`,
+            type:'line',
+            symbol:'none',
+            smooth: true,
+            data: this.chartData.lineData[2] //[120, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190]
+        }]
+
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
@@ -85,11 +72,11 @@ export default {
                 right: 10,
                 top: 10,
                 itemWidth: 14,
-                data: this.legendData,
+                data: legendData,
                 textStyle: {color: '#FFFFFF'}
             },
             xAxis: {
-                data: this.xAxisData,
+                data: this.chartData.xAxis,
                 boundaryGap: false, // 坐标轴两边不留空白
                 axisLine: {
                   show:false
@@ -105,7 +92,7 @@ export default {
             yAxis: {
                 show: false
             },
-            series: this.seriesData
+            series: seriesData
         })
         this.chart.hideLoading()
     }
@@ -115,13 +102,13 @@ export default {
       this.drawGraph()
     })
   },
-  //watch: {
-    //dayProduce: function () {
-      //this.$nextTick(function() {
-        //  this.drawGraph()
-      //})
-    //}
-  //}
+  watch: {
+    dayProduce: function () {
+      this.$nextTick(function() {
+          this.drawGraph()
+      })
+    }
+  }
 }
 </script>
 
