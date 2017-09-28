@@ -26,9 +26,7 @@ export default {
             type: 'Point',
             coordinates: [data[i].x, data[i].y]
           },
-          properties: {
-            'marker-color': '#B9EB14'
-          }
+          properties: {}
         })
       }
       return featureCollection;
@@ -42,7 +40,17 @@ export default {
         let tempSourceData = null;
         if (res.data.errcode === 0) {
           tempSourceData = that.data2GeoJson(res.data.data);
-          that.viewer.dataSources.add(Cesium.GeoJsonDataSource.load(tempSourceData));
+          for (let i=0; i<tempSourceData.features.length; i++){
+            const feature = tempSourceData.features[i];
+            that.viewer.entities.add({
+              position: Cesium.Cartesian3.fromDegrees(feature.geometry.coordinates[0],
+                      feature.geometry.coordinates[1]),
+              point: {
+                pixelSize: 10,
+                color: Cesium.Color.YELLOW
+              }
+            })
+          }
         }
       }).catch(function(err){
       })
@@ -57,7 +65,17 @@ export default {
         let tempSourceData = null;
         if (res.data.errcode === 0) {
           tempSourceData = that.data2GeoJson(res.data.data);
-          that.viewer.dataSources.add(tempSourceData);
+          for (let i=0; i<tempSourceData.features.length; i++){
+            const feature = tempSourceData.features[i];
+            that.viewer.entities.add({
+              position: Cesium.Cartesian3.fromDegrees(feature.geometry.coordinates[0],
+                      feature.geometry.coordinates[1]),
+              point: {
+                pixelSize: 10,
+                color: Cesium.Color.RED
+              }
+            })
+          }
         }
       }).catch(function(err){
       })
@@ -112,6 +130,7 @@ export default {
     this.viewer = viewer;
 
     this.refreshCrowdData();
+    this.refreshCommonData();
   },
 };
 </script>

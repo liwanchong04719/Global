@@ -15,7 +15,6 @@
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
-              <div class="row text-yellow-subTitle">自采</div>
               <bar-road-chart :roadData='charData.road'></bar-road-chart>
             </div>
           </div>
@@ -26,12 +25,10 @@
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
-              <div class="row text-yellow-subTitle">第三方数据</div>
               <line-chart></line-chart>
             </div>
           </div>
           <div class="row">
-            <div class="row text-yellow-subTitle">众包</div>
             <div class="panel" style="height: 100px;width: 200px;"></div>
           </div>
         </div>
@@ -56,6 +53,12 @@
               <span class="num-white">108,647</span> 个
             </div>
           </div>
+          <div class="legendContainer">
+            <div class="legend">
+              <div><span class="commonInfo"></span> 自采分布</div>
+              <div><span class="crowdInfo"></span> 众包分布</div>
+            </div>
+          </div>
         </div>
         <div class="col flex-layout-v">
           <div class="row">
@@ -66,19 +69,16 @@
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
-              <div class="row text-yellow-subTitle">日出品</div>
               <day-chart :dayProduce="charData.dayProduce"></day-chart>
             </div>
           </div>
           <div class="row">
             <div class="panel" style="height: 100px;width: 400px;">
-              <div class="row text-yellow-subTitle">月出品</div>
               <month-chart :monthProduce="charData.monthProduce"></month-chart>
             </div>
           </div>
           <div class="row">
             <div class="panel" style="height: 100px;width: 400px;">
-              <div class="row text-yellow-subTitle">季出品</div>
             </div>
           </div>
         </div>
@@ -283,6 +283,40 @@ div.header>div.title.h2 {
 
 div.header>div.title.h3 {
   font-size: 32px;
+}
+
+div.legendContainer {
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+div.legendContainer div.legend {
+  display: inline-block;
+}
+
+div.legendContainer div.legend>div{
+  color: #fff;
+  font-weight: 500;
+  display: inline-block;
+  line-height: 18px;
+}
+
+div.legendContainer div.legend span{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: bottom;
+}
+
+div.legendContainer div.legend span.commonInfo{
+  background-color: #ff0000;
+}
+
+div.legendContainer div.legend span.crowdInfo{
+  background-color: #ffff00;
 }
 
 .num-yellow {
