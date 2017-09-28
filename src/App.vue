@@ -1,6 +1,6 @@
 <template>
   <div class="flex-layout-v fm-stretch">
-    <router-view></router-view>
+    <Global :crowdInfoSource='dataSourceStatus.crowdInfoSource' :commonInfoSource='dataSourceStatus.commonInfoSource'></Global>
     <div class="flex-layout-v fm-stretch float">
       <div class="row fm-stretch flex-layout">
         <div class="col flex-layout-v">
@@ -55,8 +55,10 @@
           </div>
           <div class="legendContainer">
             <div class="legend">
-              <div><span class="commonInfo"></span> 自采分布</div>
-              <div><span class="crowdInfo"></span> 众包分布</div>
+              <div v-on:click="toggleDataSource('common')"><span
+                      :class="dataSourceStatus.commonInfoSource? 'commonInfo' : 'commonInfoNone'"></span> 自采分布</div>
+              <div v-on:click="toggleDataSource('crowd')"><span
+                      :class="dataSourceStatus.crowdInfoSource? 'crowdInfo' : 'crowdInfoNone'"></span> 众包分布</div>
             </div>
           </div>
         </div>
@@ -93,7 +95,8 @@ import BarRoadChart from '@/components/chart/BarRoadChart'
 import LineChart from '@/components/chart/LineChart'
 import DayChart from '@/components/chart/DayChart'
 import MonthChart from '@/components/chart/MonthChart'
-import Banner from './components/Banner';
+import Banner from '@/components/Banner';
+import Global from '@/components/Global';
 
 export default {
   name: 'app',
@@ -125,6 +128,10 @@ export default {
             lineData:[[],[],[]], //  用户轨迹点,用户问题反馈,互联网信息
             xAxis:[]
         }
+      },
+      dataSourceStatus: {
+        commonInfoSource: true,
+        crowdInfoSource: true
       }
     }
   },
@@ -196,6 +203,13 @@ export default {
       this.charData.monthProduce.barData = [data.mpAddPoi, data.mpUpdatePoi, data.mpAddRoad, data.mpUpdateRoad];
       this.charData.monthProduce.lineData = [data.mpAverage.addPoi, data.mpAverage.updatePoi, data.mpAverage.addRoad, data.mpAverage.updateRoad];
       this.charData.monthProduce.yAxis = [`新增POI ${data.mpAddPoi}个`,`更新PIO ${data.mpUpdatePoi}个`,`新增道路 ${data.mpAddRoad}公里`,`更新道路 ${data.mpUpdateRoad}公里`];
+    },
+    toggleDataSource: function(type) {
+      if (type === 'common'){
+        this.dataSourceStatus.commonInfoSource = !this.dataSourceStatus.commonInfoSource;
+      }else {
+        this.dataSourceStatus.crowdInfoSource = !this.dataSourceStatus.crowdInfoSource;
+      }
     }
   },
   created () {
@@ -237,7 +251,8 @@ export default {
     LineChart,
     DayChart,
     MonthChart,
-    Banner
+    Banner,
+    Global
   }
 };
 </script>
@@ -331,6 +346,8 @@ div.legendContainer div.legend>div{
   font-weight: 500;
   display: inline-block;
   line-height: 18px;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 div.legendContainer div.legend span{
@@ -343,9 +360,16 @@ div.legendContainer div.legend span{
 div.legendContainer div.legend span.commonInfo{
   background-color: #ff0000;
 }
+div.legendContainer div.legend span.commonInfoNone{
+  background-color: #9da0a4;
+}
 
 div.legendContainer div.legend span.crowdInfo{
   background-color: #ffff00;
+}
+
+div.legendContainer div.legend span.crowdInfoNone{
+  background-color: #9da0a4;
 }
 
 .num-yellow {

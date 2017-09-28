@@ -11,10 +11,28 @@ require('../../node_modules/cesium/Source/Widgets/widgets.css');
 
 export default {
   name: 'global',
-  data() {
-    return {};
+  props: ['crowdInfoSource', 'commonInfoSource'],
+  watch: {
+    crowdInfoSource: function () {
+      this.refreshDataSources();
+      console.log('crowdInfoSource');
+    },
+    commonInfoSource: function () {
+      this.refreshDataSources();
+      console.log('commonInfoSource');
+    }
   },
   methods: {
+    refreshDataSources () {
+      this.viewer.entities.removeAll();
+      if (this.$props.commonInfoSource){
+        this.refreshCommonData();
+      }
+      if (this.$props.crowdInfoSource){
+        this.refreshCrowdData();
+      }
+    },
+
     data2GeoJson (data) {
       let featureCollection={
         type: "FeatureCollection",
@@ -36,7 +54,7 @@ export default {
       const that = this;
       axios({
         method: 'get',
-        url: 'http://fs-road.navinfo.com/dev/trunk/service/statics/crowdInfo',
+        url: 'http://fastmap.navinfo.com/service/statics/crowdInfo',
       }).then(function (res) {
         let tempSourceData = null;
         if (res.data.errcode === 0) {
@@ -47,7 +65,7 @@ export default {
               position: Cesium.Cartesian3.fromDegrees(feature.geometry.coordinates[0],
                       feature.geometry.coordinates[1]),
               point: {
-                pixelSize: 10,
+                pixelSize: 5,
                 color: Cesium.Color.YELLOW
               }
             })
@@ -58,9 +76,10 @@ export default {
     },
 
     refreshCommonData () {
+      const that = this;
       axios({
         method: 'get',
-        url: 'http://fs-road.navinfo.com/dev/trunk/service/statics/commonInfo',
+        url: 'http://fastmap.navinfo.com/service/statics/commonInfo',
         dataType: 'json'
       }).then(function (res) {
         let tempSourceData = null;
@@ -72,7 +91,7 @@ export default {
               position: Cesium.Cartesian3.fromDegrees(feature.geometry.coordinates[0],
                       feature.geometry.coordinates[1]),
               point: {
-                pixelSize: 10,
+                pixelSize: 5,
                 color: Cesium.Color.RED
               }
             })
@@ -130,9 +149,12 @@ export default {
 
     this.viewer = viewer;
 
-    this.refreshCrowdData();
-    this.refreshCommonData();
+    this.refreshDataSources();
   },
+
+  beforeUpdate() {
+    this.refreshDataSources();
+  }
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
