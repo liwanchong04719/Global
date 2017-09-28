@@ -120,16 +120,14 @@ export default {
   },
   updated() {
   },
-  created () {
-    this.$nextTick(function() {
-                  this.drawGraph()
-              })
-  },
   watch: {
-    roadData: function () {
-          this.$nextTick(function() {
-              this.drawGraph()
-          })
+    roadData: {
+      handler(curVal,oldVal){
+        this.$nextTick(function() {
+          this.drawGraph()
+        })
+　　　　},
+　　　　deep:true //当单观察数据roadData为对象时,需要添加deep:true参数，否则监听不到方法
     }
   }
 }

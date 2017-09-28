@@ -21,7 +21,6 @@ import echarts from 'echarts'
 // require('echarts/theme/dark');
 
 export default {
-  name: 'test',
   props: ['poiData'],
   data () {
     return {
@@ -51,7 +50,7 @@ export default {
         // let dataShadow = this.shadowMax(seriesDataTemp)
         let xAxis = this.poiData.xAxis
         if (!this.chart) {
-            this.chart = echarts.init(document.getElementById('myBarPoiChart'))
+            this.chart = echarts.init(document.getElementById('myBarPoiChart'),'dark')
         }
 
         this.chart.showLoading()
@@ -116,18 +115,16 @@ export default {
   },
   updated() {
   },
-  created () {
-    this.$nextTick(function() {
-        this.drawGraph()
-    })
-  },
   watch: {
-    poiData: function () {
-          this.$nextTick(function() {
-              this.drawGraph()
-          })
+    poiData: {
+      handler(curVal,oldVal){
+        this.$nextTick(function() {
+          this.drawGraph()
+        })
+　　　　},
+　　　　deep:true //当单观察数据poiData为对象时,需要添加deep:true参数，否则监听不到方法
     }
-  }
+  },
 }
 </script>
 
