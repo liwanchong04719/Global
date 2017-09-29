@@ -30,16 +30,16 @@ export default {
   },
   methods: {
     // 获取背景柱状图数组
-    shadowMax(seriesData) {
+    shadowMax() {
       var max = 0;
       var maxArr = [];
-      for (let i = 0; i < seriesData.length; i++) {
-        if (max < seriesData[i]) {
-          max = seriesData[i]
+      for (let i = 0; i < this.poiData.updateData.length; i++) {
+        if (max < this.poiData.newData[i] + this.poiData.updateData[i]) {
+          max = this.poiData.newData[i] + this.poiData.updateData[i]
         }
       }
-      max = Math.ceil(max) + 10;
-      seriesData.forEach(function (item, index, arr) {
+      max = Math.ceil(max) + 20;
+      this.poiData.newData.forEach(function (item, index, arr) {
         maxArr[index] = max;
       });
       return maxArr;
@@ -47,7 +47,7 @@ export default {
     // 绘制表格
     drawGraph() {
         // let seriesDataTemp = this.poiData.seriesNewData
-        // let dataShadow = this.shadowMax(seriesDataTemp)
+        let dataShadow = this.shadowMax()
         let xAxis = this.poiData.xAxis
         if (!this.chart) {
             this.chart = echarts.init(document.getElementById('myBarPoiChart'))
@@ -57,14 +57,14 @@ export default {
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
-              left: 20,
+              left: 30,
               right: 20,
-              top: 0,
+              top: 10,
               bottom:30
             },
             xAxis: {
                 data: xAxis,
-                boundaryGap: false, // 坐标轴两边不留空白
+                boundaryGap: true, // 坐标轴两边留空白
                 axisLine: {
                   show:false
                 },
@@ -78,7 +78,14 @@ export default {
                 }
             },
             yAxis: {
-                show: false
+                show: true,
+                axisLabel: {
+                  fontSize: 12,
+                  color: '#FFFFFF',
+                },
+                splitLine: {
+                  show:false
+                },
             },
             calculable: true,
             series: [{    // For shadow
@@ -91,23 +98,28 @@ export default {
                  },
                  barGap:'-100%', // 两个柱子重叠
                  barCategoryGap:'80%', // 柱子之间的间距
-                 data: this.poiData.updateData,
+                 data: dataShadow, //this.poiData.updateData,
                  animation: false
              },{
                 type: 'bar',
-                itemStyle: {
-                  normal: {
-                    color: new echarts.graphic.LinearGradient( // 0,0,0,1表示从上到下渐变 0,0,1,0// 从左到右渐变
-                        0, 0, 0, 1,
-                        [
-                          {offset: 0.9, color: '#188df0'},
-                          {offset: 0, color: '#83baf3'}
-                        ]
-                    ),
-                    barBorderRadius:[5, 5, 0, 0]
-                  }
-                },
-                data: this.poiData.newData
+                stack: '总和',
+                data: this.poiData.updateData
+            },{
+               type: 'bar',
+               stack: '总和',
+               itemStyle: {
+                 normal: {
+                   color: new echarts.graphic.LinearGradient( // 0,0,0,1表示从上到下渐变 0,0,1,0// 从左到右渐变
+                       0, 0, 0, 1,
+                       [
+                         {offset: 0.9, color: '#188df0'},
+                         {offset: 0, color: '#83baf3'}
+                       ]
+                   ),
+                   barBorderRadius:[5, 5, 0, 0]
+                 }
+               },
+               data: this.poiData.newData
             }]
         })
         this.chart.hideLoading()
@@ -137,6 +149,6 @@ export default {
 }
 #myBarPoiChart {
     width: 400px;
-    height: 150px;
+    height: 140px;
 }
 </style>
