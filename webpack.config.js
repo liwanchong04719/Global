@@ -11,8 +11,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap }),
-    unknownContextCritical: false,
-    unknownContextRegExp: /^.\/.*$/,
   },
   output: {
     path: config.dev.assetsRoot,
@@ -50,7 +48,4 @@ module.exports = merge(baseWebpackConfig, {
       },
     ]),
   ],
-  externals: {
-    fs: true,
-  },
 });
