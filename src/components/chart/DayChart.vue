@@ -37,7 +37,6 @@ export default {
       this.dayProduce.barData.forEach(function (item, index, arr) {
         maxArr[index] = max;
       });
-      console.info('---',maxArr);
       return maxArr;
     },
     // 绘制表格
@@ -125,15 +124,15 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(function() {
-      this.drawGraph()
-    })
   },
   watch: {
-    dayProduce: function () {
-      this.$nextTick(function() {
+    dayProduce: {
+      handler(curVal,oldVal){
+        this.$nextTick(function() {
           this.drawGraph()
-      })
+        })
+　　　　},
+　　　　deep:true
     }
   }
 }

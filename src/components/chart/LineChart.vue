@@ -98,15 +98,15 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(function() {
-      this.drawGraph()
-    })
   },
   watch: {
-    dayProduce: function () {
-      this.$nextTick(function() {
+    chartData: {
+      handler(curVal,oldVal){
+        this.$nextTick(function() {
           this.drawGraph()
-      })
+        })
+　　　　},
+　　　　deep:true
     }
   }
 }
