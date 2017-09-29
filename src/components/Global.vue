@@ -4,7 +4,6 @@
 
 <script>
 import axios from 'axios';
-
 window.CESIUM_BASE_URL = './static/Cesium';
 const Cesium = require('../../node_modules/cesium/Source/Cesium.js');
 require('../../node_modules/cesium/Source/Widgets/widgets.css');
