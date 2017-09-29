@@ -18,9 +18,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true
-    }),
-    unknownContextCritical: false,
-    unknownContextRegExp: /^.\/.*$/
+    })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
@@ -99,10 +97,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
-  ],
-  externals: {
-    'fs': true
-  }
+  ]
 })
 
 if (config.build.productionGzip) {

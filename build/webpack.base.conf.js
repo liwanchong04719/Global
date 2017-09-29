@@ -70,6 +70,11 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
-    ]
-  }
+    ],    
+    unknownContextCritical: false,
+    unknownContextRegExp: /^.\/.*$/
+  },
+  externals: {
+    fs: true,
+  },
 }
