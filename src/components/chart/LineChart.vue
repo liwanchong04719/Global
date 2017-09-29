@@ -25,12 +25,12 @@ export default {
           this.chart = echarts.init(document.getElementById('myLineChart'))
         }
         this.chart.showLoading()
-        let legendData = [{ name:`用户轨迹点${this.chartData.inforTotal}个`, icon: 'roundRect'},
+        let legendData = [{ name:`情报量${this.chartData.inforTotal}个`, icon: 'roundRect'},
           { name:`用户问题反馈${this.chartData.userTotal}个`, icon: 'roundRect'},
           { name:`互联网信息${this.chartData.webTotal}个`, icon: 'roundRect'}
         ];
         let seriesData = [{
-            name:`用户轨迹点${this.chartData.inforTotal}个`,
+            name:`情报量${this.chartData.inforTotal}个`,
             type:'line',
             symbol:'none',  // 去掉点
             smooth: true,
