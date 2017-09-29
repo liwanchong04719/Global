@@ -51,7 +51,7 @@ export default {
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
-              left: 130,
+              left: 160,
               right: 20,
               top: 5,
               bottom: 15

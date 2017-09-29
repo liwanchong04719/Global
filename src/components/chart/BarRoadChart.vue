@@ -27,33 +27,27 @@ export default {
     return {
       msg: 'this is a bar Chart',
       chart: null,
-      // roadData: {
-        //seriesData: [17.0, 7, 70.0, 33.2, 25.5, 76.7, 95.6, 122.2, 32.6, 40.0, 65.4, 90.3],
-        //xAxis: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-      //}
     }
   },
   methods: {
     // 获取背景柱状图数组
-    shadowMax(seriesData) {
+    shadowMax() {
       var max = 0;
       var maxArr = [];
-      for (let i = 0; i < seriesData.length; i++) {
-        if (max < seriesData[i]) {
-          max = seriesData[i]
+      for (let i = 0; i < this.roadData.updateData.length; i++) {
+        if (max < this.roadData.newData[i] + this.roadData.updateData[i]) {
+          max = this.roadData.newData[i] + this.roadData.updateData[i]
         }
       }
-      max = Math.ceil(max) + 10;
-      seriesData.forEach(function (item, index, arr) {
+      max = Math.ceil(max) + 20;
+      this.roadData.newData.forEach(function (item, index, arr) {
         maxArr[index] = max;
       });
       return maxArr;
     },
     // 绘制表格
     drawGraph() {
-        // let seriesDataTemp = this.roadData.seriesData
-        // let dataShadow = this.shadowMax(seriesDataTemp);
-        // let xAxis = this.roadData.xAxis
+        let dataShadow = this.shadowMax();
         if (!this.chart) {
             this.chart = echarts.init(document.getElementById('myBarRoadChart'))
         }
@@ -62,14 +56,13 @@ export default {
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
-              left: 20,
+              left: 30,
               right: 20,
-              top: 0,
+              top: 10,
               bottom:30
             },
             xAxis: {
                 data: this.roadData.xAxis,
-                boundaryGap: false, // 坐标轴两边不留空白
                 axisLine: {
                   show:false
                 },
@@ -83,7 +76,14 @@ export default {
                 }
             },
             yAxis: {
-                show: false
+                show: true,
+                axisLabel: {
+                  fontSize: 12,
+                  color: '#FFFFFF',
+                },
+                splitLine: {
+                  show:false
+                },
             },
             calculable: true,
             series: [{    // For shadow
@@ -96,23 +96,28 @@ export default {
                  },
                  barGap:'-100%', // 两个柱子重叠
                  barCategoryGap:'80%', // 柱子之间的间距
-                 data: this.roadData.updateData,
+                 data: dataShadow,
                  animation: false
              },{
                 type: 'bar',
-                itemStyle: {
-                  normal: {
-                    color: new echarts.graphic.LinearGradient( // 0,0,0,1表示从上到下渐变 0,0,1,0// 从左到右渐变
-                        0, 0, 0, 1,
-                        [
-                          {offset: 0.9, color: '#188df0'},
-                          {offset: 0, color: '#83baf3'}
-                        ]
-                    ),
-                    barBorderRadius:[5, 5, 0, 0]
-                  }
-                },
-                data: this.roadData.newData
+                stack: '总和',
+                data: this.roadData.updateData
+            },{
+              type: 'bar',
+              stack: '总和',
+              itemStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient( // 0,0,0,1表示从上到下渐变 0,0,1,0// 从左到右渐变
+                      0, 0, 0, 1,
+                      [
+                        {offset: 0.9, color: '#188df0'},
+                        {offset: 0, color: '#83baf3'}
+                      ]
+                  ),
+                  barBorderRadius:[5, 5, 0, 0]
+                }
+              },
+              data: this.roadData.newData
             }]
         })
         this.chart.hideLoading()
@@ -142,6 +147,6 @@ export default {
 }
 #myBarRoadChart {
     width: 400px;
-    height: 150px;
+    height: 140px;
 }
 </style>
