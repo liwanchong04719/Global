@@ -37,7 +37,6 @@ export default {
       this.monthProduce.barData.forEach(function (item, index, arr) {
         maxArr[index] = max;
       });
-      console.info('---',maxArr);
       return maxArr;
     },
     // 绘制表格
@@ -130,10 +129,13 @@ export default {
     })
   },
   watch: {
-    dayProduce: function () {
-      this.$nextTick(function() {
+    monthProduce: {
+      handler(curVal,oldVal){
+        this.$nextTick(function() {
           this.drawGraph()
-      })
+        })
+　　　　},
+　　　　deep:true
     }
   }
 }
