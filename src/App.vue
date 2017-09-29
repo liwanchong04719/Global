@@ -15,6 +15,7 @@
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
+              <div class="row text-yellow-subTitle">自采</div>
               <bar-road-chart :roadData='charData.road'></bar-road-chart>
             </div>
           </div>
@@ -25,11 +26,31 @@
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
+              <div class="row text-yellow-subTitle">第三方数据</div>
               <line-chart :chartData='charData.thrid'></line-chart>
             </div>
           </div>
           <div class="row">
-            <div class="panel" style="height: 100px;width: 200px;"></div>
+            <div class="panel" style="height: 160px;">
+              <div class="row text-yellow-subTitle">众包</div>
+              <div style='display:flex;color:#FFFFFF;width:100%;padding:6px'>
+                <div style='flex:1 1 auto;text-align:center;'>当月活动用户</div>
+                <div style='flex:4 1 auto;'>
+                  <div>{{crowd.crowdUserNum}}个</div>
+                </div>
+              </div>
+              <div style='display:flex;color:#FFFFFF;width:100%;padding:6px'>
+                <div style='flex:1 1 auto;text-align:center;'>全年积累</div>
+                <div style='flex:1 1 auto;'>
+                  <div>采集道路</div>
+                  <div>采集poi</div>
+                </div>
+                <div style='flex:1 1 auto;'>
+                  <div>{{crowd.crowdRoadLen}}公里</div>
+                  <div>{{crowd.crowdPoiNum}}个</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col flex-layout-v">
@@ -71,16 +92,27 @@
           </div>
           <div class="row">
             <div class="panel" style="width: 400px;">
+              <div class="row text-yellow-subTitle">日出品</div>
               <day-chart :dayProduce="charData.dayProduce"></day-chart>
             </div>
           </div>
           <div class="row">
-            <div class="panel" style="height: 100px;width: 400px;">
+            <div class="panel" style="width: 400px;">
+              <div class="row text-yellow-subTitle">月出品</div>
               <month-chart :monthProduce="charData.monthProduce"></month-chart>
             </div>
           </div>
           <div class="row">
-            <div class="panel" style="height: 100px;width: 400px;">
+            <div class="panel" style="height: 160px;">
+              <div class="row text-yellow-subTitle">季出品 {{season.spVerson}}</div>
+              <div style='display:flex;color:#FFFFFF;padding:6px'>
+                <div style='flex:1 1 auto;'>更新道路{{season.spUpdateRoad}}公里</div>
+                <div style='flex:1 1 auto;'>更新POI{{season.spAddRoad}}个</div>
+              </div>
+              <div style='display:flex;color:#FFFFFF;padding:6px'>
+                <div style='flex:1 1 auto;'>新增道路{{season.spUpdatePoi}}公里</div>
+                <div style='flex:1 1 auto;'>新增POI{{season.spAddPoi}}个</div>
+              </div>
             </div>
           </div>
         </div>
@@ -104,6 +136,10 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       title:{
+      },
+      crowd:{
+      },
+      season:{
       },
       charData: {
         poi: {
@@ -162,6 +198,21 @@ export default {
       this.recomDayProduce(data);
       this.recomMonthProduce(data);
       this.recomThird(data);
+      this.crowdData(data);
+      this.seasonData(data);
+    },
+    seasonData: function (data) {
+      this.season.spUpdateRoad = data.spUpdateRoad;
+      this.season.spAddRoad = data.spAddRoad;
+      this.season.spUpdatePoi = data.spUpdatePoi;
+      this.season.spAddPoi = data.spAddPoi;
+      this.season.spVerson = data.spVerson;
+      console.info(this.season);
+    },
+    crowdData: function (data) { // 众包
+      this.crowd.crowdUserNum = data.crowdUserNum;
+      this.crowd.crowdRoadLen = data.crowdRoadLen;
+      this.crowd.crowdPoiNum = data.crowdPoiNum;
     },
     titleData: function (data) {
       this.title.roadLen = data.roadLen;
@@ -230,7 +281,6 @@ export default {
       this.charData.monthProduce.barData = [data.mpAddPoi, data.mpUpdatePoi, data.mpAddRoad, data.mpUpdateRoad];
       this.charData.monthProduce.lineData = [data.mpAverage.addPoi, data.mpAverage.updatePoi, data.mpAverage.addRoad, data.mpAverage.updateRoad];
       this.charData.monthProduce.yAxis = [`新增POI ${data.mpAddPoi}个`,`更新PIO ${data.mpUpdatePoi}个`,`新增道路 ${data.mpAddRoad}公里`,`更新道路 ${data.mpUpdateRoad}公里`];
-      // console.info(JSON.stringify(this.charData.monthProduce));
     },
     toggleDataSource: function(type) {
       if (type === 'common'){
@@ -425,7 +475,7 @@ div.legendContainer div.legend span.crowdInfoNone{
 .text-yellow-subTitle {
   text-align: left;
   font-weight: bold;
-  font-size: 26px;
+  font-size: 22px;
   color: yellow;
   padding: 10px 0;
 }
