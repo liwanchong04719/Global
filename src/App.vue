@@ -46,8 +46,8 @@
                   <div>采集poi</div>
                 </div>
                 <div style='flex:1 1 auto;'>
-                  <div>{{crowd.crowdRoadLen}}公里</div>
-                  <div>{{crowd.crowdPoiNum}}个</div>
+                  <div>{{crowd.crowdRoadLen}} 公里</div>
+                  <div>{{crowd.crowdPoiNum}} 个</div>
                 </div>
               </div>
             </div>
@@ -106,12 +106,12 @@
             <div class="panel" style="height: 160px;">
               <div class="row text-yellow-subTitle">季出品 {{season.spVerson}}</div>
               <div style='display:flex;color:#FFFFFF;padding:6px'>
-                <div style='flex:1 1 auto;'>更新道路{{season.spUpdateRoad}}公里</div>
-                <div style='flex:1 1 auto;'>更新POI{{season.spAddRoad}}个</div>
+                <div style='flex:1 1 auto;'>更新道路 {{season.spUpdateRoad}} 公里</div>
+                <div style='flex:1 1 auto;'>更新POI {{season.spAddRoad}} 个</div>
               </div>
               <div style='display:flex;color:#FFFFFF;padding:6px'>
-                <div style='flex:1 1 auto;'>新增道路{{season.spUpdatePoi}}公里</div>
-                <div style='flex:1 1 auto;'>新增POI{{season.spAddPoi}}个</div>
+                <div style='flex:1 1 auto;'>新增道路 {{season.spUpdatePoi}} 公里</div>
+                <div style='flex:1 1 auto;'>新增POI {{season.spAddPoi}} 个</div>
               </div>
             </div>
           </div>
@@ -275,12 +275,12 @@ export default {
     recomDayProduce: function (data) { // 重组road数据,使之符合图表格式
       this.charData.dayProduce.barData = [data.dpAddPoi,data.dpUpdatePoi,data.dpAddRoad,data.dpUpdateRoad];
       this.charData.dayProduce.lineData = [data.dpAverage.addPoi,data.dpAverage.updatePoi,data.dpAverage.addRoad,data.dpAverage.updateRoad];
-      this.charData.dayProduce.yAxis = [`新增POI ${data.dpAddPoi}个`,`更新PIO ${data.dpUpdatePoi}个`,`新增道路 ${data.dpAddRoad}公里`,`更新道路 ${data.dpUpdateRoad}公里`];
+      this.charData.dayProduce.yAxis = [`新增POI ${data.dpAddPoi}个`,`更新POI ${data.dpUpdatePoi}个`,`新增道路 ${data.dpAddRoad}公里`,`更新道路 ${data.dpUpdateRoad}公里`];
     },
     recomMonthProduce: function (data) { // 重组road数据,使之符合图表格式
       this.charData.monthProduce.barData = [data.mpAddPoi, data.mpUpdatePoi, data.mpAddRoad, data.mpUpdateRoad];
       this.charData.monthProduce.lineData = [data.mpAverage.addPoi, data.mpAverage.updatePoi, data.mpAverage.addRoad, data.mpAverage.updateRoad];
-      this.charData.monthProduce.yAxis = [`新增POI ${data.mpAddPoi}个`,`更新PIO ${data.mpUpdatePoi}个`,`新增道路 ${data.mpAddRoad}公里`,`更新道路 ${data.mpUpdateRoad}公里`];
+      this.charData.monthProduce.yAxis = [`新增POI ${data.mpAddPoi}个`,`更新POI ${data.mpUpdatePoi}个`,`新增道路 ${data.mpAddRoad}公里`,`更新道路 ${data.mpUpdateRoad}公里`];
     },
     toggleDataSource: function(type) {
       if (type === 'common'){
