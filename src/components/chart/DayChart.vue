@@ -51,7 +51,7 @@ export default {
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
-              left: 160,
+              left: 170,
               right: 20,
               top: 5,
               bottom: 15
@@ -96,13 +96,7 @@ export default {
                type:'bar',
                itemStyle: {
                  normal: {
-                   color: new echarts.graphic.LinearGradient( // 0,0,0,1表示从上到下渐变 0,0,1,0// 从左到右渐变
-                       0, 0, 0, 1,
-                       [
-                         {offset: 0.9, color: '#188df0'},
-                         {offset: 0, color: '#83baf3'}
-                       ]
-                   ),
+                   color: '#FF9933',
                    barBorderRadius:[0, 5, 5, 0]
                  }
                },
@@ -114,7 +108,7 @@ export default {
                smooth: true,
                itemStyle: {
                  normal: {
-                   color: '#FFA500'
+                   color: '#3333FF'
                  }
                },
                data: this.dayProduce.lineData

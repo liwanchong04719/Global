@@ -3,7 +3,7 @@
     <Global :crowdInfoSource='dataSourceStatus.crowdInfoSource' :commonInfoSource='dataSourceStatus.commonInfoSource'></Global>
     <div class="flex-layout-v fm-stretch float">
       <div class="row fm-stretch flex-layout">
-        <div class="col flex-layout-v">
+        <div class="col flex-layout-v" style='padding-left:10px;'>
           <div class="row">
             <div class="logo">
               <img src="./assets/navinfo.svg" style="width:240px;height: 80px;">
@@ -86,7 +86,7 @@
         <div class="col flex-layout-v">
           <div class="row">
             <Banner></Banner>
-            <div class="row text-yellow">
+            <div class="row text-yellow" style='color:#FF9933;'>
               数据出品
             </div>
           </div>
@@ -129,6 +129,7 @@ import DayChart from '@/components/chart/DayChart'
 import MonthChart from '@/components/chart/MonthChart'
 import Banner from '@/components/Banner';
 import Global from '@/components/Global';
+import axios from 'axios';
 
 export default {
   name: 'app',
@@ -174,6 +175,13 @@ export default {
       dataSourceStatus: {
         commonInfoSource: true,
         crowdInfoSource: true
+      },
+      websocket:{
+        ws:null,
+        lockReconnect: false, // 避免重复连接
+        timeout:5000,
+        interval: null,
+        wsUrl: 'ws://fastmap.navinfo.com/service/sys/sysMsg/webSocketServer?access_token=000002EWJ88G31WW2CE685DA3B6FC5D70D6102464942A49E'
       }
     }
   },
@@ -184,11 +192,16 @@ export default {
   },
   methods: {
     getChartData: function () {
-      let that = this;
-      that.$http.get('http://fastmap.navinfo.com/service/statics/productMonitor').then((data) => {
-        if (data && data.body.errcode == 0) {
-          that.recomData(data.body.data);
+      const that = this;
+      axios({
+        method: 'get',
+        url: 'http://fastmap.navinfo.com/service/statics/productMonitor',
+        // url: 'http://fs-road.navinfo.com/dev/trunk/service/statics/productMonitor',
+      }).then(function (res) {
+        if (res && res.data.errcode == 0) {
+          that.recomData(res.data.data);
         }
+      }).catch(function(err){
       })
     },
     recomData: function (data) {
@@ -207,7 +220,6 @@ export default {
       this.season.spUpdatePoi = data.spUpdatePoi;
       this.season.spAddPoi = data.spAddPoi;
       this.season.spVerson = data.spVerson;
-      console.info(this.season);
     },
     crowdData: function (data) { // 众包
       this.crowd.crowdUserNum = data.crowdUserNum;
@@ -263,6 +275,8 @@ export default {
       this.charData.thrid.inforTotal =  inforTotal;
       this.charData.thrid.userTotal =  userTotal;
       this.charData.thrid.webTotal =  webTotal;
+      this.charData.thrid.lineData = [[],[],[]];
+      this.charData.thrid.xAxis = [];
       for(let i in inforDetail){
         if (inforDetail.hasOwnProperty(i)) {
           this.charData.thrid.xAxis.push(i + '月');
@@ -289,40 +303,50 @@ export default {
         this.dataSourceStatus.crowdInfoSource = !this.dataSourceStatus.crowdInfoSource;
       }
     },
-    getTestData: function () {
-      // 赋值测试假数据数据(和接口返回的格式保持一致)
-      let data = {
+    createWebsocket: function (url) {
+      try {
+          this.websocket.ws = new WebSocket(url);
+          this.initEventHandle();
+      } catch (e) {
+        this.reconnect(url, this);
       }
-      data.cPoiAverage = {"1":{"update":16,"add":4},"2":{"update":12,"add":4},"3":{"update":12,"add":4},"4":{"update":12,"add":4},"5":{"update":12,"add":4},"6":{"update":62,"add":4},"7":{"update":12,"add":4},"8":{"update":12,"add":4},"9":{"update":30,"add":10},"10":{"update":40,"add":10},"11":{"update":0,"add":0},"12":{"update":0,"add":0}};
-      data.cUpdatePoi = 123;
-      data.cAddPoi = 23;
+    },
+    initEventHandle() {
+      let that = this;
+      this.websocket.ws.onopen = function () {
+      };
+      this.websocket.ws.onmessage = function (event) {
+        that.getChartData();
+      }
+      this.websocket.ws.onclose = function () {
+        that.reconnect(that.websocket.wsUrl, that);
+      };
+      this.websocket.ws.onerror = function () {
+        that.reconnect(that.websocket.wsUrl, that);
+      };
 
-      data.cRoadAverage = {"1":{"update":48,"add":4},"2":{"update":12,"add":4},"3":{"update":62,"add":54},"4":{"update":12,"add":4},"5":{"update":18,"add":14},"6":{"update":12,"add":4},"7":{"update":12,"add":4},"8":{"update":12,"add":4},"9":{"update":20,"add":0},"10":{"update":50,"add":10},"11":{"update":0,"add":0},"12":{"update":0,"add":0}};
-      data.cUpdateRoad = 233;
-      data.cAddRoad = 44;
-
-      data.dpAddPoi = 80;
-      data.dpUpdatePoi = 180;
-      data.dpAddRoad = 90;
-      data.dpUpdateRoad = 80;
-      data.dpAverage = {"updateRoad":80,"addRoad":60,"updatePoi":80,"addPoi":48}
-
-      data.mpAddPoi = 90;
-      data.mpUpdatePoi = 120;
-      data.mpAddRoad = 40;
-      data.mpUpdateRoad = 200;
-      data.mpAverage = {"updateRoad":180,"addRoad":160,"updatePoi":80,"addPoi":58}
-
-      data.thirdInforDetail = {'1':120,'2':132,'3':101,'4':101,'5':134,'6':90,'7':230,'8':'210','9':120,'10':132,'11':134,'12':90}; // 用户轨迹点 -- 数据情报收集
-      data.thirdUserDetail = {'1':220,'2':182,'3':191,'4':234,'5':290,'6':330,'7':310,'8':'220','9':182,'10':191,'11':234,'12':290}; // 用户问题反馈  -- 用户反馈
-      data.thirdWebDetail = {'1':150,'2':232,'3':201,'4':154,'5':190,'6':330,'7':410,'8':'150','9':232,'10':201,'11':154,'12':190};// 互联网信息  -- 互联网信息
-      data.thirdInforTotal = 250;
-      data.thirdUserTotal = 220;
-      data.thirdWebTotal = 260;
-      return data;
+      this.websocket.interval = setInterval(function () {
+        that.websocket.ws.send('HeartBeat');
+        if (that.websocket.ws.readyState == 3) {
+          clearInterval(that.websocket.interval);
+          return;
+        }
+      }, this.websocket.timeout);
+    },
+    reconnect(url, sel) {
+      if(sel.websocket.lockReconnect) {
+        return;
+      }
+      sel.websocket.lockReconnect = true;
+      let that = sel;
+      setTimeout(function () {
+          that.createWebsocket(url);
+          that.websocket.lockReconnect = false;
+      }, sel.websocket.timeout);
     }
   },
   created () {
+    this.createWebsocket(this.websocket.wsUrl);
     this.getChartData();
   },
   components: {
@@ -397,16 +421,16 @@ div.header>div.title:last-child {
 }
 
 div.header>div.title.h1 {
-  font-size: 40px;
+  font-size: 48px;
   font-weight: bold;
 }
 
 div.header>div.title.h2 {
-  font-size: 32px;
+  font-size: 34px;
 }
 
 div.header>div.title.h3 {
-  font-size: 32px;
+  font-size: 34px;
 }
 
 div.legendContainer {
@@ -427,7 +451,7 @@ div.legendContainer div.legend>div{
   display: inline-block;
   line-height: 18px;
   cursor: pointer;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 div.legendContainer div.legend span{
@@ -455,7 +479,7 @@ div.legendContainer div.legend span.crowdInfoNone{
 .num-yellow {
   font-weight: bold;
   font-size: 30px;
-  color: yellow;
+  color: #FF9933;
 }
 
 .num-white {
@@ -467,16 +491,16 @@ div.legendContainer div.legend span.crowdInfoNone{
 .text-yellow {
   text-align: center;
   font-weight: bold;
-  font-size: 32px;
-  color: yellow;
+  font-size: 34px;
+  color: #3333FF;
   padding: 10px 0;
 }
 
 .text-yellow-subTitle {
   text-align: left;
   font-weight: bold;
-  font-size: 22px;
-  color: yellow;
+  font-size: 24px;
+  color: #FFFFFF;
   padding: 10px 0;
 }
 </style>

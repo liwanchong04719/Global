@@ -29,8 +29,9 @@ export default {
       var max = 0;
       var maxArr = [];
       for (let i = 0; i < this.monthProduce.barData.length; i++) {
-        if (max < this.monthProduce.barData[i]) {
-          max = this.monthProduce.barData[i]
+        let temp = parseInt(this.monthProduce.barData[i]);
+        if (max < temp) {
+          max = temp
         }
       }
       max = Math.ceil(max) + 20;
@@ -96,13 +97,7 @@ export default {
                type:'bar',
                itemStyle: {
                  normal: {
-                   color: new echarts.graphic.LinearGradient( // 0,0,0,1表示从上到下渐变 0,0,1,0// 从左到右渐变
-                       0, 0, 0, 1,
-                       [
-                         {offset: 0.9, color: '#188df0'},
-                         {offset: 0, color: '#83baf3'}
-                       ]
-                   ),
+                   color: '#FF9933',
                    barBorderRadius:[0, 5, 5, 0]
                  }
                },
@@ -114,7 +109,7 @@ export default {
                smooth: true,
                itemStyle: {
                  normal: {
-                   color: '#FFA500'
+                   color: '#3333FF'
                  }
                },
                data: this.monthProduce.lineData
