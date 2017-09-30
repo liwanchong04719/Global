@@ -112,6 +112,7 @@ export default {
       geocoder: false,
       fullscreenButton: false,
       sceneModePicker: false,
+      selectionIndicator: false, // 禁用默认的entity选择
       imageryProvider: new Cesium.MapboxImageryProvider({
         mapId: 'mapbox.satellite',
         accessToken:
@@ -137,6 +138,9 @@ export default {
 
     viewer.extend(Cesium.viewerDragDropMixin);
 
+    // 禁用默认的双击一个entity后，自动缩放、定位操作
+    viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
     const initialPosition = Cesium.Cartesian3.fromDegrees(115.0, 40.69114333714821,
             15550000);
     viewer.scene.camera.setView({
@@ -144,7 +148,8 @@ export default {
       endTransform: Cesium.Matrix4.IDENTITY,
     });
 
-    viewer.scene.screenSpaceCameraController.enableRotate = false;
+    // 禁用默认的鼠标拖动来滚动地图
+    // viewer.scene.screenSpaceCameraController.enableRotate = false;
 
     this.viewer = viewer;
 
