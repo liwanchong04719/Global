@@ -3,7 +3,7 @@
     <Global :crowdInfoSource='dataSourceStatus.crowdInfoSource' :commonInfoSource='dataSourceStatus.commonInfoSource'></Global>
     <div class="flex-layout-v fm-stretch float">
       <div class="row fm-stretch flex-layout">
-        <div class="col flex-layout-v">
+        <div class="col flex-layout-v" style='padding-left:10px;'>
           <div class="row">
             <div class="logo">
               <img src="./assets/navinfo.svg" style="width:240px;height: 80px;">
@@ -46,8 +46,8 @@
                   <div>采集poi</div>
                 </div>
                 <div style='flex:1 1 auto;'>
-                  <div>{{crowd.crowdRoadLen}}公里</div>
-                  <div>{{crowd.crowdPoiNum}}个</div>
+                  <div>{{crowd.crowdRoadLen}} 公里</div>
+                  <div>{{crowd.crowdPoiNum}} 个</div>
                 </div>
               </div>
             </div>
@@ -86,7 +86,7 @@
         <div class="col flex-layout-v">
           <div class="row">
             <Banner></Banner>
-            <div class="row text-yellow">
+            <div class="row text-yellow" style='color:#FF9933;'>
               数据出品
             </div>
           </div>
@@ -106,12 +106,12 @@
             <div class="panel" style="height: 160px;">
               <div class="row text-yellow-subTitle">季出品 {{season.spVerson}}</div>
               <div style='display:flex;color:#FFFFFF;padding:6px'>
-                <div style='flex:1 1 auto;'>更新道路{{season.spUpdateRoad}}公里</div>
-                <div style='flex:1 1 auto;'>更新POI{{season.spAddRoad}}个</div>
+                <div style='flex:1 1 auto;'>更新道路 {{season.spUpdateRoad}} 公里</div>
+                <div style='flex:1 1 auto;'>更新POI {{season.spAddRoad}} 个</div>
               </div>
               <div style='display:flex;color:#FFFFFF;padding:6px'>
-                <div style='flex:1 1 auto;'>新增道路{{season.spUpdatePoi}}公里</div>
-                <div style='flex:1 1 auto;'>新增POI{{season.spAddPoi}}个</div>
+                <div style='flex:1 1 auto;'>新增道路 {{season.spUpdatePoi}} 公里</div>
+                <div style='flex:1 1 auto;'>新增POI {{season.spAddPoi}} 个</div>
               </div>
             </div>
           </div>
@@ -285,17 +285,16 @@ export default {
           this.charData.thrid.lineData[2].push(webDetail[i]);
         };
       }
-      console.info(this.charData.thrid);
     },
     recomDayProduce: function (data) { // 重组road数据,使之符合图表格式
       this.charData.dayProduce.barData = [data.dpAddPoi,data.dpUpdatePoi,data.dpAddRoad,data.dpUpdateRoad];
       this.charData.dayProduce.lineData = [data.dpAverage.addPoi,data.dpAverage.updatePoi,data.dpAverage.addRoad,data.dpAverage.updateRoad];
-      this.charData.dayProduce.yAxis = [`新增POI ${data.dpAddPoi}个`,`更新PIO ${data.dpUpdatePoi}个`,`新增道路 ${data.dpAddRoad}公里`,`更新道路 ${data.dpUpdateRoad}公里`];
+      this.charData.dayProduce.yAxis = [`新增POI ${data.dpAddPoi}个`,`更新POI ${data.dpUpdatePoi}个`,`新增道路 ${data.dpAddRoad}公里`,`更新道路 ${data.dpUpdateRoad}公里`];
     },
     recomMonthProduce: function (data) { // 重组road数据,使之符合图表格式
       this.charData.monthProduce.barData = [data.mpAddPoi, data.mpUpdatePoi, data.mpAddRoad, data.mpUpdateRoad];
       this.charData.monthProduce.lineData = [data.mpAverage.addPoi, data.mpAverage.updatePoi, data.mpAverage.addRoad, data.mpAverage.updateRoad];
-      this.charData.monthProduce.yAxis = [`新增POI ${data.mpAddPoi}个`,`更新PIO ${data.mpUpdatePoi}个`,`新增道路 ${data.mpAddRoad}公里`,`更新道路 ${data.mpUpdateRoad}公里`];
+      this.charData.monthProduce.yAxis = [`新增POI ${data.mpAddPoi}个`,`更新POI ${data.mpUpdatePoi}个`,`新增道路 ${data.mpAddRoad}公里`,`更新道路 ${data.mpUpdateRoad}公里`];
     },
     toggleDataSource: function(type) {
       if (type === 'common'){
@@ -303,38 +302,6 @@ export default {
       }else {
         this.dataSourceStatus.crowdInfoSource = !this.dataSourceStatus.crowdInfoSource;
       }
-    },
-    getTestData: function () {
-      // 赋值测试假数据数据(和接口返回的格式保持一致)
-      let data = {
-      }
-      data.cPoiAverage = {"1":{"update":16,"add":4},"2":{"update":12,"add":4},"3":{"update":12,"add":4},"4":{"update":12,"add":4},"5":{"update":12,"add":4},"6":{"update":62,"add":4},"7":{"update":12,"add":4},"8":{"update":12,"add":4},"9":{"update":30,"add":10},"10":{"update":40,"add":10},"11":{"update":0,"add":0},"12":{"update":0,"add":0}};
-      data.cUpdatePoi = 123;
-      data.cAddPoi = 23;
-
-      data.cRoadAverage = {"1":{"update":48,"add":4},"2":{"update":12,"add":4},"3":{"update":62,"add":54},"4":{"update":12,"add":4},"5":{"update":18,"add":14},"6":{"update":12,"add":4},"7":{"update":12,"add":4},"8":{"update":12,"add":4},"9":{"update":20,"add":0},"10":{"update":50,"add":10},"11":{"update":0,"add":0},"12":{"update":0,"add":0}};
-      data.cUpdateRoad = 233;
-      data.cAddRoad = 44;
-
-      data.dpAddPoi = 80;
-      data.dpUpdatePoi = 180;
-      data.dpAddRoad = 90;
-      data.dpUpdateRoad = 80;
-      data.dpAverage = {"updateRoad":80,"addRoad":60,"updatePoi":80,"addPoi":48}
-
-      data.mpAddPoi = 90;
-      data.mpUpdatePoi = 120;
-      data.mpAddRoad = 40;
-      data.mpUpdateRoad = 200;
-      data.mpAverage = {"updateRoad":180,"addRoad":160,"updatePoi":80,"addPoi":58}
-
-      data.thirdInforDetail = {'1':120,'2':132,'3':101,'4':101,'5':134,'6':90,'7':230,'8':'210','9':120,'10':132,'11':134,'12':90}; // 用户轨迹点 -- 数据情报收集
-      data.thirdUserDetail = {'1':220,'2':182,'3':191,'4':234,'5':290,'6':330,'7':310,'8':'220','9':182,'10':191,'11':234,'12':290}; // 用户问题反馈  -- 用户反馈
-      data.thirdWebDetail = {'1':150,'2':232,'3':201,'4':154,'5':190,'6':330,'7':410,'8':'150','9':232,'10':201,'11':154,'12':190};// 互联网信息  -- 互联网信息
-      data.thirdInforTotal = 250;
-      data.thirdUserTotal = 220;
-      data.thirdWebTotal = 260;
-      return data;
     },
     createWebsocket: function (url) {
       try {
@@ -454,16 +421,16 @@ div.header>div.title:last-child {
 }
 
 div.header>div.title.h1 {
-  font-size: 40px;
+  font-size: 48px;
   font-weight: bold;
 }
 
 div.header>div.title.h2 {
-  font-size: 32px;
+  font-size: 34px;
 }
 
 div.header>div.title.h3 {
-  font-size: 32px;
+  font-size: 34px;
 }
 
 div.legendContainer {
@@ -512,7 +479,7 @@ div.legendContainer div.legend span.crowdInfoNone{
 .num-yellow {
   font-weight: bold;
   font-size: 30px;
-  color: yellow;
+  color: #FF9933;
 }
 
 .num-white {
@@ -524,16 +491,16 @@ div.legendContainer div.legend span.crowdInfoNone{
 .text-yellow {
   text-align: center;
   font-weight: bold;
-  font-size: 32px;
-  color: yellow;
+  font-size: 34px;
+  color: #3333FF;
   padding: 10px 0;
 }
 
 .text-yellow-subTitle {
   text-align: left;
   font-weight: bold;
-  font-size: 22px;
-  color: yellow;
+  font-size: 24px;
+  color: #FFFFFF;
   padding: 10px 0;
 }
 </style>

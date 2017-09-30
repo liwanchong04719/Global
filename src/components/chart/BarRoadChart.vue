@@ -4,11 +4,11 @@
       <div style='width: 50px;'>道路</div>
       <div style='flex:1'>
         <div>更新积累值</div>
-        <div>{{roadData.cUpdateRoad}}公里</div>
+        <div>{{roadData.cUpdateRoad | splitSymbol}}公里</div>
       </div>
       <div style='flex:1'>
         <div>新增积累值</div>
-        <div>{{roadData.cAddRoad}}公里</div>
+        <div>{{roadData.cAddRoad | splitSymbol}}公里</div>
       </div>
     </div>
     <div id='myBarRoadChart'>
@@ -27,6 +27,11 @@ export default {
     return {
       msg: 'this is a bar Chart',
       chart: null,
+    }
+  },
+  filters: {
+    splitSymbol: function (value){ // 将数字三位隔开
+      return parseInt(value).toLocaleString();
     }
   },
   methods: {
@@ -101,19 +106,19 @@ export default {
              },{
                 type: 'bar',
                 stack: '总和',
+                itemStyle: {
+                  normal: {
+                    color: '#3399FF',
+                    barBorderRadius:[5, 5, 0, 0]
+                  }
+                },
                 data: this.roadData.updateData
             },{
               type: 'bar',
               stack: '总和',
               itemStyle: {
                 normal: {
-                  color: new echarts.graphic.LinearGradient( // 0,0,0,1表示从上到下渐变 0,0,1,0// 从左到右渐变
-                      0, 0, 0, 1,
-                      [
-                        {offset: 0.9, color: '#188df0'},
-                        {offset: 0, color: '#83baf3'}
-                      ]
-                  ),
+                  color: '#3333FF',
                   barBorderRadius:[5, 5, 0, 0]
                 }
               },

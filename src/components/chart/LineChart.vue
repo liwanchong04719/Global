@@ -25,15 +25,20 @@ export default {
           this.chart = echarts.init(document.getElementById('myLineChart'))
         }
         this.chart.showLoading()
-        let legendData = [{ name:`用户轨迹点${this.chartData.inforTotal}个`, icon: 'roundRect'},
+        let legendData = [{ name:`情报量${this.chartData.inforTotal}个`, icon: 'roundRect'},
           { name:`用户问题反馈${this.chartData.userTotal}个`, icon: 'roundRect'},
           { name:`互联网信息${this.chartData.webTotal}个`, icon: 'roundRect'}
         ];
         let seriesData = [{
-            name:`用户轨迹点${this.chartData.inforTotal}个`,
+            name:`情报量${this.chartData.inforTotal}个`,
             type:'line',
             symbol:'none',  // 去掉点
             smooth: true,
+            itemStyle: {
+              normal: {
+                color: '#FF9933'
+              }
+            },
             data: this.chartData.lineData[0]// [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
         },
         {
@@ -41,6 +46,11 @@ export default {
             type:'line',
             symbol:'none',
             smooth: true,
+            itemStyle: {
+              normal: {
+                color: '#3399FF'
+              }
+            },
             data: this.chartData.lineData[1]// [120, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290]
         },
         {
@@ -48,6 +58,11 @@ export default {
             type:'line',
             symbol:'none',
             smooth: true,
+            itemStyle: {
+              normal: {
+                color: '#3333FF'
+              }
+            },
             data: this.chartData.lineData[2] //[120, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190]
         }]
 
