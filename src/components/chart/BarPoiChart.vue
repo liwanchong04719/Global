@@ -103,6 +103,18 @@ export default {
              },{
                 type: 'bar',
                 stack: '总和',
+                itemStyle: {
+                  normal: {
+                         color: new echarts.graphic.LinearGradient( // 0,0,0,1表示从上到下渐变 0,0,1,0// 从左到右渐变
+                             0, 0, 0, 1,
+                             [
+                               {offset: 0.9, color: '#D53A35'},
+                               {offset: 0, color: '#D53A35'}
+                             ]
+                         ),
+                         barBorderRadius:[0, 0, 0, 0]
+                       }
+                },
                 data: this.poiData.updateData
             },{
                type: 'bar',

@@ -129,6 +129,7 @@ import DayChart from '@/components/chart/DayChart'
 import MonthChart from '@/components/chart/MonthChart'
 import Banner from '@/components/Banner';
 import Global from '@/components/Global';
+import axios from 'axios';
 
 export default {
   name: 'app',
@@ -174,6 +175,13 @@ export default {
       dataSourceStatus: {
         commonInfoSource: true,
         crowdInfoSource: true
+      },
+      websocket:{
+        ws:null,
+        lockReconnect: false, // 避免重复连接
+        timeout:5000,
+        interval: null,
+        wsUrl: 'ws://fastmap.navinfo.com/service/sys/sysMsg/webSocketServer?access_token=000002EWJ88G31WW2CE685DA3B6FC5D70D6102464942A49E'
       }
     }
   },
@@ -184,11 +192,16 @@ export default {
   },
   methods: {
     getChartData: function () {
-      let that = this;
-      that.$http.get('http://fastmap.navinfo.com/service/statics/productMonitor').then((data) => {
-        if (data && data.body.errcode == 0) {
-          that.recomData(data.body.data);
+      const that = this;
+      axios({
+        method: 'get',
+        // url: 'http://fastmap.navinfo.com/service/statics/productMonitor',
+        url: 'http://fs-road.navinfo.com/dev/trunk/service/statics/productMonitor',
+      }).then(function (res) {
+        if (res && res.data.errcode == 0) {
+          that.recomData(res.data.data);
         }
+      }).catch(function(err){
       })
     },
     recomData: function (data) {
@@ -207,7 +220,6 @@ export default {
       this.season.spUpdatePoi = data.spUpdatePoi;
       this.season.spAddPoi = data.spAddPoi;
       this.season.spVerson = data.spVerson;
-      console.info(this.season);
     },
     crowdData: function (data) { // 众包
       this.crowd.crowdUserNum = data.crowdUserNum;
@@ -263,6 +275,8 @@ export default {
       this.charData.thrid.inforTotal =  inforTotal;
       this.charData.thrid.userTotal =  userTotal;
       this.charData.thrid.webTotal =  webTotal;
+      this.charData.thrid.lineData = [[],[],[]];
+      this.charData.thrid.xAxis = [];
       for(let i in inforDetail){
         if (inforDetail.hasOwnProperty(i)) {
           this.charData.thrid.xAxis.push(i + '月');
@@ -271,6 +285,7 @@ export default {
           this.charData.thrid.lineData[2].push(webDetail[i]);
         };
       }
+      console.info(this.charData.thrid);
     },
     recomDayProduce: function (data) { // 重组road数据,使之符合图表格式
       this.charData.dayProduce.barData = [data.dpAddPoi,data.dpUpdatePoi,data.dpAddRoad,data.dpUpdateRoad];
@@ -320,9 +335,52 @@ export default {
       data.thirdUserTotal = 220;
       data.thirdWebTotal = 260;
       return data;
+    },
+    createWebsocket: function (url) {
+      try {
+          this.websocket.ws = new WebSocket(url);
+          this.initEventHandle();
+      } catch (e) {
+        this.reconnect(url, this);
+      }
+    },
+    initEventHandle() {
+      let that = this;
+      this.websocket.ws.onopen = function () {
+      };
+      this.websocket.ws.onmessage = function (event) {
+        that.getChartData();
+      }
+      this.websocket.ws.onclose = function () {
+        that.reconnect(that.websocket.wsUrl, that);
+      };
+      this.websocket.ws.onerror = function () {
+        that.reconnect(that.websocket.wsUrl, that);
+      };
+
+      this.websocket.interval = setInterval(function () {
+        that.websocket.ws.send('HeartBeat');
+        if (that.websocket.ws.readyState == 3) {
+          clearInterval(that.websocket.interval);
+          return;
+        }
+      }, this.websocket.timeout);
+    },
+    reconnect(url, sel) {
+      if(sel.websocket.lockReconnect) {
+        return;
+      }
+      sel.websocket.lockReconnect = true;
+      let that = sel;
+      setTimeout(function () {
+          that.createWebsocket(url);
+          that.websocket.lockReconnect = false;
+      }, sel.websocket.timeout);
     }
   },
   created () {
+    this.createWebsocket(this.websocket.wsUrl);
+    // this.createWebsocket();
     this.getChartData();
   },
   components: {
@@ -427,7 +485,7 @@ div.legendContainer div.legend>div{
   display: inline-block;
   line-height: 18px;
   cursor: pointer;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 div.legendContainer div.legend span{

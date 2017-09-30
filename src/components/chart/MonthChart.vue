@@ -29,8 +29,9 @@ export default {
       var max = 0;
       var maxArr = [];
       for (let i = 0; i < this.monthProduce.barData.length; i++) {
-        if (max < this.monthProduce.barData[i]) {
-          max = this.monthProduce.barData[i]
+        let temp = parseInt(this.monthProduce.barData[i]);
+        if (max < temp) {
+          max = temp
         }
       }
       max = Math.ceil(max) + 20;
