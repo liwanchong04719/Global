@@ -34,6 +34,11 @@ export default {
             type:'line',
             symbol:'none',  // 去掉点
             smooth: true,
+            itemStyle: {
+              normal: {
+                color: '#FF9933'
+              }
+            },
             data: this.chartData.lineData[0]// [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
         },
         {
@@ -41,6 +46,11 @@ export default {
             type:'line',
             symbol:'none',
             smooth: true,
+            itemStyle: {
+              normal: {
+                color: '#3399FF'
+              }
+            },
             data: this.chartData.lineData[1]// [120, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290]
         },
         {
@@ -48,6 +58,11 @@ export default {
             type:'line',
             symbol:'none',
             smooth: true,
+            itemStyle: {
+              normal: {
+                color: '#3333FF'
+              }
+            },
             data: this.chartData.lineData[2] //[120, 232, 201, 154, 190, 330, 410, 150, 232, 201, 154, 190]
         }]
 
