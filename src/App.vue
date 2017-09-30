@@ -195,8 +195,8 @@ export default {
       const that = this;
       axios({
         method: 'get',
-        // url: 'http://fastmap.navinfo.com/service/statics/productMonitor',
-        url: 'http://fs-road.navinfo.com/dev/trunk/service/statics/productMonitor',
+        url: 'http://fastmap.navinfo.com/service/statics/productMonitor',
+        // url: 'http://fs-road.navinfo.com/dev/trunk/service/statics/productMonitor',
       }).then(function (res) {
         if (res && res.data.errcode == 0) {
           that.recomData(res.data.data);
@@ -380,7 +380,6 @@ export default {
   },
   created () {
     this.createWebsocket(this.websocket.wsUrl);
-    // this.createWebsocket();
     this.getChartData();
   },
   components: {
@@ -390,7 +389,7 @@ export default {
     DayChart,
     MonthChart,
     Banner,
-    Global
+    // Global
   }
 };
 </script>
