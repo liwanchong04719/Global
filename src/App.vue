@@ -135,8 +135,11 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       title:{
+        perUpdateRoad:0,
+        perAddRoad: 0,
+        perUpdatePoi: 0,
+        perAddPoi:0
       },
       crowd:{
       },
@@ -233,6 +236,37 @@ export default {
       this.title.perAddRoad = data.perAddRoad;
       this.title.perUpdatePoi = data.perUpdatePoi;
       this.title.perAddPoi = data.perAddPoi;
+
+
+      // web端做数据更新
+      this.title.perAddRoad = 100;
+      this.title.perUpdateRoad = 200;
+
+      let originData = initTitleData(data);
+      let perAddRoad = data.perAddRoad;
+      let baseAddRad = 0;
+      var times = 500;
+      let step = Math.ceil(data.perAddRoad /times);
+      let that = this;
+      this.interval = setInterval(function () {
+        baseAddRad = baseAddRad + 18;
+        that.updateTitle(baseAddRad);
+        if (perAddRoad < baseAddRad) {
+          clearInterval(this.interval);
+        }
+      },2000);
+    },
+    updateTitle: function (baseAddRad) {
+      this.title.perAddRoad = baseAddRad;
+      console.info(this.title.perAddRoad);
+    },
+    initTitleData: function (data) {
+      let returnData = {};
+      returnData.perUpdateRoad = data.perUpdateRoad;
+      returnData.perAddRoad = data.perAddRoad;
+      data.perUpdateRoad = 0;
+      data.perAddRoad = 0;
+      return returnData;
     },
     recomPoi: function (data) { // 重组poi数据,使之符合图表格式
       let poiAvg = data.cPoiAverage;
@@ -346,8 +380,12 @@ export default {
     }
   },
   created () {
-    this.createWebsocket(this.websocket.wsUrl);
+    //  this.createWebsocket(this.websocket.wsUrl);
     this.getChartData();
+  },
+  beforeDestroy () {
+    console.info('beforDestory ');
+    clearInterval(this.interval);
   },
   components: {
     BarPoiChart,
@@ -356,7 +394,7 @@ export default {
     DayChart,
     MonthChart,
     Banner,
-    Global
+    // Global
   }
 };
 </script>
