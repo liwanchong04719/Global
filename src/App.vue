@@ -225,7 +225,7 @@ export default {
       }
       new TWEEN.Tween({ tweeningNumber: oldValue })
         .easing(TWEEN.Easing.Quadratic.Out)
-        .to({ tweeningNumber: newValue }, 1000 * 10) // 数据变化持续10秒
+        .to({ tweeningNumber: newValue }, 1000 * 50) // 数据变化持续50秒
         .onUpdate(function () {
           vm.title[lable] = this.tweeningNumber.toFixed(0)
         })
@@ -270,7 +270,7 @@ export default {
     },
     titleData: function (data) {
       let perAddRoad = data.perAddRoad;
-      let times = 480; // 总共更新的次数 （一分钟刷新一次，8小时刷新480次，可以根据具体效果设置时长，但是不能小于10秒）
+      let times = 480; // 总共更新的次数 （一分钟刷新一次，8小时刷新480次，可以根据具体效果设置时长）
       let intervalTimes = 1000 * 60 * 1;
       let that = this;
       if (this.interval) {
