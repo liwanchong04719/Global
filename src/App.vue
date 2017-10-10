@@ -269,8 +269,8 @@ export default {
     },
     titleData: function (data) {
       let perAddRoad = data.perAddRoad;
-      let times = 240; // 总共更新的次数 （两分钟刷新一次，8小时刷新240次）
-      let intervalTimes = 1000 * 60 * 2;
+      let times = 480; // 总共更新的次数 （一分钟刷新一次，8小时刷新480次，可以根据具体效果设置时长，但是不能小于10秒）
+      let intervalTimes = 1000 * 60 * 1;
       let that = this;
       if (this.interval) {
         clearInterval(this.interval);
@@ -450,7 +450,7 @@ export default {
     DayChart,
     MonthChart,
     Banner,
-    Global
+    // Global
   }
 };
 </script>
