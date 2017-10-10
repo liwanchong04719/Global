@@ -65,13 +65,13 @@
             </div>
             <div class="title h3">
               今天 道路更新：
-              <span class="num-white">{{title.perUpdateRoad | splitSymbol}}</span> 公里 新增道路：
-              <span class="num-white">{{title.perAddRoad | splitSymbol}}</span> 公里
+              <span class="num-white">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里 新增道路：
+              <span class="num-white">{{title.perAddRoadLable | splitSymbol}}</span> 公里
             </div>
             <div class="title h3">
               POI更新：
-              <span class="num-white">{{title.perUpdatePoi | splitSymbol}}</span> 个 新增：
-              <span class="num-white">{{title.perAddPoi | splitSymbol}}</span> 个
+              <span class="num-white">{{title.perUpdatePoiLable | splitSymbol}}</span> 个 新增：
+              <span class="num-white">{{title.perAddPoiLable | splitSymbol}}</span> 个
             </div>
           </div>
           <div class="legendContainer">
@@ -131,6 +131,8 @@ import Banner from '@/components/Banner';
 import Global from '@/components/Global';
 import axios from 'axios';
 
+var TWEEN = require('@tweenjs/tween.js');
+
 export default {
   name: 'app',
   data () {
@@ -139,7 +141,11 @@ export default {
         perUpdateRoad:0,
         perAddRoad: 0,
         perUpdatePoi: 0,
-        perAddPoi:0
+        perAddPoi:0,
+        perAddRoadLable:0,
+        perUpdateRoadLable:0,
+        perAddPoiLable:0,
+        perUpdatePoiLable:0
       },
       crowd:{
       },
@@ -178,13 +184,6 @@ export default {
       dataSourceStatus: {
         commonInfoSource: true,
         crowdInfoSource: true
-      },
-      websocket:{
-        ws:null,
-        lockReconnect: false, // 避免重复连接
-        timeout:5000,
-        interval: null,
-        wsUrl: 'ws://fastmap.navinfo.com/service/sys/sysMsg/webSocketServer?access_token=000002EWJ88G31WW2CE685DA3B6FC5D70D6102464942A49E'
       }
     }
   },
@@ -193,7 +192,45 @@ export default {
       return parseInt(value).toLocaleString();
     }
   },
+  watch: { // 用于统计信息的过度效果显示
+    'title.perAddRoad': {
+      handler: function (newValue, oldValue) {
+        this.tweenChange('perAddRoadLable', newValue, oldValue);
+      }
+    },
+    'title.perUpdateRoad': {
+      handler: function (newValue, oldValue) {
+        this.tweenChange('perUpdateRoadLable', newValue, oldValue);
+      }
+    },
+    'title.perAddPoi': {
+      handler: function (newValue, oldValue) {
+        this.tweenChange('perAddPoiLable', newValue, oldValue);
+      }
+    },
+    'title.perUpdatePoi': {
+      handler: function (newValue, oldValue) {
+        this.tweenChange('perUpdatePoiLable', newValue, oldValue);
+      }
+    }
+  },
   methods: {
+    tweenChange: function (lable, newValue, oldValue) {  // 用于统计信息的过度效果显示
+      let vm = this;
+      function animate () {
+        if (TWEEN.update()) {
+          requestAnimationFrame(animate)
+        }
+      }
+      new TWEEN.Tween({ tweeningNumber: oldValue })
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({ tweeningNumber: newValue }, 1000 * 10) // 数据变化持续10秒
+        .onUpdate(function () {
+          vm.title[lable] = this.tweeningNumber.toFixed(0)
+        })
+        .start()
+      animate()
+    },
     getChartData: function () {
       const that = this;
       axios({
@@ -207,7 +244,8 @@ export default {
       }).catch(function(err){
       })
     },
-    recomData: function (data) {
+    recomData: function (data) { // 格式化接口数据
+      this.initOriginData(data);
       this.titleData(data);
       this.recomPoi(data)
       this.recomRoad(data)
@@ -230,43 +268,99 @@ export default {
       this.crowd.crowdPoiNum = data.crowdPoiNum;
     },
     titleData: function (data) {
+      let perAddRoad = data.perAddRoad;
+      let times = 240; // 总共更新的次数 （两分钟刷新一次，8小时刷新240次）
+      let intervalTimes = 1000 * 60 * 2;
+      let that = this;
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+      this.interval = setInterval(function () {
+        let improve1 = that.updatePerAddRoad(times, data);
+        let improve2 = that.updatePerUpdateRoad(times, data);
+        that.title.roadLen = that.title.roadLen + improve1 + improve2;
+        console.info(that.title.roadLen);
+
+        let improve3 = that.updatePerAddPoi(times, data);
+        let improve4 = that.updatePerUpdatePoi(times, data);
+        that.title.poiNum = that.title.poiNum + improve3 + improve4;
+
+
+        let currentMonth = new Date().getMonth() + 1;
+        data.cRoadAverage[currentMonth].add = data.cRoadAverage[currentMonth].add + improve1;
+        data.cRoadAverage[currentMonth].update = data.cRoadAverage[currentMonth].update + improve2;
+        data.cPoiAverage[currentMonth].add = data.cPoiAverage[currentMonth].add + improve3;
+        data.cPoiAverage[currentMonth].update = data.cPoiAverage[currentMonth].update + improve4;
+        that.recomPoi(data)
+        that.recomRoad(data)
+
+      }, intervalTimes);
+    },
+    updatePerAddRoad: function (times, data) {
+      let addStep = 0;
+      let step = Math.ceil(data.perAddRoad /times);
+      if ((this.title.perAddRoad + step) < data.perAddRoad) {
+        this.title.perAddRoad = this.title.perAddRoad + step;
+        addStep = step;
+      } else {
+        addStep = data.perAddRoad - this.title.perAddRoad
+        this.title.perAddRoad = data.perAddRoad;
+      }
+      return addStep;
+    },
+    updatePerUpdateRoad: function (times, data) {
+      let addStep = 0;
+      let step = Math.ceil(data.perUpdateRoad /times);
+      if ((this.title.perUpdateRoad + step) < data.perUpdateRoad) {
+        this.title.perUpdateRoad = this.title.perUpdateRoad + step;
+        addStep = step;
+      } else {
+        addStep = data.perUpdateRoad - this.title.perUpdateRoad;
+        this.title.perUpdateRoad = data.perUpdateRoad;
+      }
+      return addStep;
+    },
+    updatePerAddPoi: function (times, data) {
+      let addStep = 0;
+      let step = Math.ceil(data.perAddPoi /times);
+      if ((this.title.perAddPoi + step) < data.perAddPoi) {
+        this.title.perAddPoi = this.title.perAddPoi + step;
+        addStep = step;
+      } else {
+        addStep = data.perAddPoi - this.title.perAddPoi
+        this.title.perAddPoi = data.perAddPoi;
+      }
+      return addStep;
+    },
+    updatePerUpdatePoi: function (times, data) {
+      let addStep = 0;
+      let step = Math.ceil(data.perUpdatePoi /times);
+      if ((this.title.perUpdatePoi + step) < data.perUpdatePoi) {
+        this.title.perUpdatePoi = this.title.perUpdatePoi + step;
+        addStep = step;
+      } else {
+        addStep = data.perUpdatePoi - this.title.perUpdatePoi;
+        this.title.perUpdatePoi = data.perUpdatePoi;
+      }
+      return addStep;
+    },
+    initOriginData: function (data) {
+      // 重置总量
+      data.roadLen = data.roadLen - data.perAddRoad - data.perUpdateRoad;
+      data.poiNum = data.poiNum - data.perAddPoi - data.perUpdatePoi;
       this.title.roadLen = data.roadLen;
       this.title.poiNum = data.poiNum;
-      this.title.perUpdateRoad = data.perUpdateRoad;
-      this.title.perAddRoad = data.perAddRoad;
-      this.title.perUpdatePoi = data.perUpdatePoi;
-      this.title.perAddPoi = data.perAddPoi;
-
-
-      // web端做数据更新
-      this.title.perAddRoad = 100;
-      this.title.perUpdateRoad = 200;
-
-      let originData = initTitleData(data);
-      let perAddRoad = data.perAddRoad;
-      let baseAddRad = 0;
-      var times = 500;
-      let step = Math.ceil(data.perAddRoad /times);
-      let that = this;
-      this.interval = setInterval(function () {
-        baseAddRad = baseAddRad + 18;
-        that.updateTitle(baseAddRad);
-        if (perAddRoad < baseAddRad) {
-          clearInterval(this.interval);
-        }
-      },2000);
-    },
-    updateTitle: function (baseAddRad) {
-      this.title.perAddRoad = baseAddRad;
-      console.info(this.title.perAddRoad);
-    },
-    initTitleData: function (data) {
-      let returnData = {};
-      returnData.perUpdateRoad = data.perUpdateRoad;
-      returnData.perAddRoad = data.perAddRoad;
-      data.perUpdateRoad = 0;
-      data.perAddRoad = 0;
-      return returnData;
+      // 初始化今日更新
+      this.title.perUpdateRoad = 0;
+      this.title.perAddRoad = 0;
+      this.title.perUpdatePoi = 0;
+      this.title.perAddPoi = 0;
+      // 初始化自采道路图表
+      let currentMonth = new Date().getMonth() + 1;
+      data.cRoadAverage[currentMonth].add = data.cRoadAverage[currentMonth].add - data.perAddRoad;
+      data.cRoadAverage[currentMonth].update = data.cRoadAverage[currentMonth].update - data.perUpdateRoad;
+      data.cPoiAverage[currentMonth].add = data.cPoiAverage[currentMonth].add - data.perAddPoi;
+      data.cPoiAverage[currentMonth].update = data.cPoiAverage[currentMonth].update - data.perUpdatePoi;
     },
     recomPoi: function (data) { // 重组poi数据,使之符合图表格式
       let poiAvg = data.cPoiAverage;
@@ -336,55 +430,18 @@ export default {
       }else {
         this.dataSourceStatus.crowdInfoSource = !this.dataSourceStatus.crowdInfoSource;
       }
-    },
-    createWebsocket: function (url) {
-      try {
-          this.websocket.ws = new WebSocket(url);
-          this.initEventHandle();
-      } catch (e) {
-        this.reconnect(url, this);
-      }
-    },
-    initEventHandle() {
-      let that = this;
-      this.websocket.ws.onopen = function () {
-      };
-      this.websocket.ws.onmessage = function (event) {
-        that.getChartData();
-      }
-      this.websocket.ws.onclose = function () {
-        that.reconnect(that.websocket.wsUrl, that);
-      };
-      this.websocket.ws.onerror = function () {
-        that.reconnect(that.websocket.wsUrl, that);
-      };
-
-      this.websocket.interval = setInterval(function () {
-        that.websocket.ws.send('HeartBeat');
-        if (that.websocket.ws.readyState == 3) {
-          clearInterval(that.websocket.interval);
-          return;
-        }
-      }, this.websocket.timeout);
-    },
-    reconnect(url, sel) {
-      if(sel.websocket.lockReconnect) {
-        return;
-      }
-      sel.websocket.lockReconnect = true;
-      let that = sel;
-      setTimeout(function () {
-          that.createWebsocket(url);
-          that.websocket.lockReconnect = false;
-      }, sel.websocket.timeout);
     }
   },
   created () {
-    //  this.createWebsocket(this.websocket.wsUrl);
     this.getChartData();
+    setInterval(function () {
+      var date = new Date();
+      if (date.getHours() == 7) { // 每天7点执行一次
+        this.getChartData();
+      }
+    }, 1000*60*60)
   },
   beforeDestroy () {
-    console.info('beforDestory ');
     clearInterval(this.interval);
   },
   components: {
@@ -394,7 +451,7 @@ export default {
     DayChart,
     MonthChart,
     Banner,
-    // Global
+    Global
   }
 };
 </script>
