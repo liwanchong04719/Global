@@ -1,6 +1,6 @@
 <template>
   <div class="flex-layout-v fm-stretch" style='background-color:black;'>
-    <Global :crowdInfoSource='dataSourceStatus.crowdInfoSource' :commonInfoSource='dataSourceStatus.commonInfoSource'></Global>
+    <Global :randomData="dataSourceStatus.randomData" :crowdInfoSource='dataSourceStatus.crowdInfoSource' :commonInfoSource='dataSourceStatus.commonInfoSource'></Global>
     <div class="flex-layout-v fm-stretch float">
       <div class="row fm-stretch flex-layout">
         <div class="col flex-layout-v" style='padding-left:10px;'>
@@ -183,6 +183,7 @@ export default {
       },
       dataSourceStatus: {
         commonInfoSource: true,
+        randomData:Math.random(),
         crowdInfoSource: true
       }
     }
@@ -292,6 +293,8 @@ export default {
         data.cPoiAverage[currentMonth].update = data.cPoiAverage[currentMonth].update + improve4;
         that.recomPoi(data)
         that.recomRoad(data)
+
+        that.dataSourceStatus.randomData = Math.random();
 
       }, intervalTimes);
     },
