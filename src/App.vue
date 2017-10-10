@@ -279,7 +279,6 @@ export default {
         let improve1 = that.updatePerAddRoad(times, data);
         let improve2 = that.updatePerUpdateRoad(times, data);
         that.title.roadLen = that.title.roadLen + improve1 + improve2;
-        console.info(that.title.roadLen);
 
         let improve3 = that.updatePerAddPoi(times, data);
         let improve4 = that.updatePerUpdatePoi(times, data);
