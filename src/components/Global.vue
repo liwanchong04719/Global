@@ -10,7 +10,7 @@ require('../../node_modules/cesium/Source/Widgets/widgets.css');
 
 export default {
   name: 'global',
-  props: ['crowdInfoSource', 'commonInfoSource', 'randomData'],
+  props: ['crowdInfoSource', 'commonInfoSource', 'randomData', 'poiChangedNum'],
   watch: {
     crowdInfoSource: function () {
       this.refreshDataSources();
@@ -19,7 +19,7 @@ export default {
       this.refreshDataSources();
     },
     randomData: function () {
-      this.generateRandomPoint();
+      this.generateRandomPoint(this.$props.poiChangedNum);
       this.refreshDataSources();
     }
   },
@@ -36,18 +36,19 @@ export default {
         this.viewer.entities.add(this.viewer.randomPoint[i]);
       }
     },
-    generateRandomPoint () {
+    generateRandomPoint (num) {
       const minLat = 25;
       const maxLat = 45;
       const minLon = 110;
       const maxLon = 120;
       this.viewer.randomPoint = [];
-      for (let i = 0; i< 30; i++){
+      console.log(num);
+      for (let i = 0; i< num; i++){
         let initialOpacity = 0.1;
         const tmpEntity = {
           position: Cesium.Cartesian3.fromDegrees(minLon + (maxLon - minLon) * Math.random(), minLat + (maxLat - minLat) * Math.random()),
           point: {
-            pixelSize: 5,
+            pixelSize: 7,
             color: new Cesium.CallbackProperty(function(){
               initialOpacity += 0.03;
               if (initialOpacity >= 1){
@@ -59,6 +60,9 @@ export default {
         };
         this.viewer.randomPoint.push(tmpEntity);
       }
+    },
+    generateRandomRoad (num) {
+
     },
     data2GeoJson (data) {
       let featureCollection={

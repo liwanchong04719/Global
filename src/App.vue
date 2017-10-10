@@ -1,6 +1,6 @@
 <template>
   <div class="flex-layout-v fm-stretch" style='background-color:black;'>
-    <Global :randomData="dataSourceStatus.randomData" :crowdInfoSource='dataSourceStatus.crowdInfoSource' :commonInfoSource='dataSourceStatus.commonInfoSource'></Global>
+    <Global :randomData="dataSourceStatus.randomData" :poiChangedNum="dataSourceStatus.poiChangedNum" :crowdInfoSource='dataSourceStatus.crowdInfoSource' :commonInfoSource='dataSourceStatus.commonInfoSource'></Global>
     <div class="flex-layout-v fm-stretch float">
       <div class="row fm-stretch flex-layout">
         <div class="col flex-layout-v" style='padding-left:10px;'>
@@ -184,6 +184,7 @@ export default {
       dataSourceStatus: {
         commonInfoSource: true,
         randomData:Math.random(),
+        poiChangedNum: Math.random(),
         crowdInfoSource: true
       }
     }
@@ -227,7 +228,7 @@ export default {
         .easing(TWEEN.Easing.Quadratic.Out)
         .to({ tweeningNumber: newValue }, 1000 * 50) // 数据变化持续50秒
         .onUpdate(function () {
-          vm.title[lable] = this.tweeningNumber.toFixed(0)
+          vm.title[lable] = this.tweeningNumber.toFixed(0);
         })
         .start()
       animate()
@@ -286,6 +287,9 @@ export default {
         that.title.poiNum = that.title.poiNum + improve3 + improve4;
 
 
+        that.dataSourceStatus.randomData = Math.random();
+        that.dataSourceStatus.poiChangedNum = improve3 + improve4;
+
         let currentMonth = new Date().getMonth() + 1;
         data.cRoadAverage[currentMonth].add = data.cRoadAverage[currentMonth].add + improve1;
         data.cRoadAverage[currentMonth].update = data.cRoadAverage[currentMonth].update + improve2;
@@ -293,9 +297,6 @@ export default {
         data.cPoiAverage[currentMonth].update = data.cPoiAverage[currentMonth].update + improve4;
         that.recomPoi(data)
         that.recomRoad(data)
-
-        that.dataSourceStatus.randomData = Math.random();
-
       }, intervalTimes);
     },
     updatePerAddRoad: function (times, data) {
@@ -344,6 +345,7 @@ export default {
         addStep = data.perUpdatePoi - this.title.perUpdatePoi;
         this.title.perUpdatePoi = data.perUpdatePoi;
       }
+
       return addStep;
     },
     initOriginData: function (data) {
@@ -548,7 +550,7 @@ div.legendContainer div.legend>div{
   display: inline-block;
   line-height: 18px;
   cursor: pointer;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 div.legendContainer div.legend span{
