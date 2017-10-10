@@ -10,15 +10,17 @@ require('../../node_modules/cesium/Source/Widgets/widgets.css');
 
 export default {
   name: 'global',
-  props: ['crowdInfoSource', 'commonInfoSource'],
+  props: ['crowdInfoSource', 'commonInfoSource', 'randomData'],
   watch: {
     crowdInfoSource: function () {
       this.refreshDataSources();
-      console.log('crowdInfoSource');
     },
     commonInfoSource: function () {
       this.refreshDataSources();
-      console.log('commonInfoSource');
+    },
+    randomData: function () {
+      this.generateRandomPoint();
+      this.refreshDataSources();
     }
   },
   methods: {
@@ -30,8 +32,34 @@ export default {
       if (this.$props.crowdInfoSource){
         this.refreshCrowdData();
       }
+      for (let i = 0; i<this.viewer.randomPoint.length; i++) {
+        this.viewer.entities.add(this.viewer.randomPoint[i]);
+      }
     },
-
+    generateRandomPoint () {
+      const minLat = 25;
+      const maxLat = 45;
+      const minLon = 110;
+      const maxLon = 120;
+      this.viewer.randomPoint = [];
+      for (let i = 0; i< 30; i++){
+        let initialOpacity = 0.1;
+        const tmpEntity = {
+          position: Cesium.Cartesian3.fromDegrees(minLon + (maxLon - minLon) * Math.random(), minLat + (maxLat - minLat) * Math.random()),
+          point: {
+            pixelSize: 5,
+            color: new Cesium.CallbackProperty(function(){
+              initialOpacity += 0.03;
+              if (initialOpacity >= 1){
+                initialOpacity = 0.1;
+              }
+              return Cesium.Color.fromAlpha(Cesium.Color.CYAN, initialOpacity);
+            }, false)
+          }
+        };
+        this.viewer.randomPoint.push(tmpEntity);
+      }
+    },
     data2GeoJson (data) {
       let featureCollection={
         type: "FeatureCollection",
@@ -56,8 +84,10 @@ export default {
         url: 'http://fastmap.navinfo.com/service/statics/crowdInfo',
       }).then(function (res) {
         let tempSourceData = null;
+        let initialOpacity = 0.1;
         if (res.data.errcode === 0) {
           tempSourceData = that.data2GeoJson(res.data.data);
+          let initialOpacity = 0.1;
           for (let i=0; i<tempSourceData.features.length; i++){
             const feature = tempSourceData.features[i];
             that.viewer.entities.add({
@@ -82,6 +112,7 @@ export default {
         dataType: 'json'
       }).then(function (res) {
         let tempSourceData = null;
+        let initialOpacity = 0.1;
         if (res.data.errcode === 0) {
           tempSourceData = that.data2GeoJson(res.data.data);
           for (let i=0; i<tempSourceData.features.length; i++){
@@ -142,7 +173,7 @@ export default {
     viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
 
     const initialPosition = Cesium.Cartesian3.fromDegrees(115.0, 40.69114333714821,
-            15550000);
+            15000000);
     viewer.scene.camera.setView({
       destination: initialPosition,
       endTransform: Cesium.Matrix4.IDENTITY,
@@ -152,7 +183,8 @@ export default {
     // viewer.scene.screenSpaceCameraController.enableRotate = false;
 
     this.viewer = viewer;
-
+    this.viewer.randomPoint = [];
+    this.viewer.randomLine = [];
     this.refreshDataSources();
   },
 
