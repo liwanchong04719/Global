@@ -453,7 +453,7 @@ export default {
     DayChart,
     MonthChart,
     Banner,
-    // Global
+    Global
   }
 };
 </script>
