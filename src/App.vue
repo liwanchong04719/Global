@@ -268,29 +268,43 @@ export default {
       this.crowd.crowdRoadLen = data.crowdRoadLen;
       this.crowd.crowdPoiNum = data.crowdPoiNum;
     },
+    getCurrentProcess: function (filed, data) {
+      let currentHour = new Date().getHours(); // 当前小时
+      let step = Math.ceil(data[filed] / 24 * currentHour);
+      if (step > data[filed]) {
+        step = data[filed];
+      }
+      return step;
+    },
     titleData: function (data) {
       let perAddRoad = data.perAddRoad;
-      let times = 480; // 总共更新的次数 （一分钟刷新一次，8小时刷新480次，可以根据具体效果设置时长）
+      let times = 60 * 24; // 总共更新的次数 （一分钟刷新一次，24小时刷新60*24次，可以根据具体效果设置时长）
       let intervalTimes = 1000 * 60 * 1;
       let that = this;
       if (this.interval) {
         clearInterval(this.interval);
       }
+
       this.interval = setInterval(function () {
         let improve1 = that.updatePerAddRoad(times, data);
         let improve2 = that.updatePerUpdateRoad(times, data);
         that.title.roadLen = that.title.roadLen + improve1 + improve2;
 
-        let improve3 = that.updatePerAddPoi(times, data);
-        let improve4 = that.updatePerUpdatePoi(times, data);
+        let improve3 = that.updatePerAddPoi(times, data);// poi新增每次递增值
+        let improve4 = that.updatePerUpdatePoi(times, data); // poi修改每次递增值
         that.title.poiNum = that.title.poiNum + improve3 + improve4;
 
 
         let currentMonth = new Date().getMonth() + 1;
         data.cRoadAverage[currentMonth].add = data.cRoadAverage[currentMonth].add + improve1;
         data.cRoadAverage[currentMonth].update = data.cRoadAverage[currentMonth].update + improve2;
+        data.cAddRoad = data.cAddRoad + improve1;
+        data.cUpdateRoad = data.cUpdateRoad + improve2;
         data.cPoiAverage[currentMonth].add = data.cPoiAverage[currentMonth].add + improve3;
         data.cPoiAverage[currentMonth].update = data.cPoiAverage[currentMonth].update + improve4;
+        data.cAddPoi = data.cAddPoi + improve3;
+        data.cUpdatePoi = data.cUpdatePoi + improve4;
+
         that.recomPoi(data)
         that.recomRoad(data)
 
@@ -347,22 +361,28 @@ export default {
       return addStep;
     },
     initOriginData: function (data) {
-      // 重置总量
-      data.roadLen = data.roadLen - data.perAddRoad - data.perUpdateRoad;
-      data.poiNum = data.poiNum - data.perAddPoi - data.perUpdatePoi;
+      // 根据当前的时间设置初始值
+      this.title.perUpdateRoad = this.getCurrentProcess('perUpdateRoad', data);
+      this.title.perAddRoad = this.getCurrentProcess('perAddRoad', data);
+      this.title.perUpdatePoi = this.getCurrentProcess('perUpdatePoi', data);
+      this.title.perAddPoi = this.getCurrentProcess('perAddPoi', data);
+
+      // 重置总量 poi和道路的界面显示值 等于 总数量-今日新增-今日更新+新增初始值+更新初始值
+      data.roadLen = data.roadLen - data.perAddRoad - data.perUpdateRoad + this.title.perUpdateRoad + this.title.perAddRoad;
+      data.poiNum = data.poiNum - data.perAddPoi - data.perUpdatePoi  + this.title.perAddPoi + this.title.perUpdatePoi;
       this.title.roadLen = data.roadLen;
       this.title.poiNum = data.poiNum;
-      // 初始化今日更新
-      this.title.perUpdateRoad = 0;
-      this.title.perAddRoad = 0;
-      this.title.perUpdatePoi = 0;
-      this.title.perAddPoi = 0;
       // 初始化自采道路图表
       let currentMonth = new Date().getMonth() + 1;
-      data.cRoadAverage[currentMonth].add = data.cRoadAverage[currentMonth].add - data.perAddRoad;
-      data.cRoadAverage[currentMonth].update = data.cRoadAverage[currentMonth].update - data.perUpdateRoad;
-      data.cPoiAverage[currentMonth].add = data.cPoiAverage[currentMonth].add - data.perAddPoi;
-      data.cPoiAverage[currentMonth].update = data.cPoiAverage[currentMonth].update - data.perUpdatePoi;
+      data.cRoadAverage[currentMonth].add = data.cRoadAverage[currentMonth].add - data.perAddRoad + this.title.perAddRoad;
+      data.cRoadAverage[currentMonth].update = data.cRoadAverage[currentMonth].update - data.perUpdateRoad + this.title.perUpdateRoad;
+      data.cAddRoad = data.cAddRoad - data.perAddRoad + this.title.perAddRoad;
+      data.cUpdateRoad = data.cUpdateRoad - data.perUpdateRoad + this.title.perUpdateRoad;
+
+      data.cPoiAverage[currentMonth].add = data.cPoiAverage[currentMonth].add - data.perAddPoi + this.title.perAddPoi;
+      data.cPoiAverage[currentMonth].update = data.cPoiAverage[currentMonth].update - data.perUpdatePoi + this.title.perUpdatePoi;
+      data.cAddPoi = data.cAddPoi - data.perAddPoi + this.title.perAddPoi;
+      data.cUpdatePoi = data.cUpdatePoi - data.perUpdatePoi + this.title.perUpdatePoi;
     },
     recomPoi: function (data) { // 重组poi数据,使之符合图表格式
       let poiAvg = data.cPoiAverage;
@@ -438,7 +458,7 @@ export default {
     this.getChartData();
     setInterval(function () {
       var date = new Date();
-      if (date.getHours() == 7) { // 每天7点执行一次
+      if (date.getHours() == 23) { // 每天23点执行一次
         this.getChartData();
       }
     }, 1000*60*60)
