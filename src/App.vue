@@ -40,7 +40,7 @@
                 </div>
               </div>
               <div style='display:flex;color:#DDD;width:100%;padding:6px'>
-                <div style='flex:1 1 auto;text-align:center;'>全年积累</div>
+                <div style='flex:1 1 auto;text-align:center;'>全年累积</div>
                 <div style='flex:1 1 auto;'>
                   <div>采集道路</div>
                   <div>采集poi</div>

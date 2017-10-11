@@ -3,11 +3,11 @@
     <div style='display:flex;text-align:center'>
       <div style='width: 50px;'>POI</div>
       <div style='flex:1'>
-        <div>更新积累值</div>
+        <div>更新累积值</div>
         <div>{{poiData.cUpdatePoi | splitSymbol}}个</div>
       </div>
       <div style='flex:1'>
-        <div>新增积累值</div>
+        <div>新增累积值</div>
         <div>{{poiData.cAddPoi | splitSymbol}}个</div>
       </div>
     </div>
