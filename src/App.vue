@@ -9,7 +9,7 @@
               <img src="./assets/navinfo.svg" style="width:240px;height: 80px;">
               <div style="padding: 0px 14px;color: #fff">( SZSE Code: 002405 )</div>
             </div>
-            <div class="row text-yellow">
+            <div class="row text-yellow" style="color:#FF9933;">
               数据来源
             </div>
           </div>
@@ -33,13 +33,13 @@
           <div class="row">
             <div class="panel" style="height: 160px;">
               <div class="row text-yellow-subTitle">众包</div>
-              <div style='display:flex;color:#FFFFFF;width:100%;padding:6px'>
+              <div style='display:flex;color:#DDD;width:100%;padding:6px'>
                 <div style='flex:1 1 auto;text-align:center;'>当月活动用户</div>
                 <div style='flex:4 1 auto;'>
                   <div>{{crowd.crowdUserNum}}个</div>
                 </div>
               </div>
-              <div style='display:flex;color:#FFFFFF;width:100%;padding:6px'>
+              <div style='display:flex;color:#DDD;width:100%;padding:6px'>
                 <div style='flex:1 1 auto;text-align:center;'>全年积累</div>
                 <div style='flex:1 1 auto;'>
                   <div>采集道路</div>
@@ -105,11 +105,11 @@
           <div class="row">
             <div class="panel" style="height: 160px;">
               <div class="row text-yellow-subTitle">季出品 {{season.spVerson}}</div>
-              <div style='display:flex;color:#FFFFFF;padding:6px'>
+              <div style='display:flex;color:#DDD;padding:6px'>
                 <div style='flex:1 1 auto;'>更新道路 {{season.spUpdateRoad}} 公里</div>
                 <div style='flex:1 1 auto;'>更新POI {{season.spAddRoad}} 个</div>
               </div>
-              <div style='display:flex;color:#FFFFFF;padding:6px'>
+              <div style='display:flex;color:#DDD;padding:6px'>
                 <div style='flex:1 1 auto;'>新增道路 {{season.spUpdatePoi}} 公里</div>
                 <div style='flex:1 1 auto;'>新增POI {{season.spAddPoi}} 个</div>
               </div>
@@ -619,7 +619,7 @@ div.legendContainer div.legend span.crowdInfoNone{
   text-align: left;
   font-weight: bold;
   font-size: 24px;
-  color: #FFFFFF;
+  color: #DDD;
   padding: 10px 0;
 }
 </style>
