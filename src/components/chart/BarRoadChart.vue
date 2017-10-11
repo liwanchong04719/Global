@@ -104,16 +104,6 @@ export default {
                  data: dataShadow,
                  animation: false
              },{
-                type: 'bar',
-                stack: '总和',
-                itemStyle: {
-                  normal: {
-                    color: '#3399FF',
-                    barBorderRadius:[5, 5, 0, 0]
-                  }
-                },
-                data: this.roadData.updateData
-            },{
               type: 'bar',
               stack: '总和',
               itemStyle: {
@@ -123,6 +113,16 @@ export default {
                 }
               },
               data: this.roadData.newData
+            },{
+               type: 'bar',
+               stack: '总和',
+               itemStyle: {
+                 normal: {
+                   color: '#3399FF',
+                   barBorderRadius:[5, 5, 0, 0]
+                 }
+               },
+               data: this.roadData.updateData
             }]
         })
         this.chart.hideLoading()
