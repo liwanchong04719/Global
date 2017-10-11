@@ -112,7 +112,7 @@ export default {
                   show: false
                 },
                 axisLabel: {
-                  color: '#FFFFFF',
+                  color: '#DDDDDD',
                   interval: 0 // 强制显示
                 }
             },
@@ -142,7 +142,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chart-content{
-    color: #FFF;
+    color: #DDD;
     width: 400px;
     display: inline-block;
 }
