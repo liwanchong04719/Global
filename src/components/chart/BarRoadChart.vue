@@ -76,7 +76,7 @@ export default {
                 },
                 axisLabel: {
                   fontSize: 12,
-                  color: '#FFFFFF',
+                  color: '#DDDDDD',
                   interval: 0 // 强制显示
                 }
             },
@@ -84,7 +84,7 @@ export default {
                 show: true,
                 axisLabel: {
                   fontSize: 12,
-                  color: '#FFFFFF',
+                  color: '#DDDDDD',
                 },
                 splitLine: {
                   show:false
@@ -146,7 +146,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chart-content{
-    color: #FFF;
+    color: #DDD;
     width: 400px;
     display: inline-block;
 }
