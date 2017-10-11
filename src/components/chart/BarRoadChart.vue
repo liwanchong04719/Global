@@ -3,11 +3,11 @@
     <div style='display:flex;text-align:center'>
       <div style='width: 50px;'>道路</div>
       <div style='flex:1'>
-        <div>更新积累值</div>
+        <div>更新累积值</div>
         <div>{{roadData.cUpdateRoad | splitSymbol}}公里</div>
       </div>
       <div style='flex:1'>
-        <div>新增积累值</div>
+        <div>新增累积值</div>
         <div>{{roadData.cAddRoad | splitSymbol}}公里</div>
       </div>
     </div>
@@ -61,7 +61,7 @@ export default {
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
-              left: 30,
+              left: 70,
               right: 20,
               top: 10,
               bottom:30
@@ -76,7 +76,7 @@ export default {
                 },
                 axisLabel: {
                   fontSize: 12,
-                  color: '#FFFFFF',
+                  color: '#DDDDDD',
                   interval: 0 // 强制显示
                 }
             },
@@ -84,7 +84,7 @@ export default {
                 show: true,
                 axisLabel: {
                   fontSize: 12,
-                  color: '#FFFFFF',
+                  color: '#DDDDDD',
                 },
                 splitLine: {
                   show:false
@@ -104,16 +104,6 @@ export default {
                  data: dataShadow,
                  animation: false
              },{
-                type: 'bar',
-                stack: '总和',
-                itemStyle: {
-                  normal: {
-                    color: '#3399FF',
-                    barBorderRadius:[5, 5, 0, 0]
-                  }
-                },
-                data: this.roadData.updateData
-            },{
               type: 'bar',
               stack: '总和',
               itemStyle: {
@@ -123,6 +113,16 @@ export default {
                 }
               },
               data: this.roadData.newData
+            },{
+               type: 'bar',
+               stack: '总和',
+               itemStyle: {
+                 normal: {
+                   color: '#3399FF',
+                   barBorderRadius:[5, 5, 0, 0]
+                 }
+               },
+               data: this.roadData.updateData
             }]
         })
         this.chart.hideLoading()
@@ -146,7 +146,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .chart-content{
-    color: #FFF;
+    color: #DDD;
     width: 400px;
     display: inline-block;
 }

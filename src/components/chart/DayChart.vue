@@ -77,7 +77,7 @@ export default {
                 axisLabel: {
                   fontSize: 14,
                   fontWeight: 'bold',
-                  color:'#FFFFFF'
+                  color:'#DDD'
                 }
             },
             series: [{    // For shadow
@@ -135,7 +135,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 .chart-content{
-    color: #FFF;
+    color: #DDD;
     width: 400px;
     display: inline-block;
 }

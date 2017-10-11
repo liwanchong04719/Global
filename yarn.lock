@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@tweenjs/tween.js@16.6.0":
+  version "16.6.0"
+  resolved "http://registry.npm.taobao.org/@tweenjs/tween.js/download/@tweenjs/tween.js-16.6.0.tgz#87674b87a5a759317ca0021e085f4166596a46dc"
+
 abbrev@1:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/abbrev/download/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"

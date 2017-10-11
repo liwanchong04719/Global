@@ -16,6 +16,7 @@
     "start": "webpack && webpack-dev-server --open"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "16.6.0",
     "cesium": "^1.37.0",
     "echarts": "^3.7.1",
     "fs": "0.0.1-security",
