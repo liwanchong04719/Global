@@ -106,16 +106,6 @@ export default {
                  data: dataShadow, //this.poiData.updateData,
                  animation: false
              },{
-                type: 'bar',
-                stack: '总和',
-                itemStyle: {
-                  normal: {
-                     color: '#3399FF',
-                     barBorderRadius:[5, 5, 0, 0]
-                   }
-                },
-                data: this.poiData.updateData
-            },{
                type: 'bar',
                stack: '总和',
                itemStyle: {
@@ -125,7 +115,17 @@ export default {
                  }
                },
                data: this.poiData.newData
-            }]
+            },{
+               type: 'bar',
+               stack: '总和',
+               itemStyle: {
+                 normal: {
+                    color: '#3399FF',
+                    barBorderRadius:[5, 5, 0, 0]
+                  }
+               },
+               data: this.poiData.updateData
+           }]
         })
         this.chart.hideLoading()
     }

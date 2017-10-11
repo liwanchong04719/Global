@@ -34,7 +34,7 @@
             <div class="panel" style="height: 160px;">
               <div class="row text-yellow-subTitle">众包</div>
               <div style='display:flex;color:#FFFFFF;width:100%;padding:6px'>
-                <div style='flex:1 1 auto;text-align:center;'>当月活动用户</div>
+                <div style='flex:1 1 auto;text-align:center;'>用户总量</div>
                 <div style='flex:4 1 auto;'>
                   <div>{{crowd.crowdUserNum}}个</div>
                 </div>
@@ -107,10 +107,10 @@
               <div class="row text-yellow-subTitle">季出品 {{season.spVerson}}</div>
               <div style='display:flex;color:#FFFFFF;padding:6px'>
                 <div style='flex:1 1 auto;'>更新道路 {{season.spUpdateRoad}} 公里</div>
-                <div style='flex:1 1 auto;'>更新POI {{season.spAddRoad}} 个</div>
+                <div style='flex:1 1 auto;'>新增道路 {{season.spAddRoad}} 个</div>
               </div>
               <div style='display:flex;color:#FFFFFF;padding:6px'>
-                <div style='flex:1 1 auto;'>新增道路 {{season.spUpdatePoi}} 公里</div>
+                <div style='flex:1 1 auto;'>更新POI {{season.spUpdatePoi}} 公里</div>
                 <div style='flex:1 1 auto;'>新增POI {{season.spAddPoi}} 个</div>
               </div>
             </div>
