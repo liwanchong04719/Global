@@ -31,7 +31,7 @@ export default {
           { name:`互联网${this.chartData.webTotal}个`, icon: 'roundRect'}
         ];
         let seriesData = [{
-          name:`实时轨迹13508.063亿个`,
+          name:`轨迹13508.063亿个`,
           type:'line',
           symbol:'none',
           smooth: true,
@@ -42,7 +42,7 @@ export default {
           data: [1738.82293882, 1426.64095209, 1403.30852207, 813.82310678, 1366.00084594, 1244.18313622, 1132.15832078, 1911.12552555, 1878.86507383, 593.13944326, 0, 0]
         },
         {
-            name:`情报量${this.chartData.inforTotal}个`,
+            name:`情报${this.chartData.inforTotal}个`,
             type:'line',
             symbol:'none',  // 去掉点
             smooth: true,
@@ -54,7 +54,7 @@ export default {
             data: this.chartData.lineData[0]// [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
         },
         {
-            name:`用户问题反馈${this.chartData.userTotal}个`,
+            name:`反馈${this.chartData.userTotal}个`,
             type:'line',
             symbol:'none',
             smooth: true,
@@ -66,7 +66,7 @@ export default {
             data: this.chartData.lineData[1]// [120, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290]
         },
         {
-            name:`互联网信息${this.chartData.webTotal}个`,
+            name:`互联网${this.chartData.webTotal}个`,
             type:'line',
             symbol:'none',
             smooth: true,
@@ -95,12 +95,12 @@ export default {
               }
             },
             legend: {
-                orient: 'vertical',
+                orient: 'horizontal',
                 right: 10,
                 top: 10,
                 itemWidth: 14,
                 data: legendData,
-                textStyle: {color: '#FFFFFF'}
+                textStyle: {color: '#DDD'}
             },
             xAxis: {
                 data: this.chartData.xAxis,
