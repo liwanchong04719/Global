@@ -25,10 +25,10 @@ export default {
           this.chart = echarts.init(document.getElementById('myLineChart'))
         }
         this.chart.showLoading()
-        let legendData = [{ name:`实时轨迹13508.063亿个`, icon: 'roundRect'},
-          { name:`情报量${this.chartData.inforTotal}个`, icon: 'roundRect'},
-          { name:`用户问题反馈${this.chartData.userTotal}个`, icon: 'roundRect'},
-          { name:`互联网信息${this.chartData.webTotal}个`, icon: 'roundRect'}
+        let legendData = [{ name:`轨迹13508.063亿个`, icon: 'roundRect'},
+          { name:`情报${this.chartData.inforTotal}个`, icon: 'roundRect'},
+          { name:`反馈${this.chartData.userTotal}个`, icon: 'roundRect'},
+          { name:`互联网${this.chartData.webTotal}个`, icon: 'roundRect'}
         ];
         let seriesData = [{
           name:`实时轨迹13508.063亿个`,
