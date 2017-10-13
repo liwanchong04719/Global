@@ -1,13 +1,12 @@
 <template>
   <div class="chart-content">
     <div style='display:flex;text-align:center'>
-      <div style='width: 50px;'>POI</div>
       <div style='flex:1'>
-        <div>更新累积值</div>
-        <div>{{poiData.cUpdatePoi | splitSymbol}}个</div>
+        <div>POI 更新累积值</div>
+        <div>POI 新增累积值</div>
       </div>
-      <div style='flex:1'>
-        <div>新增累积值</div>
+      <div style='flex:1; text-align:right;padding-right:20px'>
+        <div>{{poiData.cUpdatePoi | splitSymbol}}个</div>
         <div>{{poiData.cAddPoi | splitSymbol}}个</div>
       </div>
     </div>

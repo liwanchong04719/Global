@@ -45,9 +45,9 @@
                   <div>采集道路</div>
                   <div>采集poi</div>
                 </div>
-                <div style='flex:1 1 auto;'>
-                  <div>{{crowd.crowdRoadLen}} 公里</div>
-                  <div>{{crowd.crowdPoiNum}} 个</div>
+                <div style='flex:1 1 auto;text-align:right;padding-right:20px'>
+                  <div>{{crowd.crowdRoadLen}}公里</div>
+                  <div>{{crowd.crowdPoiNum}}个</div>
                 </div>
               </div>
             </div>

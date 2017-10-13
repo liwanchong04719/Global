@@ -83,21 +83,21 @@ export default {
             grid: {
               left: 20,
               right: 20,
-              top: 14,
+              top: 45,
               bottom:24
             },
             title: {
-              text: '累积值',
-              left:20,
-              top: 20,
-              textStyle: {
-                color: '#FFFFFF'
-              }
+              // text: '累积值',
+              // left:20,
+              // top: 20,
+              // textStyle: {
+              //   color: '#FFFFFF'
+              // }
             },
             legend: {
                 orient: 'horizontal',
-                right: 10,
-                top: 10,
+                right: 20,
+                top: 0,
                 itemWidth: 14,
                 data: legendData,
                 textStyle: {color: '#DDD'}

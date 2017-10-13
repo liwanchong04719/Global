@@ -1,13 +1,12 @@
 <template>
   <div class="chart-content">
     <div style='display:flex;text-align:center'>
-      <div style='width: 50px;'>道路</div>
       <div style='flex:1'>
-        <div>更新累积值</div>
-        <div>{{roadData.cUpdateRoad | splitSymbol}}公里</div>
+        <div>道路更新累积值</div>
+        <div>道路新增累积值</div>
       </div>
-      <div style='flex:1'>
-        <div>新增累积值</div>
+      <div style='flex:1; text-align:right;padding-right:20px'>
+        <div>{{roadData.cUpdateRoad | splitSymbol}}公里</div>
         <div>{{roadData.cAddRoad | splitSymbol}}公里</div>
       </div>
     </div>

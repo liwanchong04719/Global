@@ -59,7 +59,7 @@ export default {
             legend: {
                 itemWidth: 14,
                 bottom: 0,
-                right: 80,
+                left: 170,
                 data:[{ name:'日均线', icon: 'roundRect', textStyle: {color: '#FFFFFF'}}]
             },
             xAxis: {

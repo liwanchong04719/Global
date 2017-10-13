@@ -125,7 +125,7 @@
                 position: Cesium.Cartesian3.fromDegrees(feature.geometry.coordinates[0],
                         feature.geometry.coordinates[1]),
                 point: {
-                  pixelSize: 5,
+                  pixelSize: 7,
                   color: Cesium.Color.RED
                 }
               })

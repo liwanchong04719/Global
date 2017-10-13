@@ -52,7 +52,7 @@ export default {
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
-              left: 160,
+              left: 170,
               right: 20,
               top: 5,
               bottom: 15
@@ -60,7 +60,7 @@ export default {
             legend: {
                 itemWidth: 14,
                 bottom: 0,
-                right: 80,
+                left: 170,
                 data:[{ name:'月均线', icon: 'roundRect', textStyle: {color: '#FFFFFF'}}]
             },
             xAxis: {
