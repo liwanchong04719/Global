@@ -59,7 +59,7 @@ export default {
             legend: {
                 itemWidth: 14,
                 bottom: 0,
-                right: 80,
+                left: 170,
                 data:[{ name:'日均线', icon: 'roundRect', textStyle: {color: '#FFFFFF'}}]
             },
             xAxis: {
@@ -77,7 +77,7 @@ export default {
                 axisLabel: {
                   fontSize: 14,
                   fontWeight: 'bold',
-                  color:'#FFFFFF'
+                  color:'#DDD'
                 }
             },
             series: [{    // For shadow
@@ -135,7 +135,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 .chart-content{
-    color: #FFF;
+    color: #DDD;
     width: 400px;
     display: inline-block;
 }
