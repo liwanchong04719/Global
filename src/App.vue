@@ -67,14 +67,19 @@
               今天 道路更新：
               <!--
                <span class="num-white">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里 新增道路：
+               <span class="num-white">{{title.perAddRoadLable | splitSymbol}}</span> 公里
               -->
               <span class="num-white"><split-number :numValue='title.perUpdateRoadLable'></split-number></span> 公里 新增道路：
-              <span class="num-white">{{title.perAddRoadLable | splitSymbol}}</span> 公里
+              <span class="num-white"><split-number :numValue='title.perAddRoadLable'></split-number></span> 公里
             </div>
             <div class="title h3">
               POI更新：
-              <span class="num-white">{{title.perUpdatePoiLable | splitSymbol}}</span> 个 新增：
-              <span class="num-white">{{title.perAddPoiLable | splitSymbol}}</span> 个
+              <!--
+                <span class="num-white">{{title.perUpdatePoiLable | splitSymbol}}</span> 个 新增：
+                <span class="num-white">{{title.perAddPoiLable | splitSymbol}}</span> 个
+              -->
+              <span class="num-white"><split-number :numValue='title.perUpdatePoiLable'></split-number></span> 个 新增：
+              <span class="num-white"><split-number :numValue='title.perAddPoiLable'></split-number></span> 个
             </div>
           </div>
           <div class="legendContainer">
@@ -480,7 +485,7 @@
       MonthChart,
       Banner,
       SplitNumber,
-      // Global
+      Global
     }
   };
 </script>
