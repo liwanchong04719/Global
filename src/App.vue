@@ -65,7 +65,10 @@
             </div>
             <div class="title h3">
               今天 道路更新：
-              <span class="num-white">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里 新增道路：
+              <!--
+               <span class="num-white">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里 新增道路：
+              -->
+              <span class="num-white"><split-number :numValue='title.perUpdateRoadLable'></split-number></span> 公里 新增道路：
               <span class="num-white">{{title.perAddRoadLable | splitSymbol}}</span> 公里
             </div>
             <div class="title h3">
@@ -129,6 +132,7 @@
   import MonthChart from '@/components/chart/MonthChart'
   import Banner from '@/components/Banner';
   import Global from '@/components/Global';
+  import SplitNumber from '@/components/SplitNumber'
   import axios from 'axios';
 
   var TWEEN = require('@tweenjs/tween.js');
@@ -475,7 +479,8 @@
       DayChart,
       MonthChart,
       Banner,
-      Global
+      SplitNumber,
+      // Global
     }
   };
 </script>
