@@ -45,14 +45,36 @@
         console.log(num);
         for (let i = 0; i< num; i++){
           let initialOpacity = 0.1;
+          let pointSize = 5;
+          let opacityFlag = true;
+          let pointSizeFlag = true
           const tmpEntity = {
             position: Cesium.Cartesian3.fromDegrees(minLon + (maxLon - minLon) * Math.random(), minLat + (maxLat - minLat) * Math.random()),
             point: {
-              pixelSize: 7,
+              pixelSize: new Cesium.CallbackProperty(function(){
+                if (pointSize <= 5) {
+                  pointSizeFlag = true;
+                }else if (pointSize>= 10) {
+                  pointSizeFlag = false;
+                }
+                if (pointSizeFlag) {
+                  pointSize += 0.1;
+                } else {
+                  pointSize -= 0.1;
+                }
+                return pointSize;
+              }, false),
               color: new Cesium.CallbackProperty(function(){
-                initialOpacity += 0.03;
                 if (initialOpacity >= 1){
-                  initialOpacity = 0.1;
+                  opacityFlag = false;
+                } else if(initialOpacity <= 0.1){
+                  opacityFlag = true;
+                }
+
+                if(opacityFlag){
+                  initialOpacity += 0.03;
+                }else {
+                  initialOpacity -= 0.03;
                 }
                 return Cesium.Color.fromAlpha(Cesium.Color.CYAN, initialOpacity);
               }, false)
