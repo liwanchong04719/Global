@@ -63,21 +63,27 @@
         let c = this.$props.poiChangedNum;
         let i;
         let t = this.allEntities.length - 1;
-        while(c>=0) {
+        while (t >= 0 && c > 0) {
           i = parseInt(t * Math.random());
-          let radius = 7;
+          let originRadius = this.allEntities[i].point.pixelSize.getValue();
+          console.log(typeof originRadius);
+          // 这里不知道为什么有的时候会返回闪烁中的半径值，先简单处理一下
+          if (originRadius > 10) {
+            originRadius = originRadius / 3;
+          }
+          let newRadius = originRadius;
           let cnt = 0;
           this.allEntities[i].point.pixelSize = new Cesium.CallbackProperty(function(){
-            let r = radius;
+            // 闪烁次数
             if (cnt < 5) {              
-              if (radius === 7){
-                radius = 14;                                                     
+              if (newRadius === originRadius){
+                newRadius = originRadius * 3;                                                     
               } else {
-                radius = 7;
+                newRadius = originRadius;
                 cnt++;                                      
               }    
             }     
-            return r;
+            return newRadius;
           }, false);
           c--;
         }
