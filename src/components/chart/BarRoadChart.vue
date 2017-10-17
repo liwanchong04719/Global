@@ -1,7 +1,7 @@
 <template>
   <div class="chart-content">
-    <div style='display:flex;text-align:center'>
-      <div style='flex:1'>
+    <div style='display:flex;'>
+      <div style='flex:1;padding-left:18px;'>
         <div>道路更新累积值</div>
         <div>道路新增累积值</div>
       </div>
