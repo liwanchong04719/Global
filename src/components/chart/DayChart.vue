@@ -33,7 +33,7 @@ export default {
           max = this.dayProduce.barData[i]
         }
       }
-      max = Math.ceil(max) + 20;
+      max = Math.ceil(max) + 40;
       this.dayProduce.barData.forEach(function (item, index, arr) {
         maxArr[index] = max;
       });
@@ -75,9 +75,20 @@ export default {
                   show: false
                 },
                 axisLabel: {
+                  formatter:function (value) {
+                    let arr = value.split(' ');
+                    return arr[0] + ' {' + 'a|' + arr[1] + '}' + arr[2];
+                  },
                   fontSize: 14,
                   fontWeight: 'bold',
-                  color:'#DDD'
+                  color:'#DDD',
+                  rich: {
+                    a: {
+                      color: '#FD8E20',
+                      fontWeight: 'bold',
+                      fontSize: 14
+                    }
+                  }
                 }
             },
             series: [{    // For shadow
@@ -96,7 +107,7 @@ export default {
                type:'bar',
                itemStyle: {
                  normal: {
-                   color: '#FF9933',
+                   color: '#FD8E20',
                    barBorderRadius:[0, 5, 5, 0]
                  }
                },

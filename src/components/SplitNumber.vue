@@ -23,7 +23,6 @@ export default {
      this.$nextTick(function() {
        let str = parseInt(this.numValue).toLocaleString();
        this.valArr = str.split('');
-       console.info(this.valArr);
      })
   },
   watch: {
@@ -32,7 +31,6 @@ export default {
         this.$nextTick(function() {
           let str = parseInt(curVal).toLocaleString();
           this.valArr = str.split('');
-          console.info(this.valArr);
         })
   　　 }
     }

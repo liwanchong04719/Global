@@ -6,8 +6,8 @@
         <div>POI 新增累积值</div>
       </div>
       <div style='flex:1; text-align:right;padding-right:20px'>
-        <div>{{poiData.cUpdatePoi | splitSymbol}}个</div>
-        <div>{{poiData.cAddPoi | splitSymbol}}个</div>
+        <div><span class='numberText'>{{poiData.cUpdatePoi | splitSymbol}}</span> 个</div>
+        <div><span class='numberText'>{{poiData.cAddPoi | splitSymbol}}</span> 个</div>
       </div>
     </div>
     <div id='myBarPoiChart'>
@@ -61,7 +61,7 @@ export default {
         this.chart.setOption({
             backgroundColor: 'rgba(128, 128, 128, 0)',
             grid: {
-              left: 70,
+              left: 50,
               right: 20,
               top: 10,
               bottom:30
@@ -86,10 +86,18 @@ export default {
                 axisLabel: {
                   fontSize: 12,
                   color: '#DDDDDD',
+                  formatter: function (value, index) {
+                    let val = value / 10000;
+                    if (val == 0) {
+                      return val;
+                    }
+                    return val + 'W';
+                  }
                 },
                 splitLine: {
                   show:false
                 },
+                splitNumber: 4
             },
             calculable: true,
             series: [{    // For shadow
@@ -154,5 +162,8 @@ export default {
 #myBarPoiChart {
     width: 400px;
     height: 140px;
+}
+.numberText{
+  color: #FD8E20;
 }
 </style>

@@ -36,7 +36,7 @@
               <div style='display:flex;color:#DDD;width:100%;padding:6px'>
                 <div style='flex:1 1 auto;text-align:center;'>用户总量</div>
                 <div style='flex:4 1 auto;'>
-                  <div>{{crowd.crowdUserNum}}个</div>
+                  <div><span class='numberText'>{{crowd.crowdUserNum}}</span> 个</div>
                 </div>
               </div>
               <div style='display:flex;color:#DDD;width:100%;padding:6px'>
@@ -46,8 +46,8 @@
                   <div>采集poi</div>
                 </div>
                 <div style='flex:1 1 auto;text-align:right;padding-right:20px'>
-                  <div>{{crowd.crowdRoadLen}}公里</div>
-                  <div>{{crowd.crowdPoiNum}}个</div>
+                  <div><span class='numberText'>{{crowd.crowdRoadLen}}</span> 公里</div>
+                  <div><span class='numberText'>{{crowd.crowdPoiNum}}</span> 个</div>
                 </div>
               </div>
             </div>
@@ -65,21 +65,21 @@
             </div>
             <div class="title h3">
               今天 道路更新：
-              <!--
                <span class="num-white">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里 新增道路：
                <span class="num-white">{{title.perAddRoadLable | splitSymbol}}</span> 公里
-              -->
+              <!--
               <span class="num-white"><split-number :numValue='title.perUpdateRoadLable'></split-number></span> 公里 新增道路：
               <span class="num-white"><split-number :numValue='title.perAddRoadLable'></split-number></span> 公里
+              -->
             </div>
             <div class="title h3">
               POI更新：
+              <span class="num-white">{{title.perUpdatePoiLable | splitSymbol}}</span> 个 新增：
+              <span class="num-white">{{title.perAddPoiLable | splitSymbol}}</span> 个
               <!--
-                <span class="num-white">{{title.perUpdatePoiLable | splitSymbol}}</span> 个 新增：
-                <span class="num-white">{{title.perAddPoiLable | splitSymbol}}</span> 个
-              -->
               <span class="num-white"><split-number :numValue='title.perUpdatePoiLable'></split-number></span> 个 新增：
               <span class="num-white"><split-number :numValue='title.perAddPoiLable'></split-number></span> 个
+              -->
             </div>
           </div>
           <div class="legendContainer">
@@ -114,12 +114,12 @@
             <div class="panel" style="height: 160px;">
               <div class="row text-yellow-subTitle">季出品 {{season.spVerson}}</div>
               <div style='display:flex;color:#DDD;padding:6px'>
-                <div style='flex:1 1 auto;'>更新道路 {{season.spUpdateRoad}} 公里</div>
-                <div style='flex:1 1 auto;'>新增道路 {{season.spAddRoad}} 公里</div>
+                <div style='flex:1 1 auto;'>更新道路 <span class='numberText'>{{season.spUpdateRoad}}</span> 公里</div>
+                <div style='flex:1 1 auto;'>新增道路 <span class='numberText'>{{season.spAddRoad}}</span> 公里</div>
               </div>
               <div style='display:flex;color:#DDD;padding:6px'>
-                <div style='flex:1 1 auto;'>更新POI {{season.spUpdatePoi}} 公里</div>
-                <div style='flex:1 1 auto;'>新增POI {{season.spAddPoi}} 个</div>
+                <div style='flex:1 1 auto;'>更新POI <span class='numberText'>{{season.spUpdatePoi}}</span> 公里</div>
+                <div style='flex:1 1 auto;'>新增POI <span class='numberText'>{{season.spAddPoi}}</span> 个</div>
               </div>
             </div>
           </div>
@@ -450,12 +450,12 @@
       recomDayProduce: function (data) { // 重组road数据,使之符合图表格式
         this.charData.dayProduce.barData = [data.dpAddPoi,data.dpUpdatePoi,data.dpAddRoad,data.dpUpdateRoad];
         this.charData.dayProduce.lineData = [data.dpAverage.addPoi,data.dpAverage.updatePoi,data.dpAverage.addRoad,data.dpAverage.updateRoad];
-        this.charData.dayProduce.yAxis = [`新增POI ${data.dpAddPoi}个`,`更新POI ${data.dpUpdatePoi}个`,`新增道路 ${data.dpAddRoad}公里`,`更新道路 ${data.dpUpdateRoad}公里`];
+        this.charData.dayProduce.yAxis = [`新增POI ${data.dpAddPoi} 个`,`更新POI ${data.dpUpdatePoi} 个`,`新增道路 ${data.dpAddRoad} 公里`,`更新道路 ${data.dpUpdateRoad} 公里`];
       },
       recomMonthProduce: function (data) { // 重组road数据,使之符合图表格式
         this.charData.monthProduce.barData = [data.mpAddPoi, data.mpUpdatePoi, data.mpAddRoad, data.mpUpdateRoad];
         this.charData.monthProduce.lineData = [data.mpAverage.addPoi, data.mpAverage.updatePoi, data.mpAverage.addRoad, data.mpAverage.updateRoad];
-        this.charData.monthProduce.yAxis = [`新增POI ${data.mpAddPoi}个`,`更新POI ${data.mpUpdatePoi}个`,`新增道路 ${data.mpAddRoad}公里`,`更新道路 ${data.mpUpdateRoad}公里`];
+        this.charData.monthProduce.yAxis = [`新增POI ${data.mpAddPoi} 个`,`更新POI ${data.mpUpdatePoi} 个`,`新增道路 ${data.mpAddRoad} 公里`,`更新道路 ${data.mpUpdateRoad} 公里`];
       },
       toggleDataSource: function(type) {
         if (type === 'common'){
@@ -485,7 +485,7 @@
       MonthChart,
       Banner,
       SplitNumber,
-      Global
+      // Global
     }
   };
 </script>
@@ -631,5 +631,9 @@
     font-size: 24px;
     color: #DDD;
     padding: 10px 0;
+  }
+
+  .numberText{
+    color: #FD8E20;
   }
 </style>
