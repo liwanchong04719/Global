@@ -110,7 +110,7 @@
                 <div style='flex:1 1 auto;'>新增道路 {{season.spAddRoad}} 公里</div>
               </div>
               <div style='display:flex;color:#DDD;padding:6px'>
-                <div style='flex:1 1 auto;'>更新POI {{season.spUpdatePoi}} 公里</div>
+                <div style='flex:1 1 auto;'>更新POI {{season.spUpdatePoi}} 个</div>
                 <div style='flex:1 1 auto;'>新增POI {{season.spAddPoi}} 个</div>
               </div>
             </div>
@@ -280,7 +280,7 @@
       titleData: function (data) {
         let perAddRoad = data.perAddRoad;
         let times = 60 * 24; // 总共更新的次数 （一分钟刷新一次，24小时刷新60*24次，可以根据具体效果设置时长）
-        let intervalTimes = 1000 * 60 * 1;
+        let intervalTimes = 1000 * 10;
         let that = this;
         if (this.interval) {
           clearInterval(this.interval);
@@ -581,14 +581,14 @@
   }
 
   div.legendContainer div.legend span.commonInfo{
-    background-color: #ff0000;
+    background-color: #CC3333;
   }
   div.legendContainer div.legend span.commonInfoNone{
     background-color: #9da0a4;
   }
 
   div.legendContainer div.legend span.crowdInfo{
-    background-color: #ffff00;
+    background-color: #FFCC00;
   }
 
   div.legendContainer div.legend span.crowdInfoNone{

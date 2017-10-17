@@ -11,29 +11,87 @@
   export default {
     name: 'global',
     props: ['crowdInfoSource', 'commonInfoSource', 'randomData', 'poiChangedNum'],
+    data: function () {
+      return {
+        randomEntities: [],
+        commonEntities: [],
+        crowdEntities: []
+      };
+    },
+    computed: {
+      allEntities: function () {
+        let arr = [];
+        Array.prototype.push.apply(arr, this.commonEntities);
+        Array.prototype.push.apply(arr, this.crowdEntities);
+        return arr;
+      }
+    },
     watch: {
       crowdInfoSource: function () {
-        this.refreshDataSources();
+        if (this.$props.crowdInfoSource) {
+          this.loadCrowdData();
+        } else {
+          for (let i=0;i<this.crowdEntities.length;i++) {
+            this.viewer.entities.remove(this.crowdEntities[i]);
+          }
+          this.crowdEntities.length = 0;
+        }
       },
       commonInfoSource: function () {
-        this.refreshDataSources();
+        if (this.$props.commonInfoSource) {
+          this.loadCommonData();
+        } else {
+          for (let i=0;i<this.commonEntities.length;i++) {
+            this.viewer.entities.remove(this.commonEntities[i]);
+          }
+          this.commonEntities.length = 0;
+        }
       },
       randomData: function () {
-        this.generateRandomPoint(this.$props.poiChangedNum);
-        this.refreshDataSources();
+        // 增加随机点
+        // let points = this.generateRandomPoint(this.$props.poiChangedNum);
+        // if (this.randomEntities.length > 0) {
+        //   for (let i=0;i<this.randomEntities.length;i++) {
+        //     this.viewer.entities.remove(this.randomEntities[i]);
+        //   }
+        //   this.randomEntities.length = 0;       
+        // }
+        
+        // for (let i=0;i<points.length;i++) {
+        //   this.randomEntities.push(this.viewer.entities.add(points[i]));
+        // }
+        let c = this.$props.poiChangedNum;
+        let i;
+        let t = this.allEntities.length - 1;
+        while(c>=0) {
+          i = parseInt(t * Math.random());
+          let radius = 7;
+          let cnt = 0;
+          this.allEntities[i].point.pixelSize = new Cesium.CallbackProperty(function(){
+            let r = radius;
+            if (cnt < 5) {              
+              if (radius === 7){
+                radius = 14;                                                     
+              } else {
+                radius = 7;
+                cnt++;                                      
+              }    
+            }     
+            return r;
+          }, false);
+          c--;
+        }
       }
     },
     methods: {
-      refreshDataSources () {
+      reloadData () {
         this.viewer.entities.removeAll();
+        this.allEntities.length = 0;
         if (this.$props.commonInfoSource){
-          this.refreshCommonData();
+          this.loadCommonData();
         }
         if (this.$props.crowdInfoSource){
-          this.refreshCrowdData();
-        }
-        for (let i = 0; i<this.viewer.randomPoint.length; i++) {
-          this.viewer.entities.add(this.viewer.randomPoint[i]);
+          this.loadCrowdData();
         }
       },
       generateRandomPoint (num) {
@@ -41,28 +99,32 @@
         const maxLat = 45;
         const minLon = 110;
         const maxLon = 120;
-        this.viewer.randomPoint = [];
+        let points = [];
         console.log(num);
         for (let i = 0; i< num; i++){
-          let initialOpacity = 0.1;
+          let radius = 7;
+          let cnt = 0;
           const tmpEntity = {
             position: Cesium.Cartesian3.fromDegrees(minLon + (maxLon - minLon) * Math.random(), minLat + (maxLat - minLat) * Math.random()),
             point: {
-              pixelSize: 7,
-              color: new Cesium.CallbackProperty(function(){
-                initialOpacity += 0.03;
-                if (initialOpacity >= 1){
-                  initialOpacity = 0.1;
-                }
-                return Cesium.Color.fromAlpha(Cesium.Color.CYAN, initialOpacity);
-              }, false)
+              pixelSize: new Cesium.CallbackProperty(function(){
+                let r = radius;
+                if (cnt < 5) {              
+                  if (radius === 7){
+                    radius = 14;                                                     
+                  } else {
+                    radius = 7;
+                    cnt++;                                      
+                  }    
+                }     
+                return r;
+              }, false),
+              color: Cesium.Color.CYAN,
             }
           };
-          this.viewer.randomPoint.push(tmpEntity);
+          points.push(tmpEntity);
         }
-      },
-      generateRandomRoad (num) {
-
+        return points;
       },
       data2GeoJson (data) {
         let featureCollection={
@@ -81,54 +143,50 @@
         }
         return featureCollection;
       },
-      refreshCrowdData () {
+      loadCrowdData () {
         const that = this;
         axios({
           method: 'get',
           url: 'http://fastmap.navinfo.com/service/statics/crowdInfo',
         }).then(function (res) {
-          let tempSourceData = null;
-          let initialOpacity = 0.1;
           if (res.data.errcode === 0) {
-            tempSourceData = that.data2GeoJson(res.data.data);
-            let initialOpacity = 0.1;
-            for (let i=0; i<tempSourceData.features.length; i++){
-              const feature = tempSourceData.features[i];
-              that.viewer.entities.add({
+            let tempSourceData = that.data2GeoJson(res.data.data);
+            let i, feature;
+            for (i=0; i<tempSourceData.features.length; i++){
+              feature = tempSourceData.features[i];
+              that.crowdEntities.push(that.viewer.entities.add({
                 position: Cesium.Cartesian3.fromDegrees(feature.geometry.coordinates[0],
                         feature.geometry.coordinates[1]),
                 point: {
                   pixelSize: 5,
-                  color: Cesium.Color.YELLOW
+                  color: Cesium.Color.fromCssColorString('#FFCC00')
                 }
-              })
+              }));
             }
           }
         }).catch(function(err){
         })
       },
-
-      refreshCommonData () {
+      loadCommonData () {
         const that = this;
         axios({
           method: 'get',
           url: 'http://fastmap.navinfo.com/service/statics/commonInfo',
           dataType: 'json'
         }).then(function (res) {
-          let tempSourceData = null;
-          let initialOpacity = 0.1;
           if (res.data.errcode === 0) {
-            tempSourceData = that.data2GeoJson(res.data.data);
-            for (let i=0; i<tempSourceData.features.length; i++){
-              const feature = tempSourceData.features[i];
-              that.viewer.entities.add({
+            let tempSourceData = that.data2GeoJson(res.data.data);
+            let i, feature;
+            for (i=0; i<tempSourceData.features.length; i++){
+              feature = tempSourceData.features[i];
+              that.commonEntities.push(that.viewer.entities.add({
                 position: Cesium.Cartesian3.fromDegrees(feature.geometry.coordinates[0],
                         feature.geometry.coordinates[1]),
                 point: {
                   pixelSize: 7,
-                  color: Cesium.Color.RED
+                  color: Cesium.Color.fromCssColorString('#CC3333')
                 }
-              })
+              }));
             }
           }
         }).catch(function(err){
@@ -187,13 +245,11 @@
       // viewer.scene.screenSpaceCameraController.enableRotate = false;
 
       this.viewer = viewer;
-      this.viewer.randomPoint = [];
-      this.viewer.randomLine = [];
-      this.refreshDataSources();
+      this.reloadData();
     },
 
     beforeUpdate() {
-      this.refreshDataSources();
+      // this.refreshDataSources();
     }
   };
 </script>

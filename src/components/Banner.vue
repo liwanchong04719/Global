@@ -55,7 +55,10 @@ export default {
   flex-flow: column nowrap;
   justify-content: center;
   padding: 0px 15px;
-  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  text-align: center;
+  color: #daf6ff;
+  text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
 }
 
 .datetime>div {
