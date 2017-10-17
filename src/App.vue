@@ -14,14 +14,14 @@
               <div slot="content">
                 <bar-road-chart :roadData='charData.road'></bar-road-chart>
                 <bar-poi-chart :poiData='charData.poi'></bar-poi-chart>
-              </div>              
+              </div>
             </panel>
           </div>
           <div class="row">
             <panel title="第三方数据">
               <div slot="content">
                 <line-chart :chartData='charData.thrid'></line-chart>
-              </div>              
+              </div>
             </panel>
           </div>
           <div class="row">
@@ -44,7 +44,7 @@
                   <div><span class='numberText'>{{crowd.crowdPoiNum}}</span> 个</div>
                 </div>
               </div>
-              </div>              
+              </div>
             </panel>
           </div>
         </div>
@@ -96,14 +96,14 @@
             <panel title="日出品">
               <div slot="content">
                 <day-chart :dayProduce="charData.dayProduce"></day-chart>
-              </div>              
+              </div>
             </panel>
           </div>
           <div class="row">
             <panel title="月出品">
               <div slot="content">
                 <month-chart :monthProduce="charData.monthProduce"></month-chart>
-              </div>              
+              </div>
             </panel>
           </div>
           <div class="row">
@@ -117,7 +117,7 @@
                 <div style='flex:1 1 auto;'>更新POI <span class='numberText'>{{season.spUpdatePoi}}</span> 个</div>
                 <div style='flex:1 1 auto;'>新增POI <span class='numberText'>{{season.spAddPoi}}</span> 个</div>
               </div>
-              </div>              
+              </div>
             </panel>
           </div>
         </div>
