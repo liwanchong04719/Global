@@ -481,7 +481,7 @@
       MonthChart,
       Banner,
       SplitNumber,
-      // Global
+      Global
     }
   };
 </script>
