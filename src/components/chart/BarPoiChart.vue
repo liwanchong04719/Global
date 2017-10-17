@@ -5,7 +5,7 @@
         <div>POI 更新累积值</div>
         <div>POI 新增累积值</div>
       </div>
-      <div style='flex:1; text-align:right;padding-right:20px'>
+      <div style='flex:1;text-align:left;'>
         <div><span class='numberText'>{{poiData.cUpdatePoi | splitSymbol}}</span> 个</div>
         <div><span class='numberText'>{{poiData.cAddPoi | splitSymbol}}</span> 个</div>
       </div>
