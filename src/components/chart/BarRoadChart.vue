@@ -5,7 +5,7 @@
         <div>道路更新累积值</div>
         <div>道路新增累积值</div>
       </div>
-      <div style='flex:1; text-align:right;padding-right:20px'>
+      <div style='flex:1; text-align:left;'>
         <div><span class='numberText'>{{roadData.cUpdateRoad | splitSymbol}}</span> 公里</div>
         <div><span class='numberText'>{{roadData.cAddRoad | splitSymbol}}</span> 公里</div>
       </div>
