@@ -3,7 +3,7 @@
     <Global :randomData="dataSourceStatus.randomData" :poiChangedNum="dataSourceStatus.poiChangedNum" :crowdInfoSource='dataSourceStatus.crowdInfoSource' :commonInfoSource='dataSourceStatus.commonInfoSource'></Global>
     <div class="flex-layout-v fm-stretch float">
       <div class="row fm-stretch flex-layout">
-        <div class="col flex-layout-v">
+        <div class="col flex-layout-v" style='width:550px;'>
           <div class="row">
             <div class="row top-title left">
               数据来源
@@ -49,32 +49,23 @@
           </div>
         </div>
         <div class="col flex-layout-v">
-          <div slot="title" class="flex-layout-v header" style="align-self: flex-start;">
-            <div class="title h1">
-              <span style="letter-spacing: 30px;">地图母库概览</span> Core Map Review
+          <div class='center-content'>
+            <div style='padding-top:12px;text-align:center;'>
+              <div class='date-text' style='float: left;margin-left:80px'><Banner :flag=1></Banner></div>
+              <img src="./assets/ziti.png" style='text-algin:center;'>
+              <div class='date-text' style='float: right;margin-right:80px'><Banner :flag=2></Banner></div>
             </div>
-            <div class="title h2">
-              道路总里程：
-              <span class="num-yellow">{{title.roadLen | splitSymbol}}</span> 公里 POI总数量：
-              <span class="num-yellow">{{title.poiNum | splitSymbol}}</span> 个
-            </div>
-            <div class="title h3">
-              今天 道路更新：
-               <span class="num-white">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里 新增道路：
-               <span class="num-white">{{title.perAddRoadLable | splitSymbol}}</span> 公里
-              <!--
-              <span class="num-white"><split-number :numValue='title.perUpdateRoadLable'></split-number></span> 公里 新增道路：
-              <span class="num-white"><split-number :numValue='title.perAddRoadLable'></split-number></span> 公里
-              -->
-            </div>
-            <div class="title h3">
-              POI更新：
-              <span class="num-white">{{title.perUpdatePoiLable | splitSymbol}}</span> 个 新增：
-              <span class="num-white">{{title.perAddPoiLable | splitSymbol}}</span> 个
-              <!--
-              <span class="num-white"><split-number :numValue='title.perUpdatePoiLable'></split-number></span> 个 新增：
-              <span class="num-white"><split-number :numValue='title.perAddPoiLable'></split-number></span> 个
-              -->
+            <div style='display:flex;color:white;padding:2px 0px 2px 190px;'>
+              <div style='flex:1 1 auto;'>
+                  <div class="num-white">道路总数：<span class="num-yellow">{{title.roadLen | splitSymbol}}</span> 公里</div>
+                  <div class="num-white">今日更新：<span class="num-yellow">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里</div>
+                  <div class="num-white">今日新增：<span class="num-yellow">{{title.perAddRoadLable | splitSymbol}}</span> 公里</div>
+              </div>
+              <div style='flex:1 1 auto;'>
+                <div class="num-white">POI 总量：<span class="num-yellow">{{title.poiNum | splitSymbol}}</span> 个</div>
+                <div class="num-white">今日更新：<span class="num-yellow">{{title.perUpdatePoiLable | splitSymbol}}</span> 个</div>
+                <div class="num-white">今日新增：<span class="num-yellow">{{title.perAddPoiLable | splitSymbol}}</span> 个</div>
+              </div>
             </div>
           </div>
           <div class="legendContainer">
@@ -86,7 +77,7 @@
             </div>
           </div>
         </div>
-        <div class="col flex-layout-v">
+        <div class="col flex-layout-v" style='width:550px;'>
           <div class="row">
             <div class="row top-title right">
               数据出品
@@ -605,15 +596,14 @@
   }
 
   .num-yellow {
-    font-weight: bold;
-    font-size: 30px;
-    color: #FF9933;
+    font-size: 24px;
+    color: #fd8e2a;
   }
 
   .num-white {
-    font-weight: bold;
-    font-size: 32px;
+    font-size: 24px;
     color: #fff;
+    padding: 4px 0px;
   }
 
   .text-yellow {
@@ -654,5 +644,20 @@
 
   .top-title.right {
     background: url(./assets/juxing_3.png) no-repeat;
+  }
+
+  .center-content {
+    background: url('./assets/jxuing_1.png') no-repeat;
+    background-position: center;
+    background-size: 100%;
+    min-width: 611px;
+    height: 265px;
+  }
+  .center-content .date-text {
+    color: #47a2ff;
+    font-size: 21px;
+  }
+  .center-foot {
+    background: url('./assets/juxing_4.png') no-repeat;
   }
 </style>
