@@ -5,10 +5,6 @@
       <div class="row fm-stretch flex-layout">
         <div class="col flex-layout-v" style='padding-left:10px;'>
           <div class="row">
-            <div class="logo">
-              <img src="./assets/navinfo.svg" style="width:240px;height: 80px;">
-              <div style="padding: 0px 14px;color: #fff">( SZSE Code: 002405 )</div>
-            </div>
             <div class="row text-yellow" style="color:#FF9933;">
               数据来源
             </div>
@@ -485,7 +481,7 @@
       MonthChart,
       Banner,
       SplitNumber,
-      Global
+      // Global
     }
   };
 </script>
