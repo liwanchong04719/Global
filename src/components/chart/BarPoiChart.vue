@@ -1,7 +1,7 @@
 <template>
   <div class="chart-content">
-    <div style='display:flex;text-align:center'>
-      <div style='flex:1'>
+    <div style='display:flex;'>
+      <div style='flex:1;padding-left:18px;'>
         <div>POI 更新累积值</div>
         <div>POI 新增累积值</div>
       </div>
@@ -117,7 +117,7 @@ export default {
                stack: '总和',
                itemStyle: {
                  normal: {
-                   color: '#3333FF',
+                   color: '#FD8E20',
                    barBorderRadius:[5, 5, 0, 0]
                  }
                },

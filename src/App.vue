@@ -33,19 +33,19 @@
           <div class="row">
             <div class="panel" style="height: 160px;">
               <div class="row text-yellow-subTitle">众包</div>
-              <div style='display:flex;color:#DDD;width:100%;padding:6px'>
+              <div style='display:flex;color:#DDD;padding:6px'>
                 <div style='flex:1 1 auto;text-align:center;'>用户总量</div>
                 <div style='flex:4 1 auto;'>
                   <div><span class='numberText'>{{crowd.crowdUserNum}}</span> 个</div>
                 </div>
               </div>
-              <div style='display:flex;color:#DDD;width:100%;padding:6px'>
+              <div style='display:flex;color:#DDD;padding:6px'>
                 <div style='flex:1 1 auto;text-align:center;'>全年累积</div>
                 <div style='flex:1 1 auto;'>
                   <div>采集道路</div>
                   <div>采集poi</div>
                 </div>
-                <div style='flex:1 1 auto;text-align:right;padding-right:20px'>
+                <div style='flex:1 1 auto;'>
                   <div><span class='numberText'>{{crowd.crowdRoadLen}}</span> 公里</div>
                   <div><span class='numberText'>{{crowd.crowdPoiNum}}</span> 个</div>
                 </div>
@@ -485,7 +485,7 @@
       MonthChart,
       Banner,
       SplitNumber,
-      Global
+      //Global
     }
   };
 </script>
