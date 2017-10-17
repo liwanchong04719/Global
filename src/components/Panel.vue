@@ -1,7 +1,8 @@
 <template>
   <div class="fm-panel">
     <div class="header">
-      <slot name="header"></slot>
+      <div class="title">{{title}}</div>
+      <div class="subTitle" v-show="subTitle">{{subTitle}}</div>
     </div>
     <div class="content">
       <slot name="content"></slot>
@@ -13,6 +14,7 @@
 
 export default {
   name: 'panel',
+  props: ['title', 'subTitle'],
   data() {
     return {};
   },
@@ -25,18 +27,34 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   pointer-events: auto;
+  padding-left: 26px;
 }
 
 .fm-panel>.header {
-  flex: 0 0 auto;
-  padding: 5px 10px;
-  color: yellow;
-  font-size: 24px;
-  border: 1px solid blue;
+  display: flex;
+  align-items: center;
+}
+
+.fm-panel>.header>.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 169px;
+  height: 70px;
+  padding: 0px;
+  margin: 0px;
+  background: url(../assets/juxing_5.png) no-repeat;
+}
+
+.fm-panel>.header>.subTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 .fm-panel>.content {
   flex: 1 0 100px;
-  border: 1px solid red;
+  padding-left: 50px;
 }
 </style>

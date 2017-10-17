@@ -3,33 +3,31 @@
     <Global :randomData="dataSourceStatus.randomData" :poiChangedNum="dataSourceStatus.poiChangedNum" :crowdInfoSource='dataSourceStatus.crowdInfoSource' :commonInfoSource='dataSourceStatus.commonInfoSource'></Global>
     <div class="flex-layout-v fm-stretch float">
       <div class="row fm-stretch flex-layout">
-        <div class="col flex-layout-v" style='padding-left:10px;'>
+        <div class="col flex-layout-v">
           <div class="row">
-            <div class="row text-yellow" style="color:#FF9933;">
+            <div class="row top-title left">
               数据来源
             </div>
           </div>
           <div class="row">
-            <div class="panel" style="width: 400px;">
-              <div class="row text-yellow-subTitle">自采</div>
-              <bar-road-chart :roadData='charData.road'></bar-road-chart>
-            </div>
+            <panel title="自采">
+              <div slot="content">
+                <bar-road-chart :roadData='charData.road'></bar-road-chart>
+                <bar-poi-chart :poiData='charData.poi'></bar-poi-chart>
+              </div>              
+            </panel>
           </div>
           <div class="row">
-            <div class="panel" style="width: 400px;">
-              <bar-poi-chart :poiData='charData.poi'></bar-poi-chart>
-            </div>
+            <panel title="第三方数据">
+              <div slot="content">
+                <line-chart :chartData='charData.thrid'></line-chart>
+              </div>              
+            </panel>
           </div>
           <div class="row">
-            <div class="panel" style="width: 400px;">
-              <div class="row text-yellow-subTitle">第三方数据</div>
-              <line-chart :chartData='charData.thrid'></line-chart>
-            </div>
-          </div>
-          <div class="row">
-            <div class="panel" style="height: 160px;">
-              <div class="row text-yellow-subTitle">众包</div>
-              <div style='display:flex;color:#DDD;padding:6px'>
+            <panel title="众包">
+              <div slot="content">
+                <div style='display:flex;color:#DDD;padding:6px'>
                 <div style='flex:1 1 auto;text-align:center;'>用户总量</div>
                 <div style='flex:4 1 auto;'>
                   <div><span class='numberText'>{{crowd.crowdUserNum}}</span> 个</div>
@@ -46,7 +44,8 @@
                   <div><span class='numberText'>{{crowd.crowdPoiNum}}</span> 个</div>
                 </div>
               </div>
-            </div>
+              </div>              
+            </panel>
           </div>
         </div>
         <div class="col flex-layout-v">
@@ -89,27 +88,28 @@
         </div>
         <div class="col flex-layout-v">
           <div class="row">
-            <Banner></Banner>
-            <div class="row text-yellow" style='color:#FF9933;'>
+            <div class="row top-title right">
               数据出品
             </div>
           </div>
           <div class="row">
-            <div class="panel" style="width: 400px;">
-              <div class="row text-yellow-subTitle">日出品</div>
-              <day-chart :dayProduce="charData.dayProduce"></day-chart>
-            </div>
+            <panel title="日出品">
+              <div slot="content">
+                <day-chart :dayProduce="charData.dayProduce"></day-chart>
+              </div>              
+            </panel>
           </div>
           <div class="row">
-            <div class="panel" style="width: 400px;">
-              <div class="row text-yellow-subTitle">月出品</div>
-              <month-chart :monthProduce="charData.monthProduce"></month-chart>
-            </div>
+            <panel title="月出品">
+              <div slot="content">
+                <month-chart :monthProduce="charData.monthProduce"></month-chart>
+              </div>              
+            </panel>
           </div>
           <div class="row">
-            <div class="panel" style="height: 160px;">
-              <div class="row text-yellow-subTitle">季出品 {{season.spVerson}}</div>
-              <div style='display:flex;color:#DDD;padding:6px'>
+            <panel title="季出品" :sub-title="season.spVerson">
+              <div slot="content">
+                <div style='display:flex;color:#DDD;padding:6px'>
                 <div style='flex:1 1 auto;'>更新道路 <span class='numberText'>{{season.spUpdateRoad}}</span> 公里</div>
                 <div style='flex:1 1 auto;'>新增道路 <span class='numberText'>{{season.spAddRoad}}</span> 公里</div>
               </div>
@@ -117,7 +117,8 @@
                 <div style='flex:1 1 auto;'>更新POI <span class='numberText'>{{season.spUpdatePoi}}</span> 个</div>
                 <div style='flex:1 1 auto;'>新增POI <span class='numberText'>{{season.spAddPoi}}</span> 个</div>
               </div>
-            </div>
+              </div>              
+            </panel>
           </div>
         </div>
       </div>
@@ -134,6 +135,7 @@
   import Banner from '@/components/Banner';
   import Global from '@/components/Global';
   import SplitNumber from '@/components/SplitNumber'
+  import Panel from '@/components/Panel'
   import axios from 'axios';
 
   var TWEEN = require('@tweenjs/tween.js');
@@ -481,7 +483,8 @@
       MonthChart,
       Banner,
       SplitNumber,
-      Global
+      Global,
+      Panel
     }
   };
 </script>
@@ -631,5 +634,25 @@
 
   .numberText{
     color: #FD8E20;
+  }
+
+  .top-title {
+      height: 135px;
+      width: 547px;
+      color: #47a2ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: MicrosoftYaHei-Bold;
+      font-size: 32px;
+      font-weight: bold;
+  }
+
+  .top-title.left {
+    background: url(./assets/juxing_2.png) no-repeat;
+  }
+
+  .top-title.right {
+    background: url(./assets/juxing_3.png) no-repeat;
   }
 </style>
