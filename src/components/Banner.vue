@@ -1,7 +1,7 @@
 <template>
   <div class="datetime" @click="getDateTime()">
-    <div class="time">{{time}}</div>
-    <div class="date">{{date}}</div>
+    <div class="date-text" v-if='flag==2'>Time:{{time}}</div>
+    <div class="date-text" v-if='flag==1'>Date:{{date}}</div>
   </div>
 </template>
 
@@ -18,6 +18,7 @@ function lpad(str, len, char) {
 
 export default {
   name: 'banner',
+  props: ['flag'],
   data() {
     return {
       date: '',
@@ -72,5 +73,9 @@ export default {
 
 .datetime>.time {
   font-size: 32px;
+}
+.center-content .date-text {
+  color: #47a2ff;
+  font-size: 21px;
 }
 </style>
