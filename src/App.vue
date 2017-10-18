@@ -4,9 +4,11 @@
     <div class="fm-stretch flex-layout float">
       <div class="col flex-layout-v">
         <div class="top-title left">
-          数据来源
+          <div class="text">
+            数据来源
+          </div>
         </div>
-        <div class="flex-layout-v col">
+        <div class="flex-layout-v" style="height: 100%;">
           <panel title="自采">
             <div slot="content">
               <div>
@@ -45,15 +47,17 @@
           </panel>
         </div>
         <div class="bottom-title left">
-          Data Sources
+          <div class="text">
+            Data Sources
+          </div>
         </div>
       </div>
-      <div class="col flex-layout-v" style="width: 100%;margin: 0px -150px;align-items: center;">
+      <div class="flex-layout-v fm-stretch" style="align-items: center;">
         <div class="center-content">
-          <div style="padding: 0px 80px;">
+          <div style="margin: 0px -80px;">
             <banner></banner>
           </div>
-          <div class="flex-layout" style="padding: 10px 180px;">
+          <div class="flex-layout" style="padding: 10px;">
             <div>
               <div class="num-white">
                 道路总里程：
@@ -97,9 +101,11 @@
       </div>
       <div class="col flex-layout-v" style="align-items: flex-end;">
         <div class="top-title right">
-          数据出品
+          <div class="text">
+            数据出品
+          </div>
         </div>
-        <div class="flex-layout-v col">
+        <div class="flex-layout-v" style="height: 100%;">
           <panel title="日出品">
             <div slot="content">
               <day-chart :dayProduce="charData.dayProduce"></day-chart>
@@ -124,7 +130,9 @@
           </panel>
         </div>
         <div class="bottom-title right">
-          Data Produced
+          <div class="text">
+            Data Products
+          </div>
         </div>
       </div>
     </div>
@@ -616,17 +624,18 @@
   .numberText {
     color: #FD8E20;
   }
+  .center-content {
+    width: 100%;
+    height: 250px;
+    padding: 12px 150px 0px 150px;
+    margin: 0px -150px;
+    background: url(./assets/juxing_1.png) no-repeat top/contain;
+  }
   .top-title {
-    padding-bottom: 15px;
-    height: 120px;
+    flex: 0 0 153px;
     width: 547px;
-    color: #47a2ff;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-family: MicrosoftYaHei-Bold;
-    font-size: 32px;
-    font-weight: bold;
   }
   .top-title.left {
     background: url(./assets/juxing_2.png) no-repeat center;
@@ -634,17 +643,19 @@
   .top-title.right {
     background: url(./assets/juxing_3.png) no-repeat center;
   }
+  .top-title>.text {
+    color: #47a2ff;
+    font-family: MicrosoftYaHei-Bold;
+    font-size: 32px;
+    font-weight: bold;
+    padding-top: 46px;
+  }
   .bottom-title {
-    height: 36px;
+    flex: 0 0 83px;
     width: 620px;
     color: #47a2ff;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-family: MicrosoftYaHei-Bold;
-    font-size: 24px;
-    font-weight: bold;
-    padding-top: 47px;
   }
   .bottom-title.left {
     background: url(./assets/juxing_4.png) no-repeat center;
@@ -652,10 +663,11 @@
   .bottom-title.right {
     background: url(./assets/juxing_6.png) no-repeat center;
   }
-  .center-content {
-    width: 100%;
-    height: 250px;
-    padding-top: 12px;
-    background: url(./assets/jxuing_1.png) no-repeat center;
+  .bottom-title>.text {
+    color: #47a2ff;
+    font-family: MicrosoftYaHei-Bold;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 50px;
   }
 </style>

@@ -55,6 +55,6 @@ export default {
 
 .fm-panel>.content {
   flex: 1 0 100px;
-  padding-left: 50px;
+  padding-left: 20px;
 }
 </style>
