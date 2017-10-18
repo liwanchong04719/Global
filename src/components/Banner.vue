@@ -1,7 +1,8 @@
 <template>
-  <div class="datetime" @click="getDateTime()">
-    <div class="date-text" v-if='flag==2'>Time:{{time}}</div>
-    <div class="date-text" v-if='flag==1'>Date:{{date}}</div>
+  <div class="banner">
+    <div class="datetime">Date:{{date}}</div>    
+    <img src="../assets/ziti.png">
+    <div class="datetime">Time:{{time}}</div>
   </div>
 </template>
 
@@ -51,31 +52,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.datetime {
+.banner {
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  padding: 0px 15px;
-  font-family: 'Share Tech Mono', monospace;
-  text-align: center;
-  color: #daf6ff;
-  text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
+  justify-content: space-between;  
 }
 
-.datetime>div {
-  padding: 5px;
-  text-align: right;
-}
-
-.datetime>.date {
-  font-size: 24px;
-}
-
-.datetime>.time {
-  font-size: 32px;
-}
-.center-content .date-text {
-  color: #47a2ff;
+.datetime {
   font-size: 21px;
+  color: #47a2ff;
+  text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
 }
 </style>

@@ -66,7 +66,6 @@
         while (t >= 0 && c > 0) {
           i = parseInt(t * Math.random());
           let originRadius = this.allEntities[i].point.pixelSize.getValue();
-          console.log(typeof originRadius);
           // 这里不知道为什么有的时候会返回闪烁中的半径值，先简单处理一下
           if (originRadius > 10) {
             originRadius = originRadius / 3;
@@ -106,7 +105,6 @@
         const minLon = 110;
         const maxLon = 120;
         let points = [];
-        console.log(num);
         for (let i = 0; i< num; i++){
           let radius = 7;
           let cnt = 0;
