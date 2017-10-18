@@ -241,7 +241,7 @@
       viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
 
       const initialPosition = Cesium.Cartesian3.fromDegrees(115.0, 40.69114333714821,
-              15000000);
+              19000000);
       viewer.scene.camera.setView({
         destination: initialPosition,
         endTransform: Cesium.Matrix4.IDENTITY,
