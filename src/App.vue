@@ -656,13 +656,6 @@
     width: 100%;
     height: 250px;
     padding-top: 12px;
-    background: url(./assets/jxuing_1.png) no-repeat center/cover;
-  }
-  .center-content .date-text {
-    color: #47a2ff;
-    font-size: 21px;
-  }
-  .center-foot {
-    background: url('./assets/juxing_4.png') no-repeat;
+    background: url(./assets/jxuing_1.png) no-repeat center;
   }
 </style>
