@@ -33,7 +33,7 @@ export default {
           max = this.dayProduce.barData[i]
         }
       }
-      max = Math.ceil(max) + 40;
+      max = Math.ceil(max) + 5000;
       this.dayProduce.barData.forEach(function (item, index, arr) {
         maxArr[index] = max;
       });
