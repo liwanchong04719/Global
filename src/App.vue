@@ -26,21 +26,21 @@
           </panel>
           <panel title="众包">
             <div slot="content" class="flex-layout-v" style="color:#DDD;">
-              <div class="flex-layout" style="align-items: flex-start;">
-                <div style='flex:1 1 auto;text-align:center;padding:6px 12px;'>用户总量</div>
-                <div style='flex:4 1 auto;padding:6px 12px;'>
-                  <div><span class='numberText'>{{crowd.crowdUserNum}}</span> 个</div>
+              <div class="flex-layout remark" style="align-items: flex-start;">
+                <div>用户总量</div>
+                <div>
+                  <span class='num-text'>{{crowd.crowdUserNum}}</span> 个
                 </div>
               </div>
-              <div class="flex-layout" style='align-items: flex-start;'>
-                <div style='flex:1 1 auto;text-align:center;padding:6px 12px;'>全年累积</div>
-                <div style='flex:1 1 auto;padding:6px 12px;'>
+              <div class="flex-layout remark" style='align-items: flex-start;'>
+                <div>全年累积</div>
+                <div class="remark">
                   <div>采集道路</div>
                   <div>采集poi</div>
                 </div>
-                <div style='flex:1 1 auto;padding:6px 12px;'>
-                  <div><span class='numberText'>{{crowd.crowdRoadLen}}</span> 公里</div>
-                  <div><span class='numberText'>{{crowd.crowdPoiNum}}</span> 个</div>
+                <div class="remark">
+                  <div><span class='num-text'>{{crowd.crowdRoadLen}}</span> 公里</div>
+                  <div><span class='num-text'>{{crowd.crowdPoiNum}}</span> 个</div>
                 </div>
               </div>
             </div>
@@ -57,33 +57,33 @@
           <div style="margin: 0px -80px;">
             <banner></banner>
           </div>
-          <div class="flex-layout" style="padding: 10px;">
+          <div class="flex-layout summary" style="padding: 10px;">
             <div>
-              <div class="num-white">
+              <div>
                 道路总里程：
-                <span class="num-yellow">{{title.roadLen | splitSymbol}}</span> 公里
+                <span class="num-text">{{title.roadLen | splitSymbol}}</span> 公里
               </div>
-              <div class="num-white">
+              <div>
                 今日更新：
-                <span class="num-yellow">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里
+                <span class="num-text">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里
               </div>
-              <div class="num-white">
+              <div>
                 今日新增：
-                <span class="num-yellow">{{title.perAddRoadLable | splitSymbol}}</span> 公里
+                <span class="num-text">{{title.perAddRoadLable | splitSymbol}}</span> 公里
               </div>
             </div>
             <div>
-              <div class="num-white">
+              <div>
                 POI 总量：
-                <span class="num-yellow">{{title.poiNum | splitSymbol}}</span> 个
+                <span class="num-text">{{title.poiNum | splitSymbol}}</span> 个
               </div>
-              <div class="num-white">
+              <div>
                 今日更新：
-                <span class="num-yellow">{{title.perUpdatePoiLable | splitSymbol}}</span> 个
+                <span class="num-text">{{title.perUpdatePoiLable | splitSymbol}}</span> 个
               </div>
-              <div class="num-white">
+              <div>
                 今日新增：
-                <span class="num-yellow">{{title.perAddPoiLable | splitSymbol}}</span> 个
+                <span class="num-text">{{title.perAddPoiLable | splitSymbol}}</span> 个
               </div>
             </div>
           </div>
@@ -118,13 +118,13 @@
           </panel>
           <panel title="季出品" :sub-title="season.spVerson">
             <div slot="content" class="flex-layout-v" style="color:#DDD;">
-              <div class="flex-layout" style="align-items: flex-start;">
-                <div style="padding:6px 12px;">更新道路 <span class="numberText">{{season.spUpdateRoad}}</span> 公里</div>
-                <div style="padding:6px 12px;">新增道路 <span class="numberText">{{season.spAddRoad}}</span> 公里</div>
+              <div class="flex-layout remark" style="align-items: flex-start;">
+                <div>更新道路 <span class="num-text">{{season.spUpdateRoad}}</span> 公里</div>
+                <div>新增道路 <span class="num-text">{{season.spAddRoad}}</span> 公里</div>
               </div>
-              <div class="flex-layout" style="align-items: flex-start;">
-                <div style="padding:6px 12px;">更新POI <span class="numberText">{{season.spUpdatePoi}}</span> 个</div>
-                <div style="padding:6px 12px;">新增POI <span class="numberText">{{season.spAddPoi}}</span> 个</div>
+              <div class="flex-layout remark" style="align-items: flex-start;">
+                <div>更新POI <span class="num-text">{{season.spUpdatePoi}}</span> 个</div>
+                <div>新增POI <span class="num-text">{{season.spAddPoi}}</span> 个</div>
               </div>
             </div>
           </panel>
@@ -508,13 +508,6 @@
 </script>
 
 <style>
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-    padding: 0px;
-    margin: 0px;
-  }
   div.fm-stretch {
     width: 100%;
     height: 100%;
@@ -544,26 +537,6 @@
   }
   div.flex-layout-v>div.row {
     width: 100%;
-  }
-  div.panel {
-    pointer-events: auto;
-  }
-  div.header>div.title {
-    padding: 10px 10px 0px 10px;
-    color: #fff;
-  }
-  div.header>div.title:last-child {
-    padding-bottom: 10px;
-  }
-  div.header>div.title.h1 {
-    font-size: 48px;
-    font-weight: bold;
-  }
-  div.header>div.title.h2 {
-    font-size: 34px;
-  }
-  div.header>div.title.h3 {
-    font-size: 34px;
   }
   div.legendContainer {
     padding: 10px;
@@ -598,31 +571,15 @@
   div.legendContainer div.legend span.crowdInfoNone {
     background-color: #9da0a4;
   }
-  .num-yellow {
-    font-size: 24px;
-    color: #fd8e2a;
-  }
-  .num-white {
-    font-size: 24px;
-    color: #fff;
-    padding: 4px 0px;
-  }
-  .text-yellow {
-    text-align: center;
-    font-weight: bold;
-    font-size: 34px;
-    color: #3333FF;
-    padding: 10px 0;
-  }
-  .text-yellow-subTitle {
-    text-align: left;
-    font-weight: bold;
-    font-size: 24px;
-    color: #DDD;
-    padding: 10px 0;
-  }
-  .numberText {
+  .num-text {
     color: #FD8E20;
+  }
+  .remark {
+    font-size: 16px;
+    color: #DDD;
+  }
+  .remark>div:not(.remark) {
+    padding: 6px 12px;
   }
   .center-content {
     width: 100%;
@@ -630,6 +587,10 @@
     padding: 12px 150px 0px 150px;
     margin: 0px -150px;
     background: url(./assets/juxing_1.png) no-repeat top/contain;
+  }
+  .center-content>.summary {
+    font-size: 24px;
+    color: #fff;
   }
   .top-title {
     flex: 0 0 153px;
@@ -645,7 +606,6 @@
   }
   .top-title>.text {
     color: #47a2ff;
-    font-family: MicrosoftYaHei-Bold;
     font-size: 32px;
     font-weight: bold;
     padding-top: 46px;
@@ -665,7 +625,6 @@
   }
   .bottom-title>.text {
     color: #47a2ff;
-    font-family: MicrosoftYaHei-Bold;
     font-size: 24px;
     font-weight: bold;
     padding-top: 50px;
