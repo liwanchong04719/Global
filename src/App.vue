@@ -206,7 +206,8 @@
           randomData: Math.random(),
           poiChangedNum: Math.random(),
           crowdInfoSource: true
-        }
+        },
+        timeout: null
       }
     },
     computed: {
@@ -258,7 +259,7 @@
           .easing(TWEEN.Easing.Quadratic.Out)
           .to({
             tweeningNumber: newValue
-          }, 1000 * 50) // 数据变化持续50秒
+          }, 1000 * 2) // 数据变化持续2秒
           .onUpdate(function() {
             vm.title[lable] = this.tweeningNumber.toFixed(0);
           })
@@ -301,8 +302,8 @@
         this.crowd.crowdPoiNum = data.crowdPoiNum;
       },
       getCurrentProcess: function(filed, data) {
-        let currentHour = new Date().getHours(); // 当前小时
-        let step = Math.ceil(data[filed] / 24 * currentHour);
+        let currentHour = new Date().getHours() - 8; // 当前小时
+        let step = Math.ceil(data[filed] / 15 * currentHour);
         if (step > data[filed]) {
           step = data[filed];
         }
@@ -310,21 +311,24 @@
       },
       titleData: function(data) {
         let perAddRoad = data.perAddRoad;
-        let times = 60 * 24; // 总共更新的次数 （一分钟刷新一次，24小时刷新60*24次，可以根据具体效果设置时长）
-        let intervalTimes = 1000 * 10;
+        let times = 60 * 15 * 2; // 总共更新的次数 （一分钟刷新一次，24小时刷新60*24次，可以根据具体效果设置时长）
+        let intervalTimes = 1000 * 30;
         let that = this;
-        if (this.interval) {
-          clearInterval(this.interval);
-        }
-        this.interval = setInterval(function() {
+        if (this.timeout) {
+          clearTimeout(this.timeout);
+        }        
+
+        let _refreshData = function() {
           let improve1 = that.updatePerAddRoad(times, data);
-          let improve2 = that.updatePerUpdateRoad(times, data);
-          that.title.roadLen = that.title.roadLen + improve1 + improve2;
+          let improve2 = that.updatePerUpdateRoad(times, data);          
           let improve3 = that.updatePerAddPoi(times, data); // poi新增每次递增值
           let improve4 = that.updatePerUpdatePoi(times, data); // poi修改每次递增值
+
+          that.title.roadLen = that.title.roadLen + improve1 + improve2;
           that.title.poiNum = that.title.poiNum + improve3 + improve4;
           that.dataSourceStatus.randomData = Math.random();
-          that.dataSourceStatus.poiChangedNum = improve3 + improve4;
+          // that.dataSourceStatus.poiChangedNum = improve3 + improve4;
+          that.dataSourceStatus.poiChangedNum = 5 + (parseInt(20 * Math.random()))
           let currentMonth = new Date().getMonth() + 1;
           data.cRoadAverage[currentMonth].add = data.cRoadAverage[currentMonth].add + improve1;
           data.cRoadAverage[currentMonth].update = data.cRoadAverage[currentMonth].update + improve2;
@@ -336,11 +340,22 @@
           data.cUpdatePoi = data.cUpdatePoi + improve4;
           that.recomPoi(data)
           that.recomRoad(data)
-        }, intervalTimes);
+        };
+
+        let _startTimer = function () {
+          const timer = (10 + (parseInt(20 * Math.random()))) * 1000;
+          that.timeout = setTimeout(function() {
+            _refreshData();
+            _startTimer();
+          }, timer);
+        };
+
+        _startTimer();
       },
       updatePerAddRoad: function(times, data) {
         let addStep = 0;
-        let step = Math.ceil(data.perAddRoad / times);
+        // let step = Math.ceil(data.perAddRoad / times);
+        let step = parseInt(3 * Math.random());
         if ((this.title.perAddRoad + step) < data.perAddRoad) {
           this.title.perAddRoad = this.title.perAddRoad + step;
           addStep = step;
@@ -352,7 +367,8 @@
       },
       updatePerUpdateRoad: function(times, data) {
         let addStep = 0;
-        let step = Math.ceil(data.perUpdateRoad / times);
+        // let step = Math.ceil(data.perUpdateRoad / times);
+        let step = parseInt(5 * Math.random());
         if ((this.title.perUpdateRoad + step) < data.perUpdateRoad) {
           this.title.perUpdateRoad = this.title.perUpdateRoad + step;
           addStep = step;
@@ -364,7 +380,8 @@
       },
       updatePerAddPoi: function(times, data) {
         let addStep = 0;
-        let step = Math.ceil(data.perAddPoi / times);
+        // let step = Math.ceil(data.perAddPoi / times);
+        let step = 10 + parseInt(10 * Math.random()); 
         if ((this.title.perAddPoi + step) < data.perAddPoi) {
           this.title.perAddPoi = this.title.perAddPoi + step;
           addStep = step;
@@ -376,7 +393,8 @@
       },
       updatePerUpdatePoi: function(times, data) {
         let addStep = 0;
-        let step = Math.ceil(data.perUpdatePoi / times);
+        // let step = Math.ceil(data.perUpdatePoi / times);
+        let step = 20 + parseInt(10 * Math.random()); 
         if ((this.title.perUpdatePoi + step) < data.perUpdatePoi) {
           this.title.perUpdatePoi = this.title.perUpdatePoi + step;
           addStep = step;
@@ -491,7 +509,7 @@
       }, 1000 * 60 * 60)
     },
     beforeDestroy() {
-      clearInterval(this.interval);
+      clearTimeout(this.timeout);
     },
     components: {
       BarPoiChart,
