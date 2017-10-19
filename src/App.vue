@@ -65,25 +65,25 @@
               </div>
               <div>
                 今日更新：
-                <span class="num-text">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里
+                <span class="num-text" :style="{'background-color': tweenColor}">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里
               </div>
               <div>
                 今日新增：
-                <span class="num-text">{{title.perAddRoadLable | splitSymbol}}</span> 公里
+                <span class="num-text" :style="{'background-color': tweenColor}">{{title.perAddRoadLable | splitSymbol}}</span> 公里
               </div>
             </div>
             <div>
               <div>
                 POI 总量：
-                <span class="num-text">{{title.poiNum | splitSymbol}}</span> 个
+                <span class="num-text" >{{title.poiNum | splitSymbol}}</span> 个
               </div>
               <div>
                 今日更新：
-                <span class="num-text">{{title.perUpdatePoiLable | splitSymbol}}</span> 个
+                <span class="num-text" :style="{'background-color': tweenColor}">{{title.perUpdatePoiLable | splitSymbol}}</span> 个
               </div>
               <div>
                 今日新增：
-                <span class="num-text">{{title.perAddPoiLable | splitSymbol}}</span> 个
+                <span class="num-text" :style="{'background-color': tweenColor}">{{title.perAddPoiLable | splitSymbol}}</span> 个
               </div>
             </div>
           </div>
@@ -207,7 +207,8 @@
           poiChangedNum: Math.random(),
           crowdInfoSource: true
         },
-        timeout: null
+        timeout: null,
+        tweenColor: ''
       }
     },
     computed: {
@@ -253,7 +254,7 @@
             requestAnimationFrame(animate)
           }
         }
-        new TWEEN.Tween({
+        let t = new TWEEN.Tween({
             tweeningNumber: oldValue
           })
           .easing(TWEEN.Easing.Quadratic.Out)
@@ -262,9 +263,13 @@
           }, 1000 * 2) // 数据变化持续2秒
           .onUpdate(function() {
             vm.title[lable] = this.tweeningNumber.toFixed(0);
+            vm.tweenColor = '#fff';
           })
-          .start()
-        animate()
+          .onComplete(function () {
+            vm.tweenColor = '';
+          })
+          .start();
+        animate();
       },
       getChartData: function() {
         const that = this;
