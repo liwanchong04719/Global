@@ -433,33 +433,45 @@
       },
       recomPoi: function(data) { // 重组poi数据,使之符合图表格式
         let poiAvg = data.cPoiAverage;
-        this.charData.poi.cUpdatePoi = data.cUpdatePoi;
-        this.charData.poi.cAddPoi = data.cAddPoi;
+        // this.charData.poi.cUpdatePoi = data.cUpdatePoi;
+        // this.charData.poi.cAddPoi = data.cAddPoi;
         this.charData.poi.newData = [];
         this.charData.poi.updateData = [];
         this.charData.poi.xAxis = [];
+        let cAdd = 0;
+        let cUpdate = 0;
         for (let i in poiAvg) {
           if (poiAvg.hasOwnProperty(i)) {
             this.charData.poi.xAxis.push(i + '月');
             this.charData.poi.newData.push(poiAvg[i].add);
             this.charData.poi.updateData.push(poiAvg[i].update);
-          };
+            cAdd += poiAvg[i].add;
+            cUpdate += poiAvg[i].update;
+          }
         }
+        this.charData.poi.cUpdatePoi = cUpdate;
+        this.charData.poi.cAddPoi = cAdd;
       },
       recomRoad: function(data) { // 重组road数据,使之符合图表格式
         let roadAvg = data.cRoadAverage;
-        this.charData.road.cUpdateRoad = data.cUpdateRoad;
-        this.charData.road.cAddRoad = data.cAddRoad;
+        // this.charData.road.cUpdateRoad = data.cUpdateRoad;
+        // this.charData.road.cAddRoad = data.cAddRoad;
         this.charData.road.newData = [];
         this.charData.road.updateData = [];
         this.charData.road.xAxis = [];
+        let cAdd = 0;
+        let cUpdate = 0;
         for (let i in roadAvg) {
           if (roadAvg.hasOwnProperty(i)) {
             this.charData.road.xAxis.push(i + '月');
             this.charData.road.newData.push(roadAvg[i].add);
             this.charData.road.updateData.push(roadAvg[i].update);
-          };
+            cAdd += roadAvg[i].add;
+            cUpdate += roadAvg[i].update;
+          }
         }
+        this.charData.road.cUpdateRoad = cUpdate;
+        this.charData.road.cAddRoad = cAdd;
       },
       recomThird: function(data) { // 重组road数据,使之符合图表格式
         let inforDetail = data.thirdInforDetail; // 用户轨迹点 -- 数据情报收集详情
