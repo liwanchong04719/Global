@@ -65,11 +65,11 @@
               </div>
               <div>
                 今日更新：
-                <span class="num-text" :style="{'background-color': tweenColor}">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里
+                <span class="num-text">{{title.perUpdateRoadLable | splitSymbol}}</span> 公里
               </div>
               <div>
                 今日新增：
-                <span class="num-text" :style="{'background-color': tweenColor}">{{title.perAddRoadLable | splitSymbol}}</span> 公里
+                <span class="num-text">{{title.perAddRoadLable | splitSymbol}}</span> 公里
               </div>
             </div>
             <div>
@@ -79,11 +79,11 @@
               </div>
               <div>
                 今日更新：
-                <span class="num-text" :style="{'background-color': tweenColor}">{{title.perUpdatePoiLable | splitSymbol}}</span> 个
+                <span class="num-text">{{title.perUpdatePoiLable | splitSymbol}}</span> 个
               </div>
               <div>
                 今日新增：
-                <span class="num-text" :style="{'background-color': tweenColor}">{{title.perAddPoiLable | splitSymbol}}</span> 个
+                <span class="num-text">{{title.perAddPoiLable | splitSymbol}}</span> 个
               </div>
             </div>
           </div>
@@ -329,8 +329,8 @@
           let improve3 = that.updatePerAddPoi(times, data); // poi新增每次递增值
           let improve4 = that.updatePerUpdatePoi(times, data); // poi修改每次递增值
 
-          that.title.roadLen = that.title.roadLen + improve1 + improve2;
-          that.title.poiNum = that.title.poiNum + improve3 + improve4;
+          that.title.roadLen = that.title.roadLen + improve1;
+          that.title.poiNum = that.title.poiNum + improve3;
           that.dataSourceStatus.randomData = Math.random();
           // that.dataSourceStatus.poiChangedNum = improve3 + improve4;
           that.dataSourceStatus.poiChangedNum = 5 + (parseInt(20 * Math.random()))
@@ -416,8 +416,8 @@
         this.title.perUpdatePoi = this.getCurrentProcess('perUpdatePoi', data);
         this.title.perAddPoi = this.getCurrentProcess('perAddPoi', data);
         // 重置总量 poi和道路的界面显示值 等于 总数量-今日新增-今日更新+新增初始值+更新初始值
-        data.roadLen = data.roadLen - data.perAddRoad - data.perUpdateRoad + this.title.perUpdateRoad + this.title.perAddRoad;
-        data.poiNum = data.poiNum - data.perAddPoi - data.perUpdatePoi + this.title.perAddPoi + this.title.perUpdatePoi;
+        data.roadLen = data.roadLen - data.perAddRoad + this.title.perAddRoad;
+        data.poiNum = data.poiNum - data.perAddPoi + this.title.perAddPoi;
         this.title.roadLen = data.roadLen;
         this.title.poiNum = data.poiNum;
         // 初始化自采道路图表
