@@ -54,9 +54,9 @@
         //   for (let i=0;i<this.randomEntities.length;i++) {
         //     this.viewer.entities.remove(this.randomEntities[i]);
         //   }
-        //   this.randomEntities.length = 0;       
+        //   this.randomEntities.length = 0;
         // }
-        
+
         // for (let i=0;i<points.length;i++) {
         //   this.randomEntities.push(this.viewer.entities.add(points[i]));
         // }
@@ -74,14 +74,14 @@
           let cnt = 0;
           this.allEntities[i].point.pixelSize = new Cesium.CallbackProperty(function(){
             // 闪烁次数
-            if (cnt < 5) {              
+            if (cnt < 5) {
               if (newRadius === originRadius){
-                newRadius = originRadius * 3;                                                     
+                newRadius = originRadius * 3;
               } else {
                 newRadius = originRadius;
-                cnt++;                                      
-              }    
-            }     
+                cnt++;
+              }
+            }
             return newRadius;
           }, false);
           c--;
@@ -113,14 +113,14 @@
             point: {
               pixelSize: new Cesium.CallbackProperty(function(){
                 let r = radius;
-                if (cnt < 5) {              
+                if (cnt < 5) {
                   if (radius === 7){
-                    radius = 14;                                                     
+                    radius = 14;
                   } else {
                     radius = 7;
-                    cnt++;                                      
-                  }    
-                }     
+                    cnt++;
+                  }
+                }
                 return r;
               }, false),
               color: Cesium.Color.CYAN,
@@ -151,7 +151,7 @@
         const that = this;
         axios({
           method: 'get',
-          url: 'http://fastmap.navinfo.com/service/statics/crowdInfo',
+          url: 'http://fastmap.navinfo.com/18spr/service/statics/crowdInfo',
         }).then(function (res) {
           if (res.data.errcode === 0) {
             let tempSourceData = that.data2GeoJson(res.data.data);
@@ -175,7 +175,7 @@
         const that = this;
         axios({
           method: 'get',
-          url: 'http://fastmap.navinfo.com/service/statics/commonInfo',
+          url: 'http://fastmap.navinfo.com/18spr/service/statics/commonInfo',
           dataType: 'json'
         }).then(function (res) {
           if (res.data.errcode === 0) {
